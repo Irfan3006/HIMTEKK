@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIMTEKK - Himpunan Mahasiswa Teknik Komputer</title>
+    
+    <meta name="description" content="Website resmi HIMTEKK (Himpunan Mahasiswa Teknik Komputer) Universitas Amikom Yogyakarta. Wadah pengembangan diri di bidang Cyber Security dan Internet of Things (IoT).">
+    <meta name="keywords" content="HIMTEKK, Teknik Komputer, Amikom, Cyber Security, IoT, Organisasi Mahasiswa, Yogyakarta, Computer Engineering">
+    <meta name="author" content="HIMTEKK Amikom">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://himtekk.amikom.ac.id/">
+    <meta property="og:title" content="HIMTEKK - Himpunan Mahasiswa Teknik Komputer Amikom">
+    <meta property="og:description" content="Website resmi HIMTEKK Universitas Amikom Yogyakarta. Fokus pada Cyber Security, IoT, dan pengembangan inovasi mahasiswa.">
+    <meta property="og:image" content="assets/img/logo.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://himtekk.amikom.ac.id/">
+    <meta property="twitter:title" content="HIMTEKK - Himpunan Mahasiswa Teknik Komputer Amikom">
+    <meta property="twitter:description" content="Website resmi HIMTEKK Universitas Amikom Yogyakarta. Fokus pada Cyber Security, IoT, dan pengembangan inovasi mahasiswa.">
+    <meta property="twitter:image" content="assets/img/logo.webp">
+
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://himtekk.amikom.ac.id/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/img/logo.webp">
+    
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00406E',
+                        secondary: '#FFFFFF',
+                        accent: '#DBB865',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(rgba(0, 64, 110, 0.8), rgba(0, 64, 110, 0.9)), url('assets/img/hero.webp')",
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "HIMTEKK Amikom",
+      "alternateName": "Himpunan Mahasiswa Teknik Komputer Universitas Amikom Yogyakarta",
+      "url": "https://himtekk.amikom.ac.id/",
+      "logo": "https://himtekk.amikom.ac.id/assets/img/logo.webp",
+      "sameAs": [
+        "https://www.instagram.com/himtekk_amikom/",
+        "https://www.linkedin.com/company/himtekk-amikom/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "himtekk@amikom.ac.id",
+        "contactType": "technical support"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Ring Road Utara, Condongcatur, Sleman",
+        "addressLocality": "Yogyakarta",
+        "addressRegion": "DIY",
+        "postalCode": "55283",
+        "addressCountry": "ID"
+      }
+    }
+    </script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="text-slate-800 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="assets/img/logo.webp" alt="Logo HIMTEKK" class="h-10 w-auto transition-transform group-hover:rotate-12">
+                <span class="text-2xl font-bold text-white"><span class="text-accent">HIM</span>TEKK</span>
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            
+            <!-- Desktop Links -->
+            <ul class="hidden md:flex space-x-8 text-white font-medium">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">Tentang</a></li>
+                <li><a href="#fokus" class="nav-link">Fokus</a></li>
+                <li><a href="#pengurus" class="nav-link">Pengurus</a></li>
+                <li><a href="#kegiatan" class="nav-link">Kegiatan</a></li>
+                <li><a href="#contact" class="nav-link">Kontak</a></li>
+            </ul>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primary text-white px-6 py-4 absolute w-full left-0 animate__animated animate__fadeInDown">
+            <ul class="flex flex-col space-y-4">
+                <li><a href="#hero" class="block">Home</a></li>
+                <li><a href="#about" class="block">Tentang</a></li>
+                <li><a href="#fokus" class="block">Fokus</a></li>
+                <li><a href="#pengurus" class="block">Pengurus</a></li>
+                <li><a href="#kegiatan" class="block">Kegiatan</a></li>
+                <li><a href="#contact" class="block">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center overflow-hidden">
+        <div class="container mx-auto px-6 text-center z-10">
+            <div class="mb-10 animate__animated animate__zoomIn">
+                <img src="assets/img/logo.webp" alt="HIMTEKK Logo" class="w-32 h-32 mx-auto drop-shadow-[0_0_15px_rgba(219,184,101,0.5)]">
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 animate__animated animate__fadeInUp">
+                HIMTEKK
+            </h1>
+            <p class="text-xl md:text-2xl text-secondary opacity-90 mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+                Himpunan Mahasiswa Teknik Komputer
+            </p>
+            <p class="text-lg text-secondary max-w-2xl mx-auto mb-10 opacity-80 animate__animated animate__fadeInUp animate__delay-1s">
+                Wadah aspirasi dan pengembangan diri mahasiswa Teknik Komputer Universitas Amikom Yogyakarta menuju masa depan teknologi yang inovatif.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="#about" class="bg-accent hover:bg-yellow-600 text-primary font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                    Pelajari Lebih Lanjut
+                </a>
+                <a href="javascript:void(0)" id="btn-gabung" class="glass text-white font-bold py-4 px-8 rounded-full hover:bg-white hover:text-primary transition-all duration-300">
+                    Gabung Sekarang
+                </a>
+            </div>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white text-2xl"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- Tentang HIMTEKK -->
+    <section id="about" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <h2 class="text-accent font-bold uppercase tracking-widest mb-2">Tentang Kami</h2>
+                    <h3 class="text-4xl font-bold text-primary mb-6">Himpunan Mahasiswa Teknik Komputer</h3>
+                    <p class="text-lg leading-relaxed mb-6 text-slate-600">
+                        HIMTEKK (Himpunan Mahasiswa Teknik Komputer) adalah organisasi resmi di Universitas Amikom Yogyakarta yang menjadi rumah bagi mahasiswa program studi Teknik Komputer. Berdiri sejak tahun 2017, kami berdedikasi untuk menciptakan lingkungan yang mendukung pertumbuhan akademik dan kreativitas.
+                    </p>
+                    <div class="flex items-start gap-4 mb-6">
+                        <div class="bg-primary/10 p-3 rounded-lg text-primary">
+                            <i class="fas fa-link text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-primary">Jembatan Mahasiswa & Prodi</h4>
+                            <p class="text-slate-600">Berperan sebagai penghubung komunikasi antara mahasiswa dan program studi.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-primary/10 p-3 rounded-lg text-primary">
+                            <i class="fas fa-calendar-alt text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-primary">Aktif & Berkelanjutan</h4>
+                            <p class="text-slate-600">Terus bergerak menciptakan program kerja yang relevan dengan perkembangan teknologi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 grid grid-cols-2 gap-4" data-aos="fade-left">
+                    <div class="bg-primary p-10 rounded-2xl text-white text-center flex flex-col justify-center">
+                        <span class="text-4xl font-bold mb-2">9+</span>
+                        <span class="opacity-80">Tahun Berdiri</span>
+                    </div>
+                    <div class="bg-accent p-10 rounded-2xl text-primary text-center flex flex-col justify-center">
+                        <span class="text-4xl font-bold mb-2">2</span>
+                        <span class="opacity-80 font-bold">Bidang Fokus</span>
+                    </div>
+                    <div class="col-span-2 bg-slate-100 p-8 rounded-2xl text-primary">
+                        <p class="italic text-lg text-center">"Empowering the next generation of computer engineers."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bidang Fokus -->
+    <section id="fokus" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-accent font-bold uppercase tracking-widest mb-2" data-aos="fade-up">Bidang Fokus</h2>
+                <h3 class="text-4xl font-bold text-primary" data-aos="fade-up" data-aos-delay="100">Spesialisasi Kami</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Cyber Security -->
+                <div class="bg-white p-10 rounded-3xl card-hover border border-slate-100" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-primary/10 rounded-2xl flex items-center justify-center text-primary text-4xl mb-8">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-primary mb-4">Cyber Security</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        Mempelajari teknik perlindungan sistem, jaringan, dan program dari serangan digital. Fokus kami meliputi pengamanan infrastruktur IT dan penanganan ancaman siber.
+                    </p>
+                    <ul class="mt-6 space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i class="fas fa-check-circle text-accent"></i> Ethical Hacking
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i class="fas fa-check-circle text-accent"></i> Network Security
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i class="fas fa-check-circle text-accent"></i> Cryptography
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- IoT -->
+                <div class="bg-white p-10 rounded-3xl card-hover border border-slate-100" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-accent/10 rounded-2xl flex items-center justify-center text-accent text-4xl mb-8">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-primary mb-4">Internet of Things (IoT)</h4>
+                    <p class="text-slate-600 leading-relaxed">
+                        Menjelajahi dunia perangkat keras yang terhubung. Kami fokus pada pengembangan sistem cerdas, otomasi, dan integrasi sensor dengan platform cloud.
+                    </p>
+                    <ul class="mt-6 space-y-3">
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i class="fas fa-check-circle text-accent"></i> Embedded Systems
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i class="fas fa-check-circle text-accent"></i> Smart Home Tech
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-700">
+                            <i class="fas fa-check-circle text-accent"></i> Sensor Networks
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Struktur Pengurus -->
+    <section id="pengurus" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-accent font-bold uppercase tracking-widest mb-2" data-aos="fade-up">Struktur Organisasi</h2>
+                <h3 class="text-4xl font-bold text-primary" data-aos="fade-up" data-aos-delay="100">Pengurus Inti</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Ketua -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[3/4]">
+                        <img src="assets/img/ketua.webp" alt="Ketua HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://www.instagram.com/ihsnulfikrii_/" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary text-xl hover:bg-accent hover:text-white transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-primary">Ketua Umum</h4>
+                    <p class="text-accent font-semibold">Ihsanul Fikri</p>
+                </div>
+                
+                <!-- Sekjend -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[3/4]">
+                        <img src="assets/img/sekjend.webp" alt="Sekjend HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://www.instagram.com/jaysufutra/" target="_blank" class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary text-xl hover:bg-accent hover:text-white transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-primary">Sekjend</h4>
+                    <p class="text-accent font-semibold">Sufutra Jaya Inathasalen</p>
+                </div>
+                
+                <!-- Sekretaris/Creator -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[3/4]">
+                        <img src="assets/img/sekretaris.webp" alt="Sekretaris HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                            <a href="https://www.instagram.com/irfann_404/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary text-lg hover:bg-accent hover:text-white transition-colors" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/irfan-syarifudin" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary text-lg hover:bg-accent hover:text-white transition-colors" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://github.com/Irfan3006" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary text-lg hover:bg-accent hover:text-white transition-colors" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://irfan-syarifudin.vercel.app/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary text-lg hover:bg-accent hover:text-white transition-colors" title="Website">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h4 class="text-2xl font-bold text-primary">Sekretaris (Creator)</h4>
+                    <p class="text-accent font-semibold">Irfan Syarifudin</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kegiatan / Program -->
+    <section id="kegiatan" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-accent font-bold uppercase tracking-widest mb-2" data-aos="fade-up">Program Kerja</h2>
+                <h3 class="text-4xl font-bold text-primary" data-aos="fade-up" data-aos-delay="100">Kegiatan Terbaru</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Program 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-48 bg-primary/20 flex items-center justify-center text-primary text-5xl">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-primary mb-2">Workshop Cyber Security</h4>
+                        <p class="text-slate-600 mb-4">Pelatihan intensif mengenai dasar-dasar keamanan jaringan dan penetration testing.</p>
+                        <span class="text-accent font-bold">On-Going</span>
+                    </div>
+                </div>
+                
+                <!-- Program 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-48 bg-accent/20 flex items-center justify-center text-accent text-5xl">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-primary mb-2">Sharing Session</h4>
+                        <p class="text-slate-600 mb-4">Diskusi santai bersama alumni dan praktisi industri teknologi komputer.</p>
+                        <span class="text-accent font-bold">Rutin Bulanan</span>
+                    </div>
+                </div>
+                
+                <!-- Program 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm card-hover" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-48 bg-primary/20 flex items-center justify-center text-primary text-5xl">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold text-primary mb-2">HIMTEKK Project</h4>
+                        <p class="text-slate-600 mb-4">Kolaborasi pengembangan proyek IoT untuk solusi permasalahan di lingkungan kampus.</p>
+                        <span class="text-accent font-bold">On-Going</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visi & Misi -->
+    <section id="visi-misi" class="py-24 bg-primary text-white relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-accent opacity-5 rounded-full -mr-32 -mt-32"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent opacity-5 rounded-full -ml-48 -mb-48"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-accent font-bold uppercase tracking-widest mb-2">Visi & Misi</h2>
+                <h3 class="text-4xl font-bold">Landasan Perjuangan Kami</h3>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-12 items-start">
+                <!-- Visi -->
+                <div class="md:col-span-5" data-aos="fade-right">
+                    <div class="bg-white/5 p-8 rounded-3xl border border-white/10 h-full backdrop-blur-sm">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-primary text-2xl">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-accent italic">Visi</h4>
+                        </div>
+                        <p class="text-lg leading-relaxed opacity-90">
+                            "Menjadi organisasi yang unggul, inovatif, dan berintegritas dalam mewujudkan mahasiswa Teknik Komputer yang kompeten, kreatif, serta berdaya saing global di bidang teknologi."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Misi -->
+                <div class="md:col-span-7" data-aos="fade-left">
+                    <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-primary text-2xl">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h4 class="text-2xl font-bold text-accent italic">Misi</h4>
+                        </div>
+                        <div class="grid gap-6">
+                            <div class="flex gap-5 group">
+                                <div class="bg-accent/20 text-accent w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center font-bold group-hover:bg-accent group-hover:text-primary transition-colors">1</div>
+                                <p class="opacity-90 py-2">Menyelenggarakan kegiatan pengembangan hardskill dan softskill yang relevan dengan kebutuhan industri teknologi saat ini.</p>
+                            </div>
+                            <div class="flex gap-5 group">
+                                <div class="bg-accent/20 text-accent w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center font-bold group-hover:bg-accent group-hover:text-primary transition-colors">2</div>
+                                <p class="opacity-90 py-2">Membangun ekosistem internal yang inklusif, harmonis, dan profesional bagi seluruh anggota HIMTEKK.</p>
+                            </div>
+                            <div class="flex gap-5 group">
+                                <div class="bg-accent/20 text-accent w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center font-bold group-hover:bg-accent group-hover:text-primary transition-colors">3</div>
+                                <p class="opacity-90 py-2">Memperkuat kolaborasi dengan pihak eksternal, akademisi, dan alumni untuk memperluas jaringan dan wawasan.</p>
+                            </div>
+                            <div class="flex gap-5 group">
+                                <div class="bg-accent/20 text-accent w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center font-bold group-hover:bg-accent group-hover:text-primary transition-colors">4</div>
+                                <p class="opacity-90 py-2">Mengoptimalkan peran organisasi sebagai wadah aspirasi yang solutif bagi mahasiswa Teknik Komputer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16">
+                <div class="md:w-1/3" data-aos="fade-right">
+                    <h2 class="text-accent font-bold uppercase tracking-widest mb-2">Kontak Kami</h2>
+                    <h3 class="text-4xl font-bold text-primary mb-6">Hubungi Kami</h3>
+                    <p class="text-slate-600 mb-8">Punya pertanyaan atau ingin berkolaborasi? Kirimkan pesan Anda melalui form ini.</p>
+                    
+                    <div class="space-y-4">
+                        <a href="mailto:himtekk@amikom.ac.id" class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <span class="text-slate-700 group-hover:text-primary transition-colors font-medium">himtekk@amikom.ac.id</span>
+                        </a>
+                        <a href="https://www.instagram.com/himtekk_amikom/" target="_blank" class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <span class="text-slate-700 group-hover:text-primary transition-colors font-medium">@himtekk_amikom</span>
+                        </a>
+                        <a href="https://maps.app.goo.gl/5SoYQqqULqjQdRAo8" target="_blank" class="flex items-center gap-4 group">
+                            <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="text-slate-700 group-hover:text-primary transition-colors font-medium">Universitas Amikom Yogyakarta</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-2/3" data-aos="fade-left">
+                    <form id="contactForm" class="bg-slate-50 p-10 rounded-3xl border border-slate-100">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="nama" class="block text-sm font-bold text-primary mb-2 uppercase">Nama Lengkap</label>
+                                <input type="text" id="nama" name="nama" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Masukkan nama Anda">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-bold text-primary mb-2 uppercase">Alamat Email</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="email@contoh.com">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="pesan" class="block text-sm font-bold text-primary mb-2 uppercase">Pesan</label>
+                            <textarea id="pesan" name="pesan" rows="5" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02]">
+                            Kirim Pesan <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-20 pb-10 bg-slate-900 text-white border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="assets/img/logo.webp" alt="Logo HIMTEKK" class="h-12 w-auto">
+                        <span class="text-2xl font-bold"><span class="text-accent">HIM</span>TEKK</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed mb-6">
+                        Himpunan Mahasiswa Teknik Komputer Universitas Amikom Yogyakarta. Wadah pengembangan diri di bidang Cyber Security dan IoT.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/himtekk_amikom/" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-primary transition-all duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/himtekk-amikom/" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-primary transition-all duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Navigasi</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="#hero" class="hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-accent transition-colors">Tentang Kami</a></li>
+                        <li><a href="#fokus" class="hover:text-accent transition-colors">Bidang Fokus</a></li>
+                        <li><a href="#kegiatan" class="hover:text-accent transition-colors">Program Kerja</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Dukungan</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="#contact" class="hover:text-accent transition-colors">Hubungi Kami</a></li>
+                        <li><a href="#visi-misi" class="hover:text-accent transition-colors">Visi & Misi</a></li>
+                        <li><a href="#pengurus" class="hover:text-accent transition-colors">Struktur Pengurus</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Alamat</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-accent"></i>
+                            <span>Jl. Ring Road Utara, Condongcatur, Sleman, Yogyakarta</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-accent"></i>
+                            <span>himtekk@amikom.ac.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
+                <p>&copy; 2026 HIMTEKK Universitas Amikom Yogyakarta. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="privacy.html" class="hover:text-accent transition-colors">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-accent transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
