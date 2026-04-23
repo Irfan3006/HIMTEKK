@@ -122,3 +122,44 @@ if(contactForm) {
         }
     });
 }
+
+// Mobile Hover for Pengurus Cards
+document.addEventListener('DOMContentLoaded', () => {
+    // Select all cards that have a management overlay
+    const allCards = document.querySelectorAll('.group');
+    
+    allCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Check if this card actually has the management overlay
+            if (!this.querySelector('.bg-primary\\/40')) return;
+            
+            // Only trigger on touch devices
+            if (window.matchMedia("(hover: none)").matches) {
+                const isLink = e.target.closest('a');
+                if (isLink) return; // Let the link work normally
+                
+                const isActive = this.classList.contains('mobile-active');
+                
+                // Reset other cards
+                allCards.forEach(c => {
+                    if (c !== this) c.classList.remove('mobile-active');
+                });
+                
+                // Toggle current card
+                if (!isActive) {
+                    this.classList.add('mobile-active');
+                    e.preventDefault();
+                } else {
+                    this.classList.remove('mobile-active');
+                }
+            }
+        });
+    });
+
+    // Close cards when clicking elsewhere
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.group')) {
+            allCards.forEach(c => c.classList.remove('mobile-active'));
+        }
+    });
+});

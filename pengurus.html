@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struktur Pengurus - HIMTEKK Amikom</title>
+    
+    <meta name="description" content="Struktur organisasi dan pengurus HIMTEKK Universitas Amikom Yogyakarta periode 2026/2027.">
+    <link rel="icon" type="image/webp" href="assets/img/logo.webp">
+    
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00406E',
+                        secondary: '#FFFFFF',
+                        accent: '#DBB865',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(rgba(0, 64, 110, 0.8), rgba(0, 64, 110, 0.9)), url('assets/img/hero.webp')",
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="text-slate-800 overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-primary shadow-lg">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/img/logo.webp" alt="Logo HIMTEKK" class="h-10 w-auto transition-transform group-hover:rotate-12">
+                <span class="text-2xl font-bold text-white"><span class="text-accent">HIM</span>TEKK</span>
+            </a>
+            
+            <button id="mobile-menu-btn" class="md:hidden text-white">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+            
+            <ul class="hidden md:flex space-x-8 text-white font-medium">
+                <li><a href="index.html#hero" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">Tentang</a></li>
+                <li><a href="index.html#fokus" class="nav-link">Fokus</a></li>
+                <li><a href="index.html#pengurus" class="nav-link active">Pengurus</a></li>
+                <li><a href="index.html#kegiatan" class="nav-link">Kegiatan</a></li>
+                <li><a href="index.html#contact" class="nav-link">Kontak</a></li>
+            </ul>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-primary text-white px-6 py-4 absolute w-full left-0 animate__animated animate__fadeInDown">
+            <ul class="flex flex-col space-y-4">
+                <li><a href="index.html#hero" class="block">Home</a></li>
+                <li><a href="index.html#about" class="block">Tentang</a></li>
+                <li><a href="index.html#fokus" class="block">Fokus</a></li>
+                <li><a href="index.html#pengurus" class="block">Pengurus</a></li>
+                <li><a href="index.html#kegiatan" class="block">Kegiatan</a></li>
+                <li><a href="index.html#contact" class="block">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="pt-48 pb-24 bg-hero-pattern bg-cover bg-fixed bg-center relative">
+        <!-- Overlay refinement -->
+        <div class="absolute inset-0 bg-primary/30 backdrop-blur-[2px]"></div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <!-- Breadcrumbs -->
+            <nav class="flex justify-center items-center gap-3 text-white/60 text-sm mb-8 animate__animated animate__fadeInDown">
+                <a href="index.html" class="hover:text-accent transition-colors">Home</a>
+                <i class="fas fa-chevron-right text-[10px]"></i>
+                <span class="text-white font-medium">Struktur Pengurus</span>
+            </nav>
+
+            <div class="inline-block px-4 py-1.5 bg-accent/20 backdrop-blur-md border border-accent/30 rounded-full text-accent text-xs font-bold uppercase tracking-widest mb-6 animate__animated animate__zoomIn">
+                Periode 2026/2027
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight animate__animated animate__fadeInUp">
+                Struktur <span class="text-accent underline decoration-accent/30 underline-offset-8">Pengurus</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-secondary/90 max-w-3xl mx-auto leading-relaxed animate__animated animate__fadeInUp animate__delay-1s">
+                Dedikasi dan inovasi kolektif dari para mahasiswa Teknik Komputer untuk membangun ekosistem digital yang inklusif dan berkelanjutan di lingkungan Universitas Amikom Yogyakarta.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pembina -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center mb-16" data-aos="fade-up">
+                <div class="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-3xl border border-primary/10 shadow-sm mb-4">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h2 class="text-4xl font-bold text-primary">Pembina</h2>
+                <div class="w-16 h-1 bg-accent mt-4 rounded-full"></div>
+            </div>
+            <div class="max-w-sm mx-auto">
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-lg">
+                        <img src="assets/img/placeholder.png" alt="Jeki Kuswanto" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                            <a href="https://www.instagram.com/jekliwon_86/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://scholar.google.com/citations?user=tNo7x98AAAAJ&hl=id" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold text-primary">Jeki Kuswanto, S.Kom, M.Kom</h4>
+                    <p class="text-accent font-semibold">Pembina HIMTEKK</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Badan Pengurus Harian (BPH) -->
+    <section id="pengurus" class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center mb-16" data-aos="fade-up">
+                <div class="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-3xl border border-primary/10 shadow-sm mb-4">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2 class="text-4xl font-bold text-primary">Badan Pengurus Harian</h2>
+                <div class="w-16 h-1 bg-accent mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto mb-16">
+                <!-- Ketua Umum -->
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-md border-2 border-accent/20">
+                        <img src="assets/img/ketua.webp" alt="Ihsanul Fikri" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://www.instagram.com/ihsnulfikrii_/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold text-primary">Ihsanul Fikri</h4>
+                    <p class="text-accent font-bold uppercase text-xs tracking-widest">Ketua Umum</p>
+                </div>
+
+                <!-- Sekjend -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-md border-2 border-accent/20">
+                        <img src="assets/img/sekjend.webp" alt="Sufutra Jaya Inathasalen" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="https://www.instagram.com/jaysufutra/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold text-primary">Sufutra Jaya Inathasalen</h4>
+                    <p class="text-accent font-bold uppercase text-xs tracking-widest">Sekretaris Jenderal</p>
+                </div>
+
+                <!-- Dewan Etik -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-md border-2 border-accent/20">
+                        <img src="assets/img/placeholder.png" alt="Isa Ali Arrumy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-xl font-bold text-primary">Isa Ali Arrumy</h4>
+                    <p class="text-accent font-bold uppercase text-xs tracking-widest">Dewan Etik dan Pertimbangan</p>
+                </div>
+            </div>
+
+            <!-- Sekretaris & Bendahara -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <!-- Sekre 1 - IRFAN (LENGKAP) -->
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/sekretaris.webp" alt="Irfan Syarifudin" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <a href="https://www.instagram.com/irfann_404/" target="_blank" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/in/irfan-syarifudin" target="_blank" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/Irfan3006" target="_blank" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://irfan-syarifudin.vercel.app/" target="_blank" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Website"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-primary">Irfan Syarifudin</h4>
+                    <p class="text-accent text-sm font-semibold">Sekretaris I</p>
+                </div>
+                <!-- Sekre 2 -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" alt="Aisyah Nur Maya Silviyani" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-primary">Aisyah Nur Maya Silviyani</h4>
+                    <p class="text-accent text-sm font-semibold">Sekretaris II</p>
+                </div>
+                <!-- Bendahara 1 -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" alt="Kalya Shafwa Faisol" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-primary">Kalya Shafwa Faisol</h4>
+                    <p class="text-accent text-sm font-semibold">Bendahara I</p>
+                </div>
+                <!-- Bendahara 2 -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" alt="Ghea Naysilla Azzahra" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-primary">Ghea Naysilla Azzahra</h4>
+                    <p class="text-accent text-sm font-semibold">Bendahara II</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Division Header -->
+    <section class="py-24 bg-primary relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute inset-0">
+            <div class="absolute top-1/2 left-0 w-72 h-72 bg-accent opacity-5 rounded-full -translate-y-1/2 -ml-36"></div>
+            <div class="absolute top-1/2 right-0 w-72 h-72 bg-accent opacity-5 rounded-full -translate-y-1/2 -mr-36"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <span class="text-accent font-bold uppercase tracking-[0.3em] text-sm mb-4 block" data-aos="fade-up">Workstream</span>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" data-aos="fade-up" data-aos-delay="100">Divisi Organisasi</h2>
+            <div class="w-20 h-1.5 bg-accent mx-auto mb-8 rounded-full" data-aos="zoom-in" data-aos-delay="200"></div>
+            <p class="text-lg md:text-xl text-secondary/70 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="300">
+                Bidang-bidang fokus pengembangan HIMTEKK yang menjadi wadah bagi mahasiswa untuk mengeksplorasi minat dan bakat di bidang teknologi komputer.
+            </p>
+        </div>
+    </section>
+
+    <!-- Div. Cyber Security -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
+                <div class="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-2xl border border-primary/10 shadow-sm">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary">Cyber Security</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Ketua -->
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" alt="Ananta Ramadhani" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Ananta Ramadhani</h4>
+                    <p class="text-accent text-xs font-bold uppercase">Ketua Divisi</p>
+                </div>
+                <!-- Anggota -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Rizky Azis Pratama</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Michael Brilliant Tirta W.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Fransiscus Asisi Kananda H. D.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Haris Arif Ardiansyah</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="250">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Muhamad Ardi</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Div. IoT -->
+    <section class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
+                <div class="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-2xl border border-primary/10 shadow-sm">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary">Internet of Things (IoT)</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" alt="Rafi Almazzydane" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Rafi Almazzydane F. Z.</h4>
+                    <p class="text-accent text-xs font-bold uppercase">Ketua Divisi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Div. PSDM -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
+                <div class="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-2xl border border-primary/10 shadow-sm">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary">PSDM (Pengembangan Sumber Daya Manusia)</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Ketua -->
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Susetyo Catur Prio</h4>
+                    <p class="text-accent text-xs font-bold uppercase">Ketua Divisi</p>
+                </div>
+                <!-- Anggota -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Defri Bagus Saputra</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Pandu Restu Putra P.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Eva Widiana Syakira</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Div. Digital Creative -->
+    <section class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
+                <div class="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-2xl border border-primary/10 shadow-sm">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary">Digital Creative</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Ketua -->
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Gilang Yudha Prajatma</h4>
+                    <p class="text-accent text-xs font-bold uppercase">Ketua Divisi</p>
+                </div>
+                <!-- Anggota -->
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Muhammad Krisna S. A.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Nabilah Jihan Rosyidah</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Fadina Laila Hidayati</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Sri Irsa Ramayani</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="250">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Avisa Deva Rasendriya</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Hana' Nazihah</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Div. Program & Event -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
+                <div class="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-2xl border border-primary/10 shadow-sm">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary">Program & Event Development</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Valensio Rayandra E. P. A.</h4>
+                    <p class="text-accent text-xs font-bold uppercase">Ketua Divisi</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Ryan Achmad Adi F.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Tegar Kunto Wibisono</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Aldi Noorfaiz K.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary text-center">Daffa Wahyu Prayudha</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="250">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Widad Setiawan Maspeke</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Marco Virgiawan P.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="350">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Chevin Hesya P. A.</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Div. Public Relationship -->
+    <section class="py-20 bg-slate-50">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center gap-4 mb-10" data-aos="fade-right">
+                <div class="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center text-primary text-2xl border border-primary/10 shadow-sm">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary">Public Relationship</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div class="text-center group" data-aos="fade-up">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Rosyid Khoirudin</h4>
+                    <p class="text-accent text-xs font-bold uppercase">Ketua Divisi</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Riyan</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary leading-tight">Aryasatya Salman Alfarisi</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Aulina Weny Noviarini</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+                <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
+                        <img src="assets/img/placeholder.png" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <h4 class="text-sm font-bold text-primary">Bunga Salsabilla</h4>
+                    <p class="text-slate-500 text-xs">Anggota</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to top -->
+    <div class="py-12 bg-white text-center">
+        <a href="index.html" class="inline-flex items-center gap-2 text-primary font-bold hover:text-accent transition-colors">
+            <i class="fas fa-home"></i> Kembali ke Beranda
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pt-20 pb-10 bg-slate-900 text-white border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="assets/img/logo.webp" alt="Logo HIMTEKK" class="h-12 w-auto">
+                        <span class="text-2xl font-bold"><span class="text-accent">HIM</span>TEKK</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed mb-6">
+                        Himpunan Mahasiswa Teknik Komputer Universitas Amikom Yogyakarta. Wadah pengembangan diri di bidang Cyber Security dan IoT.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/himtekk_amikom/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-primary transition-all duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/himtekk-amikom/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-primary transition-all duration-300">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Navigasi</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="index.html#hero" class="hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="index.html#about" class="hover:text-accent transition-colors">Tentang Kami</a></li>
+                        <li><a href="index.html#fokus" class="hover:text-accent transition-colors">Bidang Fokus</a></li>
+                        <li><a href="index.html#kegiatan" class="hover:text-accent transition-colors">Program Kerja</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Dukungan</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="index.html#contact" class="hover:text-accent transition-colors">Hubungi Kami</a></li>
+                        <li><a href="index.html#visi-misi" class="hover:text-accent transition-colors">Visi & Misi</a></li>
+                        <li><a href="index.html#pengurus" class="hover:text-accent transition-colors">Struktur Pengurus</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info Column -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Alamat</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-accent"></i>
+                            <span>Jl. Ring Road Utara, Condongcatur, Sleman, Yogyakarta</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-accent"></i>
+                            <span>himtekk@amikom.ac.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
+                <p>&copy; 2026 HIMTEKK Universitas Amikom Yogyakarta. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="privacy.html" class="hover:text-accent transition-colors">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-accent transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
