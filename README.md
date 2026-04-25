@@ -73,7 +73,7 @@ Digunakan untuk memantau website di hasil pencarian Google.
 ### 2. Google Analytics (GA4)
 Digunakan untuk menganalisis perilaku pengunjung secara mendalam.
 *   **ID Pengukuran**: `G-YWKD4CJZJY` (Sudah terpasang di dalam kode).
-*   **Akses Data**: Login ke [Google Analytics](https://analytics.google.com/) menggunakan akun `himtekk@amikom.ac.id` untuk melihat laporan jumlah pengunjung, perangkat yang digunakan, dan durasi sesi.
+*   **Akses Data**: Login ke [Google Analytics](https://analytics.google.com/) menggunakan akun `himtekk@amikom.ac.id` untuk melihat laporan jumlah pengunjung, perangkat yang digunakan, dan durasi kunjungan.
 
 ## Panduan Deployment ke Vercel
 
