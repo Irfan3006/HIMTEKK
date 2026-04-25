@@ -121,6 +121,14 @@ Update catatan DNS pada penyedia layanan domain (wajib menggunakan akun resmi ji
 2.  **Optimalisasi Gambar**: Gunakan format `.webp` untuk efisiensi bandwidth.
 3.  **Keamanan Akun**: Selalu pastikan akses ke email `himtekk@amikom.ac.id` terjaga dan kredensial diserahterimakan dengan aman ke pengurus baru.
 
+## Lisensi
+
+Proyek ini dilindungi oleh **MIT License**.
+
+Copyright (©) 2026 HIMTEKK
+
+Lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut mengenai izin dan batasan lisensi.
+
 ## Penutup
 
 Dokumentasi ini diharapkan dapat menjadi panduan yang jelas bagi pengembang atau pengurus HIMTEKK di masa mendatang dalam mengelola aset digital organisasi secara profesional dan terpusat pada satu identitas resmi.
