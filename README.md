@@ -24,10 +24,13 @@ Website ini dibangun menggunakan teknologi berbasis web statis (Static Site) unt
 Berikut adalah penjelasan mengenai struktur file dalam proyek ini:
 
 *   `index.html`: Halaman utama website yang berisi profil umum, visi misi, dan informasi kontak.
-*   `pengurus.html`: Halaman khusus yang menampilkan struktur organisasi dan daftar pengurus.
-*   `privacy.html`: Dokumen kebijakan privasi website.
-*   `terms.html`: Dokumen ketentuan layanan website.
-*   `assets/img`: Direktori yang menyimpan aset media (gambar, logo, dll).
+*   `404.html`: Halaman kesalahan 404 kustom.
+*   `pages/`: Direktori yang menyimpan halaman tambahan:
+    *   `pengurus.html`: Halaman struktur organisasi.
+    *   `privacy.html`: Kebijakan privasi.
+    *   `terms.html`: Ketentuan layanan.
+    *   `flag.html`: Halaman redirect khusus.
+*   `assets/img`: Direktori aset media.
     *   `assets/img/pengurus/`: Folder khusus untuk menyimpan foto profil seluruh pengurus.
 *   `css/`: Berisi file stylesheet kustom (`style.css`).
 *   `js/`: Berisi file skrip JavaScript kustom (`script.js`).
@@ -70,10 +73,21 @@ Digunakan untuk memantau website di hasil pencarian Google.
 *   **Fungsi**: Mengajukan sitemap, memantau error pengindeksan, dan meninjau kata kunci yang membawa pengunjung ke website.
 *   **Akses Data**: Login ke [Google Search Console](https://search.google.com/search-console) menggunakan akun `himtekk@amikom.ac.id` untuk memantau indeks dan performa pencarian.
 
-### 2. Google Analytics (GA4)
-Digunakan untuk menganalisis perilaku pengunjung secara mendalam.
-*   **ID Pengukuran**: `G-YWKD4CJZJY` (Sudah terpasang di dalam kode).
-*   **Akses Data**: Login ke [Google Analytics](https://analytics.google.com/) menggunakan akun `himtekk@amikom.ac.id` untuk melihat laporan jumlah pengunjung, perangkat yang digunakan, dan durasi kunjungan.
+### 2. Google Analytics (GA4) & Consent Mode
+Digunakan untuk menganalisis perilaku pengunjung dengan standar privasi tinggi (GDPR compliant).
+*   **ID Pengukuran**: `G-YWKD4CJZJY` (Dikonfigurasi melalui `js/script.js`).
+*   **Mekanisme**: Website menggunakan **Dynamic Injection**. Skrip pelacakan tidak dimuat secara otomatis, melainkan hanya setelah pengguna memberikan izin melalui banner cookie.
+*   **Consent Mode v2**: Implementasi terbaru Google yang memastikan data hanya dikirim sesuai tingkat persetujuan pengguna (analytics, ads, user_data).
+*   **Akses Data**: Login ke [Google Analytics](https://analytics.google.com/) menggunakan akun `himtekk@amikom.ac.id`.
+
+## Fitur Privasi & Kepatuhan (GDPR)
+
+Website ini dilengkapi dengan **Cookie Consent Manager** untuk memenuhi standar privasi global:
+
+1.  **Pemblokiran Global**: Secara default, semua fungsi pelacakan dimatikan (`ga-disable` diaktifkan) sebelum ada aksi dari pengguna.
+2.  **Mekanisme Penyimpanan**:
+    *   **Cookie**: Digunakan sebagai sumber utama.
+    *   **LocalStorage**: Digunakan sebagai *fallback/cache* cadangan.
 
 ## Panduan Deployment ke Vercel
 

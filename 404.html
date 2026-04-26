@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman Tidak Ditemukan | HIMTEKK</title>
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="robots" content="noindex, follow">
+    <meta name="description" content="Ups! Halaman yang Anda cari tidak ditemukan di website HIMTEKK Amikom Yogyakarta.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/img/logo.webp">
+    
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00406E',
+                        secondary: '#FFFFFF',
+                        accent: '#DBB865',
+                        slate: {
+                            50: '#F8FAFC',
+                            600: '#475569',
+                            900: '#0F172A',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        
+        body {
+            background-color: #F8FAFC;
+        }
+
+        .error-code {
+            font-size: clamp(6rem, 20vw, 12rem);
+            line-height: 1;
+            color: #00406E;
+            font-weight: 800;
+            text-shadow: 0 10px 30px rgba(0, 64, 110, 0.1);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0,64,110,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center overflow-hidden font-sans">
+    
+    <!-- Decorative Elements -->
+    <div class="blob top-[-250px] right-[-250px] animate__animated animate__pulse animate__infinite"></div>
+    <div class="blob bottom-[-250px] left-[-250px] animate__animated animate__pulse animate__infinite animate__delay-1s"></div>
+
+    <div class="container mx-auto px-6 text-center">
+        <div class="relative flex items-center justify-center mb-8 gap-4 md:gap-8">
+            <h1 class="error-code font-bold select-none leading-none">4</h1>
+            <div class="floating">
+                <img src="assets/img/logo.webp" alt="Logo HIMTEKK" class="w-24 h-24 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]">
+            </div>
+            <h1 class="error-code font-bold select-none leading-none">4</h1>
+        </div>
+
+        <div class="max-w-2xl mx-auto animate__animated animate__fadeInUp">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Ups! Halaman Tidak Ditemukan</h2>
+            <p class="text-slate-600 text-lg mb-10 leading-relaxed">
+                Maaf, sepertinya Anda tersesat. Halaman yang Anda cari mungkin telah pindah, dihapus, atau memang tidak pernah ada.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="index.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
+                    <i class="fas fa-home group-hover:-translate-y-1 transition-transform"></i>
+                    Kembali ke Beranda
+                </a>
+                <a href="index.html#contact" class="bg-white border-2 border-primary/10 hover:border-primary/30 text-primary font-bold py-4 px-10 rounded-full transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-envelope"></i>
+                    Laporkan Masalah
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-16 text-slate-400 text-sm animate__animated animate__fadeIn animate__delay-2s">
+            <p>&copy; 2026 HIMTEKK Universitas Amikom Yogyakarta</p>
+        </div>
+    </div>
+
+    <!-- Cookie Manager Integration -->
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 1000,
+                    once: true
+                });
+            }
+        });
+    </script>
+</body>
+</html>
