@@ -52,6 +52,7 @@ Seluruh layanan pendukung website wajib menggunakan akun Google resmi organisasi
 *   **Email Resmi**: `himtekk@amikom.ac.id`
 *   **Layanan Terkait**: Akun ini wajib digunakan untuk mendaftar dan mengelola:
     *   Vercel (Hosting)
+    *   Cloudflare (DNS & Keamanan)
     *   Google Search Console (Indeks Pencarian)
     *   Google Analytics (Statistik Pengunjung)
     *   GitHub (Penyimpanan Source Code)
@@ -123,11 +124,15 @@ Domain `himtekk.com` harus dikelola dan dihubungkan melalui akun Vercel yang sam
 *   Masuk ke menu "Settings" > "Domains".
 *   Masukkan nama domain `himtekk.com`.
 
-### 2. Pengaturan di Registrar Domain (DNS):
-Update catatan DNS pada penyedia layanan domain (wajib menggunakan akun resmi jika registrar dipisah):
+### 2. Pengaturan DNS via Cloudflare (Proxy):
 
-*   **A Record**: `@` -> `76.76.21.21`
-*   **CNAME Record**: `www` -> `cname.vercel-dns.com`
+Untuk keamanan tambahan (DDoS Protection, WAF, dan penyembunyian IP server), domain `himtekk.com` wajib dikelola melalui Cloudflare dengan fitur **Proxy (Orange Cloud)** aktif.
+
+*   **Nameservers**: Hubungkan domain dari registrar ke Cloudflare Nameservers yang diberikan di dashboard Cloudflare.
+*   **DNS Records**:
+    *   **A Record**: `@` -> `76.76.21.21` (Status: **Proxied**)
+    *   **CNAME Record**: `www` -> `cname.vercel-dns.com` (Status: **Proxied**)
+*   **SSL/TLS Setting**: Wajib diatur ke mode **Full** atau **Full (Strict)** di Cloudflare untuk mencegah error pengalihan (redirect loop) dengan sertifikat SSL otomatis dari Vercel.
 
 ## Pemeliharaan Berkala
 
