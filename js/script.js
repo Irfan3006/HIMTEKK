@@ -130,7 +130,7 @@ const CookieManager = (() => {
                         <h4 class="font-bold text-primary text-lg mb-1">Privacy & Cookies</h4>
                         <p class="text-slate-600 text-sm leading-relaxed mb-4">
                             Kami menggunakan cookie untuk mengoptimalkan pengalaman Anda. 
-                            <a href="privacy.html" class="text-accent font-semibold hover:underline">Kebijakan Privasi</a>.
+                            <a href="/pages/privacy.html" class="text-accent font-semibold hover:underline">Kebijakan Privasi</a>.
                         </p>
                         <div class="flex gap-3">
                             <button id="cookie-accept" class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all transform hover:scale-105">
