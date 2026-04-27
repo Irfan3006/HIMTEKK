@@ -10,7 +10,7 @@
     <meta name="description" content="Ups! Halaman yang Anda cari tidak ditemukan di website HIMTEKK Amikom Yogyakarta.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/webp" href="assets/img/logo.webp">
+    <link rel="icon" type="image/webp" href="/assets/img/logo.webp">
     
     <!-- CDNs -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -85,7 +85,7 @@
         <div class="relative flex items-center justify-center mb-8 gap-4 md:gap-8">
             <h1 class="error-code font-bold select-none leading-none">4</h1>
             <div class="floating">
-                <img src="assets/img/logo.webp" alt="Logo HIMTEKK" class="w-24 h-24 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]">
+                <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-24 h-24 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]">
             </div>
             <h1 class="error-code font-bold select-none leading-none">4</h1>
         </div>
@@ -97,7 +97,7 @@
             </p>
 
             <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="index.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
+                <a href="/index.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
                     <i class="fas fa-home group-hover:-translate-y-1 transition-transform"></i>
                     Kembali ke Beranda
                 </a>
@@ -113,8 +113,9 @@
         </div>
     </div>
 
-    <!-- Cookie Manager Integration -->
-    <script src="js/script.js"></script>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof AOS !== 'undefined') {
