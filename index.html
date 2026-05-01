@@ -487,22 +487,28 @@
                 </div>
                 
                 <div class="md:w-2/3" data-aos="fade-left">
-                    <form id="contactForm" class="bg-slate-50 p-10 rounded-3xl border border-slate-100">
+                    <form id="contactForm" class="bg-slate-50 p-10 rounded-3xl border border-slate-100" autocomplete="on" novalidate>
+                        <!-- Honeypot — invisible to humans, bots fill this -->
+                        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                            <label for="confirm_email_hp">Confirm</label>
+                            <input type="text" id="confirm_email_hp" name="confirm_email_hp" tabindex="-1" autocomplete="nope">
+                        </div>
                         <div class="grid md:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label for="nama" class="block text-sm font-bold text-primary mb-2 uppercase">Nama Lengkap</label>
-                                <input type="text" id="nama" name="nama" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Masukkan nama Anda">
+                                <input type="text" id="nama" name="nama" required maxlength="100" autocomplete="name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Masukkan nama Anda">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-bold text-primary mb-2 uppercase">Alamat Email</label>
-                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="email@contoh.com">
+                                <input type="email" id="email" name="email" required maxlength="254" autocomplete="email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="email@contoh.com">
                             </div>
                         </div>
                         <div class="mb-6">
                             <label for="pesan" class="block text-sm font-bold text-primary mb-2 uppercase">Pesan</label>
-                            <textarea id="pesan" name="pesan" rows="5" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                            <textarea id="pesan" name="pesan" rows="5" required minlength="10" maxlength="2000" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                            <p id="pesan-counter" class="text-right text-xs text-slate-400 mt-1">0 / 2000</p>
                         </div>
-                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02]">
+                        <button type="submit" id="contact-submit-btn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02]">
                             Kirim Pesan <i class="fas fa-paper-plane ml-2"></i>
                         </button>
                     </form>

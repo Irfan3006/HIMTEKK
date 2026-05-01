@@ -90,6 +90,27 @@ Website ini dilengkapi dengan **Cookie Consent Manager** untuk memenuhi standar 
     *   **Cookie**: Digunakan sebagai sumber utama.
     *   **LocalStorage**: Digunakan sebagai *fallback/cache* cadangan.
 
+## Protokol Keamanan Formulir (Antispam-SecurityGuard)
+
+Website ini mengimplementasikan sistem keamanan berlapis tingkat tinggi pada formulir kontak untuk mencegah spam, bot, dan upaya peretasan:
+
+1.  **SecurityGuard Real-time Detection**: 
+    *   Memindai input secara *real-time* terhadap pola serangan **XSS**, **HTML Injection**, dan **SQL Injection**.
+    *   Menggunakan algoritma normalisasi data untuk mendeteksi teknik *obfuscation* (entity encoding, hex bypass, dll).
+2.  **Hardware Fingerprinting**: 
+    *   Menghasilkan **Device ID (HID)** unik berdasarkan spesifikasi perangkat keras pengunjung (GPU, CPU Cores, Screen Res).
+    *   Pelacakan tetap akurat meskipun pengunjung berganti alamat IP atau menggunakan VPN.
+3.  **Proof-of-Work (PoW) Challenge**:
+    *   Setiap pengiriman pesan mewajibkan peramban menyelesaikan tantangan komputasi **SHA-256** secara lokal.
+    *   Menjamin bahwa pengirim adalah manusia/peramban asli, bukan skrip otomatis atau CLI tools.
+4.  **Headless Bot Detection**:
+    *   Mendeteksi dan memblokir otomatis alat otomatisasi seperti Puppeteer, Selenium, dan Playwright.
+5.  **Integritas Data (HMAC Signing)**:
+    *   Setiap *payload* pesan ditandatangani menggunakan algoritma **HMAC-SHA256** untuk mencegah manipulasi data saat transit ke server.
+6.  **Kebijakan Zero Tolerance & Bans**:
+    *   **Strike System**: Pengunjung diberikan maksimal 3 kesempatan (*strikes*) sebelum tindakan tegas diambil.
+    *   **Permanent Ban**: Pelanggaran berulang akan mengakibatkan pemblokiran akses selama **24 jam** yang bersifat persisten (tetap aktif meskipun halaman di-refresh).
+
 ## Panduan Deployment ke Vercel
 
 Vercel digunakan sebagai platform hosting karena kemampuannya dalam menangani website statis dengan sangat baik dan efisien. Seluruh administrasi di Vercel wajib menggunakan login GitHub yang terhubung dengan email `himtekk@amikom.ac.id`.
