@@ -34,6 +34,7 @@ Berikut adalah penjelasan mengenai struktur file dalam proyek ini:
     *   `assets/img/pengurus/`: Folder khusus untuk menyimpan foto profil seluruh pengurus.
 *   `css/`: Berisi file stylesheet kustom (`style.css`).
 *   `js/`: Berisi file skrip JavaScript kustom (`script.js`).
+*   `panduan-color-palette.md`: [Panduan Color Palette](panduan-color-palette.md) resmi website dan sosial media HIMTEKK.
 
 ## Panduan Penggunaan Lokal
 
@@ -160,6 +161,7 @@ Untuk keamanan tambahan (DDoS Protection, WAF, dan penyembunyian IP server), dom
 1.  **Pembaruan Pengurus**: Modifikasi file `pengurus.html` pada bagian grid anggota. Pastikan gambar profil disimpan di folder `assets/img/pengurus`.
 2.  **Optimalisasi Gambar**: Gunakan format `.webp` untuk efisiensi bandwidth.
 3.  **Keamanan Akun**: Selalu pastikan akses ke email `himtekk@amikom.ac.id` terjaga dan kredensial diserahterimakan dengan aman ke pengurus baru.
+4.  **Konsistensi Visual**: Pastikan penambahan elemen UI baru mengacu pada [Panduan Color Palette](panduan-color-palette.md) untuk menjaga konsistensi warna brand HIMTEKK.
 
 ## Lisensi
 
