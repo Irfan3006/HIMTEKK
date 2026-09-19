@@ -20,6 +20,10 @@
     <meta property="og:description" content="Struktur organisasi dan pengurus HIMTEKK Universitas Amikom Yogyakarta periode 2026/2027.">
     <meta property="og:image" content="https://himtekk.com/assets/img/og.webp">
 
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/webp">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://himtekk.com/pages/pengurus">
@@ -31,34 +35,40 @@
     <link rel="canonical" href="https://himtekk.com/pages/pengurus">
     <link rel="icon" type="image/webp" href="../assets/img/logo.webp">
     
-    <!-- CDNs -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preconnect Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets (Pre-compiled & Optimized) -->
+    <link rel="stylesheet" href="../css/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#00406E',
-                        secondary: '#FFFFFF',
-                        accent: '#DBB865',
-                    },
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                    backgroundImage: {
-                        'hero-pattern': "linear-gradient(rgba(0, 64, 110, 0.8), rgba(0, 64, 110, 0.9)), url('../assets/img/hero.webp')",
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Breadcrumb Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://himtekk.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Struktur Pengurus",
+          "item": "https://himtekk.com/pages/pengurus"
+        }
+      ]
+    }
+    </script>
 </head>
 <body class="text-slate-800 overflow-x-hidden">
 
@@ -66,7 +76,7 @@
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-primary shadow-lg">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <a href="../" class="flex items-center gap-3 group">
-                <img src="../assets/img/logo.webp" alt="Logo HIMTEKK" class="h-10 w-auto transition-transform group-hover:rotate-12">
+                <img src="../assets/img/logo.webp" alt="Logo HIMTEKK" class="h-10 w-auto transition-transform group-hover:rotate-12" width="40" height="40" decoding="async">
                 <span class="text-2xl font-bold text-white"><span class="text-accent">HIM</span>TEKK</span>
             </a>
             
@@ -136,7 +146,7 @@
             <div class="max-w-sm mx-auto">
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-lg">
-                        <img src="../assets/img/placeholder.webp" alt="Jeki Kuswanto" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Jeki Kuswanto, S.Kom, M.Kom - Pembina HIMTEKK HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="300" height="400">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
                             <a href="https://www.instagram.com/jekliwon_86/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                             <a href="https://scholar.google.com/citations?user=tNo7x98AAAAJ&hl=id" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
@@ -164,7 +174,7 @@
                 <!-- Ketua Umum -->
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-md border-2 border-accent/20">
-                        <img src="../assets/img/pengurus/ketua.webp" alt="Ihsanul Fikri" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/pengurus/ketua.webp" alt="Ihsanul Fikri - Ketua Umum HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="300" height="400">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="https://www.instagram.com/ihsnulfikrii_/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -176,7 +186,7 @@
                 <!-- Sekjend -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-md border-2 border-accent/20">
-                        <img src="../assets/img/pengurus/sekjend.webp" alt="Sufutra Jaya Inathasalen" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/pengurus/sekjend.webp" alt="Sufutra Jaya Inathasalen - Sekretaris Jenderal HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="300" height="400">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="https://www.instagram.com/jaysufutra/" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -188,7 +198,7 @@
                 <!-- Dewan Etik -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-md border-2 border-accent/20">
-                        <img src="../assets/img/placeholder.webp" alt="Isa Ali Arrumy" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Isa Ali Arrumy - Dewan Etik dan Pertimbangan HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="300" height="400">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -203,7 +213,7 @@
                 <!-- Sekre 1 - IRFAN (LENGKAP) -->
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/pengurus/sekretaris1.webp" alt="Irfan Syarifudin" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/pengurus/sekretaris1.webp" alt="Irfan Syarifudin - Sekretaris I HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="300" height="400">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
                             <a href="https://www.instagram.com/irfann_404/" target="_blank" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                             <a href="https://www.linkedin.com/in/irfan-syarifudin" target="_blank" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
@@ -217,7 +227,7 @@
                 <!-- Sekre 2 -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" alt="Aisyah Nur Maya Silviyani" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Aisyah Nur Maya Silviyani - Sekretaris II HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -228,7 +238,7 @@
                 <!-- Bendahara 1 -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" alt="Kalya Shafwa Faisol" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Kalya Shafwa Faisol - Bendahara I HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -239,7 +249,7 @@
                 <!-- Bendahara 2 -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" alt="Ghea Naysilla Azzahra" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Ghea Naysilla Azzahra - Bendahara II HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors" title="Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -282,7 +292,7 @@
                 <!-- Ketua -->
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" alt="Ananta Ramadhani" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Ananta Ramadhani - Ketua Divisi HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -293,7 +303,7 @@
                 <!-- Anggota -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Rizky Azis Pratama - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -303,7 +313,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Michael Brilliant Tirta W. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -313,7 +323,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Fransiscus Asisi Kananda H. D. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -323,7 +333,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Haris Arif Ardiansyah - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -333,7 +343,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="250">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Muhamad Ardi - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -357,7 +367,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" alt="Rafi Almazzydane" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="../assets/img/placeholder.webp" alt="Rafi Almazzydane F. Z. - Ketua Divisi HIMTEKK" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -382,7 +392,7 @@
                 <!-- Ketua -->
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Susetyo Catur Prio - Ketua Divisi HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -393,7 +403,7 @@
                 <!-- Anggota -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Defri Bagus Saputra - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -403,7 +413,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Pandu Restu Putra P. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -413,7 +423,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Eva Widiana Syakira - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -438,7 +448,7 @@
                 <!-- Ketua -->
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Gilang Yudha Prajatma - Ketua Divisi HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -449,7 +459,7 @@
                 <!-- Anggota -->
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Muhammad Krisna S. A. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -459,7 +469,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Nabilah Jihan Rosyidah - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -469,7 +479,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Fadina Laila Hidayati - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -479,7 +489,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Sri Irsa Ramayani - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -489,7 +499,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="250">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Avisa Deva Rasendriya - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -499,7 +509,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Hana' Nazihah - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -523,7 +533,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Valensio Rayandra E. P. A. - Ketua Divisi HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -533,7 +543,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Ryan Achmad Adi F. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -543,7 +553,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Tegar Kunto Wibisono - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -553,7 +563,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Aldi Noorfaiz K. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -563,7 +573,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Daffa Wahyu Prayudha - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -573,7 +583,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="250">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Widad Setiawan Maspeke - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -583,7 +593,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Marco Virgiawan P. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -593,7 +603,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="350">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Chevin Hesya P. A. - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -617,7 +627,7 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 <div class="text-center group" data-aos="fade-up">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Rosyid Khoirudin - Ketua Divisi HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -627,7 +637,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="50">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Riyan - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -637,7 +647,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Aryasatya Salman Alfarisi - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -647,7 +657,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="150">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Aulina Weny Noviarini - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -657,7 +667,7 @@
                 </div>
                 <div class="text-center group" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative overflow-hidden rounded-xl mb-3 aspect-[3/4] shadow-sm">
-                        <img src="../assets/img/placeholder.webp" class="w-full h-full object-cover">
+                        <img src="../assets/img/placeholder.webp" alt="Bunga Salsabilla - Anggota HIMTEKK" class="w-full h-full object-cover" loading="lazy" decoding="async" width="200" height="267">
                         <div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <a href="#" class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -683,7 +693,7 @@
                 <!-- Brand Column -->
                 <div class="col-span-1 md:col-span-1">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="../assets/img/logo.webp" alt="Logo HIMTEKK" class="h-12 w-auto">
+                        <img src="../assets/img/logo.webp" alt="Logo HIMTEKK" class="h-12 w-auto" width="48" height="48" loading="lazy" decoding="async">
                         <span class="text-2xl font-bold"><span class="text-accent">HIM</span>TEKK</span>
                     </div>
                     <p class="text-slate-400 leading-relaxed mb-6">
@@ -716,7 +726,7 @@
                     <ul class="space-y-4 text-slate-400">
                         <li><a href="../#contact" class="hover:text-accent transition-colors">Hubungi Kami</a></li>
                         <li><a href="../#visi-misi" class="hover:text-accent transition-colors">Visi & Misi</a></li>
-                        <li><a href="pengurus.html" class="hover:text-accent transition-colors">Struktur Pengurus</a></li>
+                        <li><a href="/pages/pengurus" class="hover:text-accent transition-colors">Struktur Pengurus</a></li>
                     </ul>
                 </div>
 
@@ -740,8 +750,8 @@
             <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
                 <p>&copy; 2026 HIMTEKK Universitas Amikom Yogyakarta. All rights reserved.</p>
                 <div class="flex gap-6">
-                    <a href="privacy.html" class="hover:text-accent transition-colors">Privacy Policy</a>
-                    <a href="terms.html" class="hover:text-accent transition-colors">Terms of Service</a>
+                    <a href="/pages/privacy" class="hover:text-accent transition-colors">Privacy Policy</a>
+                    <a href="/pages/terms" class="hover:text-accent transition-colors">Terms of Service</a>
                 </div>
             </div>
         </div>

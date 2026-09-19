@@ -12,38 +12,18 @@
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="/assets/img/logo.webp">
     
-    <!-- CDNs -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preconnect Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets (Pre-compiled & Optimized) -->
+    <link rel="stylesheet" href="/css/tailwind.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#00406E',
-                        secondary: '#FFFFFF',
-                        accent: '#DBB865',
-                        slate: {
-                            50: '#F8FAFC',
-                            600: '#475569',
-                            900: '#0F172A',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
-        
         body {
             background-color: #F8FAFC;
         }
@@ -85,7 +65,7 @@
         <div class="relative flex items-center justify-center mb-8 gap-4 md:gap-8">
             <h1 class="error-code font-bold select-none leading-none">4</h1>
             <div class="floating">
-                <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-24 h-24 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]">
+                <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-24 h-24 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]" width="160" height="160" fetchpriority="high">
             </div>
             <h1 class="error-code font-bold select-none leading-none">4</h1>
         </div>
@@ -97,11 +77,11 @@
             </p>
 
             <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="/index.html" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
+                <a href="/" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
                     <i class="fas fa-home group-hover:-translate-y-1 transition-transform"></i>
                     Kembali ke Beranda
                 </a>
-                <a href="index.html#contact" class="bg-white border-2 border-primary/10 hover:border-primary/30 text-primary font-bold py-4 px-10 rounded-full transition-all flex items-center justify-center gap-3">
+                <a href="/#contact" class="bg-white border-2 border-primary/10 hover:border-primary/30 text-primary font-bold py-4 px-10 rounded-full transition-all flex items-center justify-center gap-3">
                     <i class="fas fa-envelope"></i>
                     Laporkan Masalah
                 </a>

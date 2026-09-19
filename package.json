@@ -1,0 +1,13 @@
+{
+  "name": "himtekk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website Resmi HIMTEKK Universitas Amikom Yogyakarta",
+  "scripts": {
+    "build:css": "npx --yes tailwindcss@3 -i ./css/input.css -o ./css/tailwind.min.css --minify",
+    "watch:css": "npx --yes tailwindcss@3 -i ./css/input.css -o ./css/tailwind.min.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

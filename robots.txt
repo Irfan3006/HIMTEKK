@@ -1,7 +1,5 @@
 User-agent: *
-Disallow: /pages/flag.html
-Disallow: /pages/privacy.html
-Disallow: /pages/terms.html
+Disallow: /404
 Disallow: /404.html
 
 Sitemap: https://himtekk.com/sitemap.xml

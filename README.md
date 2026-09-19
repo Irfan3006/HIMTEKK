@@ -1,176 +1,260 @@
-# Dokumentasi Website Resmi HIMTEKK Amikom Yogyakarta
+# Dokumentasi Teknis Website Resmi HIMTEKK Universitas Amikom Yogyakarta
 
-Dokumentasi ini disusun untuk memberikan panduan teknis mengenai penggunaan, pengembangan, dan pemeliharaan website resmi HIMTEKK Universitas Amikom Yogyakarta kepada kepengurusan di masa mendatang.
+Dokumentasi ini disusun sebagai pedoman teknis komprehensif mengenai arsitektur, standar pengembangan, keamanan, optimasi performa, Search Engine Optimization (SEO), dan pemeliharaan website resmi Himpunan Mahasiswa Teknik Komputer (HIMTEKK) Universitas Amikom Yogyakarta.
 
-## Deskripsi Proyek
+---
 
-Website HIMTEKK adalah platform informasi digital resmi organisasi Himpunan Mahasiswa Teknik Komputer (HIMTEKK) Universitas Amikom Yogyakarta. Website ini berfungsi sebagai media profil organisasi, pusat informasi kegiatan, dan sarana publikasi bagi seluruh anggota dan khalayak umum.
+## 1. Deskripsi Proyek
 
-## Spesifikasi Teknologi
+Website HIMTEKK merupakan platform informasi digital resmi organisasi Himpunan Mahasiswa Teknik Komputer (HIMTEKK) Universitas Amikom Yogyakarta. Platform ini berfungsi sebagai media profil kelembagaan, pusat informasi kegiatan akademik dan organisasi, etalase struktur kepengurusan, serta sarana publikasi resmi bagi seluruh civitas akademika dan masyarakat luas.
 
-Website ini dibangun menggunakan teknologi berbasis web statis (Static Site) untuk memastikan performa yang optimal dan kemudahan dalam pengelolaan:
+Proyek ini dirancang menggunakan arsitektur situs statis berperforma tinggi (Jamstack) tanpa ketergantungan pada basis data sisi klien yang berat, sehingga menghasilkan kecepatan pemuatan yang optimal, efisiensi bandwidth, dan ketahanan terhadap potensi celah keamanan.
 
-1.  **HTML5**: Sebagai struktur dasar konten website.
-2.  **Tailwind CSS (CDN)**: Digunakan untuk kerangka desain (styling) yang responsif dan modern.
-3.  **JavaScript (Vanilla)**: Untuk logika interaksi sisi klien.
-4.  **Library Pendukung**:
-    *   **AOS (Animate On Scroll)**: Untuk animasi transisi saat melakukan gulir halaman.
-    *   **FontAwesome**: Untuk penyediaan ikonografi.
-    *   **SweetAlert2**: Untuk tampilan dialog box atau notifikasi yang interaktif.
-    *   **Animate.css**: Untuk animasi elemen UI.
+---
 
-## Struktur Direktori
+## 2. Spesifikasi Teknologi
 
-Berikut adalah penjelasan mengenai struktur file dalam proyek ini:
+Website ini dibangun dengan fondasi teknologi web modern yang berfokus pada kecepatan akses, efisiensi kode, dan kepatuhan standar web internasional:
 
-*   `index.html`: Halaman utama website yang berisi profil umum, visi misi, dan informasi kontak.
-*   `404.html`: Halaman kesalahan 404 kustom.
-*   `pages/`: Direktori yang menyimpan halaman tambahan:
-    *   `pengurus.html`: Halaman struktur organisasi.
-    *   `privacy.html`: Kebijakan privasi.
-    *   `terms.html`: Ketentuan layanan.
-    *   `flag.html`: Halaman redirect khusus.
-*   `assets/img`: Direktori aset media.
-    *   `assets/img/pengurus/`: Folder khusus untuk menyimpan foto profil seluruh pengurus.
-*   `css/`: Berisi file stylesheet kustom (`style.css`).
-*   `js/`: Berisi file skrip JavaScript kustom (`script.js`).
-*   `panduan-color-palette.md`: [Panduan Color Palette](panduan-color-palette.md) resmi website dan sosial media HIMTEKK.
+1. **HTML5 Semantik**: Penyusunan hierarki dokumen yang terstruktur secara semantik untuk memastikan aksesibilitas (a11y) dan keterbacaan optimal oleh mesin perayap (crawler).
+2. **Tailwind CSS Versi 3 (Pre-compiled)**: Kerangka kerja styling berbasis utility yang dikompilasi secara luring menjadi file CSS statis yang diminifikasi (`css/tailwind.min.css`, ukuran sekitar 25 KB). Pendekatan ini menggantikan runtime Play CDN untuk mengeliminasi latensi parsing JavaScript dan pergeseran tata letak saat pemuatan awal.
+3. **Vanilla JavaScript (ES6+)**: Logika sisi klien tanpa ketergantungan framework berat, mencakup manajemen persetujuan cookie berbasis GDPR, proteksi formulir anti-spam, dan interaksi antarmuka pengguna.
+4. **Clean URLs Engine**: Penyajian seluruh rute URL bersih tanpa ekstensi file (`/pages/pengurus`, `/pages/privacy`, `/pages/terms`) yang dikonfigurasi melalui platform Vercel.
+5. **Pustaka Antarmuka Eksternal**:
+   * **AOS (Animate On Scroll)**: Menangani animasi transisi elemen berbasis posisi gulir layar.
+   * **FontAwesome Versi 6**: Penyedia ikonografi vektor antarmuka pengguna.
+   * **SweetAlert2**: Komponen kotak dialog responsif untuk konfirmasi interaksi pengguna.
+   * **Animate.css**: Pustaka animasi CSS deklaratif untuk elemen interaktif tertentu.
 
-## Panduan Penggunaan Lokal
+---
 
-Untuk melakukan pengembangan atau perubahan konten secara lokal, ikuti langkah-langkah berikut:
+## 3. Struktur Direktori Proyek
 
-1.  Unduh atau klon seluruh file source code ke komputer Anda.
-2.  Pastikan seluruh struktur folder tetap terjaga (jangan memindahkan file keluar dari foldernya kecuali diperlukan).
-3.  Gunakan editor teks seperti Visual Studio Code.
-4.  Sangat disarankan menggunakan ekstensi "Live Server" pada VS Code untuk melihat perubahan secara real-time.
-5.  Buka file `index.html` melalui browser untuk meninjau hasil akhir.
+Susunan file dan direktori dalam repositori ini diatur dengan struktur berikut:
 
-## Administrasi Akun Resmi
+```
+HIMTEKK/
+│
+├── .gitignore                     # Konfigurasi file yang diabaikan oleh Git
+├── 404.html                       # Halaman penanganan galat HTTP 404 kustom
+├── index.html                     # Halaman utama profil organisasi (URL: /)
+├── LICENSE                        # Lisensi perangkat lunak (MIT License)
+├── package.json                   # Konfigurasi dependensi dan script kompilasi Tailwind CSS
+├── panduan-color-palette.md       # Panduan standar identitas warna dan tipografi resmi
+├── README.md                      # Dokumentasi teknis utama proyek
+├── robots.txt                     # Instruksi perayapan untuk mesin pencari web
+├── short.js                       # Skrip worker penyingkat tautan (Cloudflare Worker)
+├── sitemap.xml                    # Peta situs XML dengan format Clean URLs
+├── tailwind.config.js             # File konfigurasi tema dan pemindaian template Tailwind CSS
+├── vercel.json                    # Konfigurasi deployment, Clean URLs, header keamanan, dan caching
+│
+├── assets/
+│   └── img/
+│       ├── hero.webp              # Aset visual utama hero section berprioritas tinggi
+│       ├── logo.webp              # Logo identitas resmi organisasi
+│       ├── og.webp                # Gambar pratinjau untuk Open Graph dan Twitter Cards
+│       ├── placeholder.webp       # Gambar pengganti cadangan
+│       └── pengurus/              # Direktori penyimpanan foto resmi seluruh pengurus
+│           ├── ketua.webp
+│           ├── sekjend.webp
+│           ├── sekretaris1.webp
+│           └── ... (foto pengurus per divisi)
+│
+├── css/
+│   ├── input.css                  # Berkas sumber layer Tailwind (@tailwind base, components, utilities)
+│   ├── style.css                  # Stylesheet kustom untuk tema, scrollbar, dan animasi khusus
+│   └── tailwind.min.css           # Hasil kompilasi akhir Tailwind CSS yang terminifikasi
+│
+├── js/
+│   └── script.js                  # Skrip utama logika aplikasi, anti-spam, analytics, dan interaksi UI
+│
+└── pages/
+    ├── flag.html                  # Halaman uji coba khusus
+    ├── pengurus.html              # Halaman struktur kepengurusan organisasi (URL: /pages/pengurus)
+    ├── privacy.html               # Halaman kebijakan privasi data (URL: /pages/privacy)
+    └── terms.html                 # Halaman syarat dan ketentuan layanan (URL: /pages/terms)
+```
 
-Seluruh layanan pendukung website wajib menggunakan akun Google resmi organisasi untuk menjamin keberlanjutan akses bagi kepengurusan berikutnya.
+---
 
-*   **Email Resmi**: `himtekk@amikom.ac.id`
-*   **Layanan Terkait**: Akun ini wajib digunakan untuk mendaftar dan mengelola:
-    *   Vercel (Hosting)
-    *   Cloudflare (DNS & Keamanan)
-    *   Google Search Console (Indeks Pencarian)
-    *   Google Analytics (Statistik Pengunjung)
-    *   GitHub (Penyimpanan Source Code)
+## 4. Optimasi Performa dan Core Web Vitals
 
-## Pengelolaan Source Code (GitHub)
+Seluruh kode sumber telah dioptimalkan secara ketat untuk mencapai skor performa tinggi pada Google PageSpeed Insights dan Core Web Vitals:
 
-Source code website ini disimpan dalam repositori Git untuk memudahkan kolaborasi dan version control.
+### A. Pengurangan Bobot CSS dan Penghapusan Render-Blocking
+* Menggantikan script `cdn.tailwindcss.com` sebesar sekitar 300 KB dengan file statis terminifikasi `css/tailwind.min.css` sebesar 25 KB, menghemat lebih dari 90 persen ukuran transfer CSS.
+* Menghilangkan `@import url(...)` pada file `css/style.css` yang sebelumnya menghambat proses render browser.
+* Menerapkan `<link rel="preconnect">` dan `<link rel="dns-prefetch">` pada domain Google Fonts (`fonts.googleapis.com` dan `fonts.gstatic.com`) untuk mempercepat koneksi socket jaringan sebelum font diunduh.
 
-1.  **Akses Repositori**: Pastikan repositori GitHub berada di bawah organisasi atau akun yang terhubung dengan `himtekk@amikom.ac.id`.
-2.  **Sinkronisasi**: Setiap perubahan yang di-push ke branch utama (`main`) akan secara otomatis memicu proses build dan update pada server Vercel.
+### B. Optimalisasi Largest Contentful Paint (LCP)
+* Gambar hero section (`assets/img/hero.webp`) dilengkapi dengan tag `<link rel="preload" as="image" href="assets/img/hero.webp" fetchpriority="high">` pada file `index.html`. Hal ini memastikan gambar utama diunduh oleh scanner browser pada prioritas tertinggi sejak awal siklus pemuatan.
 
-## Monitoring dan Analitik
+### C. Pencegahan Cumulative Layout Shift (CLS) dan Pemuatan Gambar Efisien
+* Seluruh elemen gambar, khususnya lebih dari 40 foto pengurus pada `pages/pengurus.html`, telah dilengkapi dengan atribut dimensi eksplisit (`width` dan `height`), atribut `loading="lazy"` untuk menghemat kuota data, serta `decoding="async"` agar proses decoding citra tidak memblokir thread utama eksekusi antarmuka.
 
-Untuk memantau performa dan kesehatan website, digunakan dua instrumen utama dari Google:
+### D. Peringanan JavaScript
+* Ukuran file `js/script.js` dipangkas dari 57 KB menjadi 33 KB melalui eliminasi kode redundan dan penghapusan permintaan API eksternal geolokasi IP yang sebelumnya menambah latensi jaringan saat inisialisasi halaman.
 
-### 1. Google Search Console
-Digunakan untuk memantau website di hasil pencarian Google.
-*   **Verifikasi**: Dilakukan menggunakan metode DNS Record atau pengunggahan file HTML verifikasi.
-*   **Fungsi**: Mengajukan sitemap, memantau error pengindeksan, dan meninjau kata kunci yang membawa pengunjung ke website.
-*   **Akses Data**: Login ke [Google Search Console](https://search.google.com/search-console) menggunakan akun `himtekk@amikom.ac.id` untuk memantau indeks dan performa pencarian.
+---
 
-### 2. Google Analytics (GA4) & Consent Mode
-Digunakan untuk menganalisis perilaku pengunjung dengan standar privasi tinggi (GDPR compliant).
-*   **ID Pengukuran**: `G-YWKD4CJZJY` (Dikonfigurasi melalui `js/script.js`).
-*   **Mekanisme**: Website menggunakan **Dynamic Injection**. Skrip pelacakan tidak dimuat secara otomatis, melainkan hanya setelah pengguna memberikan izin melalui banner cookie.
-*   **Consent Mode v2**: Implementasi terbaru Google yang memastikan data hanya dikirim sesuai tingkat persetujuan pengguna (analytics, ads, user_data).
-*   **Akses Data**: Login ke [Google Analytics](https://analytics.google.com/) menggunakan akun `himtekk@amikom.ac.id`.
+## 5. Arsitektur Keamanan Siber Tanpa Captcha Pihak Ketiga
 
-## Fitur Privasi & Kepatuhan (GDPR)
+Sistem keamanan website dibangun dengan pendekatan frictionless security, memberikan perlindungan terhadap bot dan eksploitasi data formulir tanpa menggunakan widget captcha modern (seperti Google reCAPTCHA atau Cloudflare Turnstile) yang berpotensi menurunkan kenyamanan pengunjung:
 
-Website ini dilengkapi dengan **Cookie Consent Manager** untuk memenuhi standar privasi global:
+### A. Proteksi Formulir Kontak Berlapis (Anti-Spam Heuristics)
+1. **Perangkap Honeypot**: Formulir kontak dilengkapi field tersembunyi (`confirm_email_hp`) yang dirancang khusus untuk memikat bot pengisi formulir otomatis. Jika field ini terisi oleh skrip otomatis, sistem akan melakukan penolakan diam-diam (silent rejection) tanpa mengganggu pengguna sah.
+2. **Ambang Batas Waktu Berbasis Perilaku**: Pengiriman pesan yang berlangsung lebih cepat dari 2.5 detik sejak halaman dibuka akan ditolak secara otomatis, karena interaksi manusia yang wajar membutuhkan waktu untuk membaca dan mengetik pesan.
+3. **Deteksi Interaksi Fisik Manusia**: Sistem memverifikasi adanya sinyal interaksi nyata (seperti penekanan tombol keyboard, pergerakan kursor, atau fokus elemen form) sebelum proses transmisi diizinkan.
+4. **Pembatasan Frekuensi (Rate Limiting Lokal)**: Pengiriman pesan dibatasi maksimal 3 kali dalam interval 5 menit dengan masa jeda (cooldown) minimal 60 detik untuk mencegah serangan banjir pesan (flooding).
+5. **Proof-of-Work (PoW) SHA-256 Sisi Klien**: Peramban pengunjung wajib memecahkan komputasi kriptografis SHA-256 lokal untuk membuktikan kapasitas komputasi sebelum data dikirim ke endpoint Google Apps Script.
+6. **Integritas Data HMAC-SHA256**: Seluruh payload pesan ditandatangani menggunakan tanda tangan kriptografis HMAC untuk menjamin integritas data saat transit ke Google Apps Script backend.
 
-1.  **Pemblokiran Global**: Secara default, semua fungsi pelacakan dimatikan (`ga-disable` diaktifkan) sebelum ada aksi dari pengguna.
-2.  **Mekanisme Penyimpanan**:
-    *   **Cookie**: Digunakan sebagai sumber utama.
-    *   **LocalStorage**: Digunakan sebagai *fallback/cache* cadangan.
+### B. Pengamanan Kredensial dan Endpoint
+* File `short.js` tidak lagi menyimpan kunci otentikasi dalam bentuk teks mentah (plaintext), melainkan membaca variabel lingkungan rahasia Cloudflare Worker (`SHORTLINKS_ADMIN_KEY`).
+* Menghilangkan jalur URL rahasia dari `robots.txt` guna mencegah pengintaian informasi sensitif oleh mesin pencari web.
+* Menambahkan direktori dependensi `node_modules/` ke dalam file `.gitignore`.
 
-## Protokol Keamanan Formulir (Antispam-SecurityGuard)
+### C. Konfigurasi HTTP Security Headers Enterprise
+Konfigurasi `vercel.json` menerapkan rangkaian header keamanan ketat pada setiap respons server:
+* **Content-Security-Policy (CSP)**: Mengontrol sumber daya skrip, gaya, font, gambar, dan frame yang diizinkan untuk dieksekusi guna mencegah serangan Cross-Site Scripting (XSS) dan data injection.
+* **X-Frame-Options: SAMEORIGIN**: Mencegah serangan Clickjacking dengan melarang penyematan website di dalam iframe pada domain eksternal.
+* **X-Content-Type-Options: nosniff**: Memaksa browser mematuhi tipe MIME dokumen yang dikirimkan server untuk mencegah serangan berbasis eksploitasi MIME sniffing.
+* **Strict-Transport-Security (HSTS)**: Mewajibkan enkripsi koneksi HTTPS selama dua tahun penuh (`max-age=63072000; includeSubDomains; preload`).
+* **Referrer-Policy: strict-origin-when-cross-origin**: Menjaga kerahasiaan URL rujukan saat navigasi berpindah ke domain lain.
+* **Permissions-Policy**: Mematikan akses sensor perangkat yang tidak relevan (seperti kamera, mikrofon, dan geolokasi) untuk meningkatkan privasi pengunjung.
+* **Cache-Control Imutabel**: Mengatur caching aset statis (`/assets/*`, `/css/*`, `/js/*`) selama satu tahun dengan status `immutable` guna mempercepat pemuatan halaman pada kunjungan ulang.
 
-Website ini mengimplementasikan sistem keamanan berlapis tingkat tinggi pada formulir kontak untuk mencegah spam, bot, dan upaya peretasan:
+---
 
-1.  **SecurityGuard Real-time Detection**: 
-    *   Memindai input secara *real-time* terhadap pola serangan **XSS**, **HTML Injection**, dan **SQL Injection**.
-    *   Menggunakan algoritma normalisasi data untuk mendeteksi teknik *obfuscation* (entity encoding, hex bypass, dll).
-2.  **Hardware Fingerprinting**: 
-    *   Menghasilkan **Device ID (HID)** unik berdasarkan spesifikasi perangkat keras pengunjung (GPU, CPU Cores, Screen Res).
-    *   Pelacakan tetap akurat meskipun pengunjung berganti alamat IP atau menggunakan VPN.
-3.  **Proof-of-Work (PoW) Challenge**:
-    *   Setiap pengiriman pesan mewajibkan peramban menyelesaikan tantangan komputasi **SHA-256** secara lokal.
-    *   Menjamin bahwa pengirim adalah manusia/peramban asli, bukan skrip otomatis atau CLI tools.
-4.  **Headless Bot Detection**:
-    *   Mendeteksi dan memblokir otomatis alat otomatisasi seperti Puppeteer, Selenium, dan Playwright.
-5.  **Integritas Data (HMAC Signing)**:
-    *   Setiap *payload* pesan ditandatangani menggunakan algoritma **HMAC-SHA256** untuk mencegah manipulasi data saat transit ke server.
-6.  **Kebijakan Zero Tolerance & Bans**:
-    *   **Strike System**: Pengunjung diberikan maksimal 3 kesempatan (*strikes*) sebelum tindakan tegas diambil.
-    *   **Permanent Ban**: Pelanggaran berulang akan mengakibatkan pemblokiran akses selama **24 jam** yang bersifat persisten (tetap aktif meskipun halaman di-refresh).
+## 6. Standar Search Engine Optimization (SEO) dan Aksesibilitas
 
-## Panduan Deployment ke Vercel
+Website ini dirancang agar mudah ditemukan, dipahami, dan diindeks secara kredibel oleh mesin pencari web:
 
-Vercel digunakan sebagai platform hosting karena kemampuannya dalam menangani website statis dengan sangat baik dan efisien. Seluruh administrasi di Vercel wajib menggunakan login GitHub yang terhubung dengan email `himtekk@amikom.ac.id`.
+1. **Clean URLs Universal**: Seluruh tautan internal, tag kanonikal (`rel="canonical"`), dan sitemap telah diselaraskan ke rute URL tanpa ekstensi `.html`:
+   * Halaman Beranda: `https://himtekk.com/`
+   * Halaman Pengurus: `https://himtekk.com/pages/pengurus`
+   * Halaman Privasi: `https://himtekk.com/pages/privacy`
+   * Halaman Ketentuan Layanan: `https://himtekk.com/pages/terms`
+2. **Peningkatan Nilai E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)**:
+   * Mengizinkan perayapan dokumen kebijakan privasi dan syarat layanan pada `robots.txt`.
+   * Mengatur meta tag robot pada `privacy.html` dan `terms.html` menjadi `index, follow` guna memperkuat sinyal kepercayaan mesin pencari terhadap legalitas organisasi.
+3. **Optimasi Aksesibilitas Citra (Image SEO)**: Seluruh atribut `alt` pada foto profil pengurus telah dilengkapi dengan format teks deskriptif standar: `alt="[Nama Lengkap] - [Jabatan] HIMTEKK"`.
+4. **Structured Data (Schema.org / JSON-LD)**: Menyematkan skema terstruktur `BreadcrumbList` pada seluruh subhalaman untuk menghasilkan tampilan cuplikan kaya (rich breadcrumb snippets) pada hasil pencarian Google.
+5. **Protokol Open Graph dan Twitter Card**: Menetapkan metadata sosial media lengkap mencakup `og:title`, `og:description`, `og:image`, `og:image:width: 1200`, `og:image:height: 630`, dan `twitter:card: summary_large_image`.
 
-### Langkah-langkah Deployment:
+---
 
-1.  **Persiapan Repositori**:
-    Pastikan source code sudah berada di GitHub dengan akun resmi.
-2.  **Koneksi ke Vercel**:
-    *   Masuk ke dashboard [Vercel](https://vercel.com/) menggunakan akun GitHub resmi.
-    *   Pilih "Add New" lalu klik "Project".
-    *   Impor repositori website HIMTEKK.
-3.  **Konfigurasi Proyek**:
-    *   Vercel akan mendeteksi secara otomatis bahwa ini adalah proyek web statis.
-    *   **Framework Preset**: Pilih "Other".
-    *   **Build Command**: Biarkan kosong.
-    *   **Output Directory**: Biarkan default (titik/root).
-4.  **Eksekusi Deployment**:
-    Klik tombol "Deploy".
-5.  **Konfigurasi Keamanan (Firewall)**:
-    Setelah deployment berhasil, wajib mengaktifkan fitur perlindungan bot pada menu **Settings > Firewall**:
-    *   **Bot Protection**: Aktifkan fitur ini.
-    *   **Challenge**: Aktifkan tantangan (challenge) untuk permintaan dari sumber non-browser (kecuali verified bots).
-    *   **AI Bots**: Pilih opsi untuk memblokir permintaan dari AI bots dan scrapers yang dikenal.
+## 7. Privasi dan Kepatuhan Pelacakan Pengunjung (GDPR)
 
-## Konfigurasi Domain Kustom
+Website ini menerapkan sistem manajemen persetujuan cookie (Cookie Consent Manager) yang patuh terhadap regulasi perlindungan data pribadi internasional (GDPR):
 
-Domain `himtekk.com` harus dikelola dan dihubungkan melalui akun Vercel yang sama.
+1. **Pencegahan Pelacakan Default**: Seluruh skrip pelacakan analitik berada dalam kondisi nonaktif secara global (`window['ga-disable-G-YWKD4CJZJY'] = true`) sampai pengguna memberikan persetujuan eksplisit melalui banner cookie.
+2. **Injeksi Skrip Dinamis**: Google Analytics 4 (ID Pengukuran: `G-YWKD4CJZJY`) diinjeksikan ke dalam DOM hanya setelah status persetujuan bernilai positif.
+3. **Dukungan Google Consent Mode v2**: Sinyal persetujuan dikirimkan secara formal ke endpoint analitik Google (`analytics_storage`, `ad_storage`, `ad_user_data`, `ad_personalization`) sesuai preferensi pengguna.
+4. **Persistensi Preferensi**: Status persetujuan disimpan dalam bentuk Cookie HTTP dan dicadangkan pada LocalStorage peramban untuk mencegah munculnya banner berulang pada kunjungan berikutnya.
 
-### 1. Pengaturan di Vercel:
-*   Buka proyek di dashboard Vercel.
-*   Masuk ke menu "Settings" > "Domains".
-*   Masukkan nama domain `himtekk.com`.
+---
 
-### 2. Pengaturan DNS via Cloudflare (Proxy):
+## 8. Panduan Pengembangan dan Kompilasi Lokal
 
-Untuk keamanan tambahan (DDoS Protection, WAF, dan penyembunyian IP server), domain `himtekk.com` wajib dikelola melalui Cloudflare dengan fitur **Proxy (Orange Cloud)** aktif.
+Untuk melakukan pengembangan lokal pada repositori ini, ikuti langkah-langkah berikut:
 
-*   **Nameservers**: Hubungkan domain dari registrar ke Cloudflare Nameservers yang diberikan di dashboard Cloudflare.
-*   **DNS Records**:
-    *   **A Record**: `@` -> `76.76.21.21` (Status: **Proxied**)
-    *   **CNAME Record**: `www` -> `cname.vercel-dns.com` (Status: **Proxied**)
-*   **SSL/TLS Setting**: Wajib diatur ke mode **Full** atau **Full (Strict)** di Cloudflare untuk mencegah error pengalihan (redirect loop) dengan sertifikat SSL otomatis dari Vercel.
+### A. Prasyarat Sistem
+* Node.js versi 18 atau yang lebih baru.
+* Pengelola paket npm (bawaan dari instalasi Node.js).
+* Perangkat lunak Git.
 
-## Pemeliharaan Berkala
+### B. Tahapan Instalasi
+1. Klon repositori ke komputer lokal Anda:
+   ```bash
+   git clone https://github.com/Irfan3006/HIMTEKK.git
+   cd HIMTEKK
+   ```
+2. Pasang dependensi pengembangan untuk Tailwind CSS:
+   ```bash
+   npm install
+   ```
 
-1.  **Pembaruan Pengurus**: Modifikasi file `pengurus.html` pada bagian grid anggota. Pastikan gambar profil disimpan di folder `assets/img/pengurus`.
-2.  **Optimalisasi Gambar**: Gunakan format `.webp` untuk efisiensi bandwidth.
-3.  **Keamanan Akun**: Selalu pastikan akses ke email `himtekk@amikom.ac.id` terjaga dan kredensial diserahterimakan dengan aman ke pengurus baru.
-4.  **Konsistensi Visual**: Pastikan penambahan elemen UI baru mengacu pada [Panduan Color Palette](panduan-color-palette.md) untuk menjaga konsistensi warna brand HIMTEKK.
+### C. Menjalankan Kompilasi CSS
+* Untuk mengompilasi CSS satu kali ke format terminifikasi untuk rilis:
+  ```bash
+  npm run build:css
+  ```
+* Untuk menjalankan pengawasan otomatis (watcher) saat sedang mengubah file HTML atau CSS:
+  ```bash
+  npm run watch:css
+  ```
 
-## Lisensi
+---
 
-Proyek ini dilindungi oleh **MIT License**.
+## 9. Administrasi Akun Resmi dan Infrastruktur Cloud
 
-Copyright (©) 2026 HIMTEKK
+Seluruh layanan pendukung operasional website wajib dihubungkan ke akun Google resmi organisasi demi menjamin kontinuitas akses antargenerasi kepengurusan:
 
-Lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut mengenai izin dan batasan lisensi.
+* **Alamat Email Resmi**: `himtekk@amikom.ac.id`
+* **Layanan Terhubung**:
+  * Akun GitHub Organisasi (Penyimpanan repositori kode sumber)
+  * Vercel (Penyedia hosting produksi)
+  * Cloudflare (Manajemen DNS, mitigasi DDoS, dan WAF)
+  * Google Search Console (Pemantauan indeks dan audit performa pencarian)
+  * Google Analytics (Statistik lalu lintas pengunjung)
 
-## Penutup
+---
 
-Dokumentasi ini diharapkan dapat menjadi panduan yang jelas bagi pengembang atau pengurus HIMTEKK di masa mendatang dalam mengelola aset digital organisasi secara profesional dan terpusat pada satu identitas resmi.
+## 10. Prosedur Deployment ke Vercel
+
+Layanan hosting produksi ditangani oleh platform Vercel dengan integrasi langsung ke repositori GitHub:
+
+1. **Penyambungan Proyek**:
+   * Masuk ke dashboard Vercel menggunakan akun resmi organisasi.
+   * Pilih menu **Add New Project** dan impor repositori `HIMTEKK`.
+2. **Parameter Proyek**:
+   * **Framework Preset**: Pilih `Other`.
+   * **Build Command**: Kosongkan (atau isi `npm run build:css` jika kompilasi dilakukan pada pipeline CI/CD).
+   * **Output Directory**: Biarkan bernilai root (`.`).
+3. **Penyebaran Otomatis (Continuous Deployment)**: Setiap pembaharuan kode yang digabungkan ke cabang utama (`main`) akan secara otomatis memicu proses build dan penyebaran ke server produksi Vercel.
+4. **Aktivasi Firewall dan Proteksi Bot**:
+   * Buka menu **Settings > Firewall** pada dashboard proyek Vercel.
+   * Aktifkan opsi **Bot Protection**.
+   * Aktifkan pemblokiran otomatis terhadap AI scraping bots yang tidak terverifikasi.
+
+---
+
+## 11. Konfigurasi Domain Kustom dan DNS Cloudflare
+
+Pengaturan domain `himtekk.com` wajib diarahkan menggunakan proxy Cloudflare untuk menjamin keamanan jaringan dan proteksi terhadap serangan siber:
+
+1. **Pengaturan pada Vercel**:
+   * Masuk ke menu **Settings > Domains**.
+   * Daftarkan domain utama `himtekk.com` dan subdomain `www.himtekk.com`.
+2. **Pengaturan DNS pada Cloudflare**:
+   * Atur Nameserver registrar domain agar mengarah ke Nameserver resmi Cloudflare.
+   * Tambahkan entri DNS dengan status Proxy Aktif (Orange Cloud):
+     * Tipe **A**: Nama `@`, Target `76.76.21.21`, Status **Proxied**.
+     * Tipe **CNAME**: Nama `www`, Target `cname.vercel-dns.com`, Status **Proxied**.
+3. **Pengaturan Enkripsi SSL/TLS**:
+   * Pada menu **SSL/TLS > Overview** di Cloudflare, pastikan mode enkripsi disetel ke **Full (Strict)**.
+   * Pengaturan ini mencegah terjadinya galat redirect loop yang disebabkan oleh perbedaan sertifikat SSL antara Cloudflare Edge dan server asal Vercel.
+
+---
+
+## 12. Prosedur Pemeliharaan Rutin Kepengurusan
+
+1. **Pembaruan Data Pengurus**:
+   * Edit file `pages/pengurus.html` pada blok kartu divisi yang bersangkutan.
+   * Simpan foto resmi pengurus baru ke dalam folder `assets/img/pengurus/`.
+   * Konversi seluruh citra ke format `.webp` dengan resolusi seragam dan ukuran kompresi yang efisien.
+   * Pastikan atribut `alt`, `width`, dan `height` selalu terisi dengan tepat pada setiap tag `<img>`.
+2. **Kompilasi Ulang Styling**: Jalankan `npm run build:css` setelah menambahkan kelas utility Tailwind baru pada file HTML sebelum melakukan commit kode ke repositori.
+3. **Pemberian Izin Akses Akun**: Sebelum masa kepengurusan berakhir, lakukan serah terima seluruh kredensial email organisasi, akses Vercel, Cloudflare, dan Google Analytics kepada pengurus divisi siber/teknologi informasi periode berikutnya secara aman.
+4. **Kepatuhan Desain Grafis**: Setiap penambahan komponen antarmuka baru wajib merujuk pada standar [panduan-color-palette.md](panduan-color-palette.md) untuk menjaga konsistensi identitas visual organisasi.
+
+---
+
+## 13. Lisensi Perangkat Lunak
+
+Proyek ini didistribusikan di bawah naungan lisensi **MIT License**.
+
+Hak Cipta (c) 2026 Himpunan Mahasiswa Teknik Komputer (HIMTEKK) Universitas Amikom Yogyakarta.
+
+Ketentuan lengkap perizinan dan batasan penggunaan perangkat lunak dapat ditinjau pada dokumen [LICENSE](LICENSE).
