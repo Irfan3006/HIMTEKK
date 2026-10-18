@@ -242,34 +242,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Join Button Popup (SweetAlert2)
+    // 4. Open Recruitment 2026 Modal Controller
+    const oprecModal = document.getElementById('oprec-modal');
+    const closeOprecBtn = document.getElementById('close-oprec-modal');
+    const closeOprecTextBtn = document.getElementById('btn-close-oprec-text');
     const btnGabung = document.getElementById('btn-gabung');
-    if (btnGabung && typeof Swal !== 'undefined') {
-        btnGabung.addEventListener('click', () => {
-            Swal.fire({
-                title: 'Info Pendaftaran',
-                html: '<p class="text-slate-600 mb-4">Pendaftaran belum dibuka, silakan pantau <a href="https://www.instagram.com/himtekk_amikom/" target="_blank" class="font-bold text-accent hover:underline">Instagram HIMTEKK</a> untuk info selanjutnya.</p>',
-                imageUrl: 'assets/img/logo.webp',
-                imageWidth: 100,
-                imageHeight: 100,
-                imageAlt: 'HIMTEKK Logo',
-                background: '#FFFFFF',
-                padding: '3rem',
-                confirmButtonText: 'Siap, Pantau Terus!',
-                confirmButtonColor: '#00406E',
-                customClass: {
-                    popup: 'rounded-[3rem] border-4 border-primary/5 shadow-2xl',
-                    title: 'text-primary font-bold text-3xl mt-4',
-                    confirmButton: 'rounded-full px-10 py-4 text-lg font-bold transition-all hover:scale-105 shadow-lg',
-                },
-                showClass: {
-                    popup: 'animate__animated animate__zoomIn animate__faster'
-                },
-                hideClass: {
-                    popup: 'animate__animated animate__zoomOut animate__faster'
-                },
-                backdrop: `rgba(0,64,110,0.4) backdrop-filter: blur(8px)`
-            });
+
+    function openOprecModal() {
+        if (!oprecModal) return;
+        oprecModal.classList.remove('hidden', 'animate__fadeOut');
+        oprecModal.classList.add('flex', 'animate__animated', 'animate__fadeIn', 'animate__faster');
+        
+        const modalContent = oprecModal.querySelector('.oprec-card');
+        if (modalContent) {
+            modalContent.classList.remove('animate__zoomOut');
+            modalContent.classList.add('animate__animated', 'animate__zoomIn', 'animate__faster');
+        }
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeOprecModal() {
+        if (!oprecModal) return;
+        oprecModal.classList.remove('animate__fadeIn');
+        oprecModal.classList.add('animate__animated', 'animate__fadeOut', 'animate__faster');
+        setTimeout(() => {
+            oprecModal.classList.add('hidden');
+            oprecModal.classList.remove('flex', 'animate__animated', 'animate__fadeOut', 'animate__fadeIn', 'animate__faster');
+            document.body.style.overflow = '';
+        }, 250);
+    }
+
+    if (oprecModal) {
+        // Automatically pop up on page load
+        setTimeout(openOprecModal, 400);
+
+        if (closeOprecBtn) {
+            closeOprecBtn.addEventListener('click', closeOprecModal);
+        }
+
+        if (closeOprecTextBtn) {
+            closeOprecTextBtn.addEventListener('click', closeOprecModal);
+        }
+
+        // Close when clicking the outer backdrop
+        oprecModal.addEventListener('click', (e) => {
+            if (e.target === oprecModal) {
+                closeOprecModal();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !oprecModal.classList.contains('hidden')) {
+                closeOprecModal();
+            }
+        });
+    }
+
+    // Trigger Open Recruitment modal when clicking hero "Gabung Sekarang" button
+    if (btnGabung) {
+        btnGabung.addEventListener('click', (e) => {
+            e.preventDefault();
+            openOprecModal();
         });
     }
 

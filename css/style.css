@@ -88,3 +88,330 @@ html, body {
     scrollbar-width: thin;
     scrollbar-color: #00406E #f1f5f9;
 }
+
+/* Open Recruitment 2026 Modal */
+#oprec-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: rgba(0, 18, 32, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: opacity 0.3s ease;
+}
+
+#oprec-modal.flex {
+    display: flex;
+}
+
+.oprec-card {
+    position: relative;
+    width: 100%;
+    max-width: 42rem;
+    max-height: 90vh;
+    max-height: 90dvh;
+    overflow-y: auto;
+    margin: auto;
+    background: radial-gradient(circle at 85% 15%, rgba(219, 184, 101, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(0, 140, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(155deg, #002d4d 0%, #003a63 50%, #001e35 100%);
+    border: 1px solid rgba(219, 184, 101, 0.4);
+    border-radius: 2rem;
+    padding: 2.5rem 2rem 2rem;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.65), 0 0 50px rgba(219, 184, 101, 0.2);
+    box-sizing: border-box;
+}
+
+.oprec-card::-webkit-scrollbar {
+    width: 5px;
+}
+
+.oprec-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.oprec-card::-webkit-scrollbar-thumb {
+    background: rgba(219, 184, 101, 0.35);
+    border-radius: 9999px;
+}
+
+.oprec-close-btn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 20;
+}
+
+.oprec-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+.oprec-card-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1.1rem;
+    border-radius: 9999px;
+    background: rgba(219, 184, 101, 0.15);
+    border: 1px solid rgba(219, 184, 101, 0.4);
+    color: #DBB865;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.oprec-logo-wrap {
+    width: 4.75rem;
+    height: 4.75rem;
+    margin: 0 auto 1.25rem;
+    background: #ffffff;
+    border-radius: 9999px;
+    padding: 0.25rem;
+    box-shadow: 0 0 25px rgba(219, 184, 101, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.oprec-logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 9999px;
+}
+
+.oprec-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+}
+
+.oprec-subtitle {
+    color: #DBB865;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.02em;
+}
+
+.oprec-desc {
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    max-width: 34rem;
+    margin: 0 auto 1.5rem;
+}
+
+.oprec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+    text-align: left;
+}
+
+.oprec-grid-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 0.85rem 0.9rem;
+    transition: all 0.25s ease;
+}
+
+.oprec-grid-item:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(219, 184, 101, 0.45);
+    transform: translateY(-2px);
+}
+
+.oprec-grid-item i {
+    color: #DBB865;
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+    display: block;
+}
+
+.oprec-grid-item h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.15rem;
+    line-height: 1.3;
+}
+
+.oprec-grid-item p {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.oprec-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.oprec-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    background: #DBB865;
+    color: #002d4d;
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 0.85rem 2.5rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(219, 184, 101, 0.35);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.oprec-cta-btn:hover {
+    background: #e2c47a;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(219, 184, 101, 0.45);
+    color: #001f35;
+}
+
+.oprec-cta-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.oprec-dismiss-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 0.825rem;
+    font-weight: 500;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.oprec-dismiss-btn:hover {
+    color: #ffffff;
+}
+
+/* Mobile Responsiveness for Modal (<= 640px) */
+@media (max-width: 640px) {
+    #oprec-modal {
+        padding: 0.75rem;
+    }
+
+    .oprec-card {
+        padding: 2.5rem 1rem 1.35rem;
+        border-radius: 1.5rem;
+        max-height: 92vh;
+        max-height: 92dvh;
+    }
+
+    .oprec-close-btn {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 2.15rem;
+        height: 2.15rem;
+    }
+
+    .oprec-card-badge {
+        font-size: 0.65rem;
+        padding: 0.25rem 0.85rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .oprec-logo-wrap {
+        width: 3.5rem;
+        height: 3.5rem;
+        margin-bottom: 0.75rem;
+        padding: 0.2rem;
+    }
+
+    .oprec-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .oprec-subtitle {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .oprec-desc {
+        font-size: 0.775rem;
+        line-height: 1.5;
+        margin-bottom: 0.9rem;
+    }
+
+    .oprec-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.45rem;
+        margin-bottom: 1.15rem;
+    }
+
+    .oprec-grid-item {
+        padding: 0.55rem 0.65rem;
+        border-radius: 0.75rem;
+    }
+
+    .oprec-grid-item i {
+        font-size: 0.95rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .oprec-grid-item h4 {
+        font-size: 0.72rem;
+    }
+
+    .oprec-grid-item p {
+        font-size: 0.62rem;
+    }
+
+    .oprec-actions {
+        gap: 0.45rem;
+    }
+
+    .oprec-cta-btn {
+        width: 100%;
+        max-width: 17rem;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    .oprec-dismiss-btn {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.75rem;
+    }
+}
+
+
+

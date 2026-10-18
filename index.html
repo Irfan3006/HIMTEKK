@@ -152,7 +152,7 @@
                 <a href="#about" class="bg-accent hover:bg-yellow-600 text-primary font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
                     Pelajari Lebih Lanjut
                 </a>
-                <a href="javascript:void(0)" id="btn-gabung" class="glass text-white font-bold py-4 px-8 rounded-full hover:bg-white hover:text-primary transition-all duration-300">
+                <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" id="btn-gabung" class="glass text-white font-bold py-4 px-8 rounded-full hover:bg-white hover:text-primary transition-all duration-300">
                     Gabung Sekarang
                 </a>
             </div>
@@ -578,6 +578,78 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal Open Recruitment 2026 (Fullscreen Overlay) -->
+    <div id="oprec-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 backdrop-blur-md transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="oprec-modal-title">
+        <!-- Modal Card Container -->
+        <div class="oprec-card animate__animated animate__zoomIn animate__faster">
+            <!-- Close Button -->
+            <button type="button" id="close-oprec-modal" class="oprec-close-btn" aria-label="Tutup Pengumuman">
+                <i class="fas fa-times text-base"></i>
+            </button>
+
+            <!-- Badge -->
+            <div class="oprec-card-badge">
+                <span class="w-2 h-2 rounded-full bg-accent animate-ping inline-block"></span>
+                <i class="fas fa-bullhorn text-accent"></i>
+                <span>Open Recruitment 2026</span>
+            </div>
+
+            <!-- HIMTEKK Logo with Circular Frame -->
+            <div class="oprec-logo-wrap">
+                <img src="assets/img/logo.webp" alt="HIMTEKK Logo" width="80" height="80">
+            </div>
+
+            <!-- Heading & Subheading -->
+            <h2 id="oprec-modal-title" class="oprec-title">
+                Open Recruitment HIMTEKK 2026
+            </h2>
+            <p class="oprec-subtitle">
+                Himpunan Mahasiswa Teknik Komputer • Universitas Amikom Yogyakarta
+            </p>
+
+            <!-- Description -->
+            <p class="oprec-desc">
+                Pintu gerbang untuk berproses dan berinovasi di bidang <strong class="text-white">Cyber Security & IoT</strong> resmi dibuka! Bergabunglah bersama kami, dapatkan pengalaman organisasi nyata, asah skill teknologi terkini, dan bangun masa depan bersama HIMTEKK.
+            </p>
+
+            <!-- Divisi & Keunggulan Mini Badges -->
+            <div class="oprec-grid">
+                <div class="oprec-grid-item">
+                    <i class="fas fa-shield-halved"></i>
+                    <h4>Cyber Security</h4>
+                    <p>CTF & Keamanan</p>
+                </div>
+                <div class="oprec-grid-item">
+                    <i class="fas fa-microchip"></i>
+                    <h4>Internet of Things</h4>
+                    <p>Embedded & Sensor</p>
+                </div>
+                <div class="oprec-grid-item">
+                    <i class="fas fa-trophy"></i>
+                    <h4>Riset & Lomba</h4>
+                    <p>Portofolio & Prestasi</p>
+                </div>
+                <div class="oprec-grid-item">
+                    <i class="fas fa-users"></i>
+                    <h4>Leadership</h4>
+                    <p>Relasi & Soft Skills</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="oprec-actions">
+                <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="oprec-cta-btn">
+                    <span>Gabung Sekarang</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <button type="button" id="btn-close-oprec-text" class="oprec-dismiss-btn">
+                    Nanti Saja, Lihat Website
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/script.js"></script>
 </body>
