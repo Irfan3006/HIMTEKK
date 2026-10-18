@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css?v=2026101903">
     
     <style>
         body {
@@ -29,7 +30,7 @@
         }
 
         .error-code {
-            font-size: clamp(6rem, 20vw, 12rem);
+            font-size: clamp(5rem, 18vw, 11rem);
             line-height: 1;
             color: #00406E;
             font-weight: 800;
@@ -61,27 +62,27 @@
     <div class="blob top-[-250px] right-[-250px] animate__animated animate__pulse animate__infinite"></div>
     <div class="blob bottom-[-250px] left-[-250px] animate__animated animate__pulse animate__infinite animate__delay-1s"></div>
 
-    <div class="container mx-auto px-6 text-center">
-        <div class="relative flex items-center justify-center mb-8 gap-4 md:gap-8">
+    <div class="container mx-auto px-4 sm:px-6 text-center py-12">
+        <div class="relative flex items-center justify-center mb-6 sm:mb-8 gap-3 sm:gap-6 md:gap-8">
             <h1 class="error-code font-bold select-none leading-none">4</h1>
             <div class="floating">
-                <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-24 h-24 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]" width="160" height="160" fetchpriority="high">
+                <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 drop-shadow-[0_20px_50px_rgba(219,184,101,0.3)]" width="160" height="160" fetchpriority="high">
             </div>
             <h1 class="error-code font-bold select-none leading-none">4</h1>
         </div>
 
         <div class="max-w-2xl mx-auto animate__animated animate__fadeInUp">
-            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Ups! Halaman Tidak Ditemukan</h2>
-            <p class="text-slate-600 text-lg mb-10 leading-relaxed">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-3 sm:mb-4">Ups! Halaman Tidak Ditemukan</h2>
+            <p class="text-slate-600 text-base sm:text-lg mb-8 sm:mb-10 leading-relaxed px-2">
                 Maaf, sepertinya Anda tersesat. Halaman yang Anda cari mungkin telah pindah, dihapus, atau memang tidak pernah ada.
             </p>
 
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="/" class="bg-primary hover:bg-primary/90 text-white font-bold py-4 px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
+            <div class="flex flex-col sm:flex-row gap-3.5 sm:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
+                <a href="/" class="bg-primary hover:bg-primary/90 text-white font-bold py-3.5 sm:py-4 px-8 sm:px-10 rounded-full transition-all transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 group">
                     <i class="fas fa-home group-hover:-translate-y-1 transition-transform"></i>
                     Kembali ke Beranda
                 </a>
-                <a href="/#contact" class="bg-white border-2 border-primary/10 hover:border-primary/30 text-primary font-bold py-4 px-10 rounded-full transition-all flex items-center justify-center gap-3">
+                <a href="/#contact" class="bg-white border-2 border-primary/10 hover:border-primary/30 text-primary font-bold py-3.5 sm:py-4 px-8 sm:px-10 rounded-full transition-all flex items-center justify-center gap-3">
                     <i class="fas fa-envelope"></i>
                     Laporkan Masalah
                 </a>

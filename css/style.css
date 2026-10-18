@@ -414,15 +414,140 @@ html, body {
 }
 
 /* Division Page Styles */
+.nav-logo-img {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    display: inline-block !important;
+}
+
+.footer-logo-img {
+    height: 2.75rem !important;
+    width: 2.75rem !important;
+    object-fit: contain !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+}
+
+/* Subpage Hero Headers - Generous, airy padding */
+.divisi-header-section,
+.pengurus-header-section {
+    padding-top: 12rem !important;
+    padding-bottom: 5.5rem !important;
+}
+
+@media (max-width: 1024px) {
+    .divisi-header-section,
+    .pengurus-header-section {
+        padding-top: 9.5rem !important;
+        padding-bottom: 4rem !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .divisi-header-section,
+    .pengurus-header-section {
+        padding-top: 7.75rem !important;
+        padding-bottom: 3.25rem !important;
+    }
+}
+
+/* Quick Filter Chips */
+.filter-chips-container {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
+    scrollbar-width: none;
+    margin-top: 1.75rem;
+}
+
+.filter-chips-container::-webkit-scrollbar {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .filter-chips-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        overflow-x: visible;
+        gap: 0.85rem;
+        margin-top: 2rem;
+    }
+}
+
+.filter-chip {
+    padding: 0.6rem 1.4rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.filter-chip i {
+    color: #DBB865;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.filter-chip:hover {
+    background: #DBB865 !important;
+    color: #002d4d !important;
+    border-color: #DBB865 !important;
+    box-shadow: 0 6px 20px rgba(219, 184, 101, 0.4);
+    transform: translateY(-2px);
+}
+
+.filter-chip:hover i {
+    color: #002d4d !important;
+    transform: scale(1.15);
+}
+
+/* Division Grid - Spacious desktop & mobile gap */
+.divisi-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 2.25rem !important;
+}
+
+@media (min-width: 1024px) {
+    .divisi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 2.75rem !important;
+    }
+}
+
+/* Division Cards */
 .divisi-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
-    border-radius: 1.5rem;
+    border-radius: 1.75rem;
+    padding: 2.25rem 2rem !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+    .divisi-card {
+        padding: 2.75rem 2.5rem !important;
+    }
 }
 
 .divisi-card:hover {
@@ -432,13 +557,13 @@ html, body {
 }
 
 .divisi-icon-box {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3.75rem;
+    height: 3.75rem;
     border-radius: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     transition: transform 0.3s ease;
     flex-shrink: 0;
 }
@@ -447,18 +572,55 @@ html, body {
     transform: scale(1.1) rotate(5deg);
 }
 
+/* Distinct Division Icon Accents */
+.icon-cyber {
+    background-color: #eff6ff !important;
+    color: #00406E !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+.icon-iot {
+    background-color: #fffbeb !important;
+    color: #b45309 !important;
+    border: 1px solid #fde68a !important;
+}
+
+.icon-psdm {
+    background-color: #ecfdf5 !important;
+    color: #047857 !important;
+    border: 1px solid #a7f3d0 !important;
+}
+
+.icon-creative {
+    background-color: #faf5ff !important;
+    color: #7e22ce !important;
+    border: 1px solid #e9d5ff !important;
+}
+
+.icon-event {
+    background-color: #fff1f2 !important;
+    color: #be123c !important;
+    border: 1px solid #fecdd3 !important;
+}
+
+.icon-pr {
+    background-color: #f0fdfa !important;
+    color: #0f766e !important;
+    border: 1px solid #99f6e4 !important;
+}
+
 .requirement-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    font-size: 0.875rem;
-    line-height: 1.55;
+    gap: 0.85rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
     color: #475569;
 }
 
 .requirement-item i {
     color: #00406E;
-    font-size: 1rem;
+    font-size: 1.05rem;
     margin-top: 0.2rem;
     flex-shrink: 0;
 }
@@ -466,49 +628,280 @@ html, body {
 .bonus-box {
     background: linear-gradient(135deg, rgba(219, 184, 101, 0.09) 0%, rgba(219, 184, 101, 0.03) 100%);
     border: 1px dashed rgba(219, 184, 101, 0.45);
-    border-radius: 1.15rem;
-    padding: 1.25rem;
+    border-radius: 1.35rem;
+    padding: 1.5rem 1.4rem;
 }
 
 .bonus-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.65rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
     color: #334155;
 }
 
 .bonus-item i {
     color: #DBB865;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-top: 0.2rem;
     flex-shrink: 0;
 }
 
-.filter-chip {
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #475569;
-    text-decoration: none;
+/* Divisi CTA Banner - Elegant padding & balanced floating spacing */
+.divisi-cta-banner {
+    background: radial-gradient(circle at 90% 10%, rgba(219, 184, 101, 0.22) 0%, transparent 45%),
+                linear-gradient(135deg, #002b4d 0%, #00406E 50%, #001f38 100%) !important;
+    border: 1px solid rgba(219, 184, 101, 0.4) !important;
+    border-radius: 2rem !important;
+    padding: 2.75rem 2rem !important;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1.5rem !important;
+    color: #ffffff !important;
+    box-shadow: 0 20px 45px -10px rgba(0, 30, 56, 0.6), 0 0 35px rgba(219, 184, 101, 0.15) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .divisi-cta-banner {
+        border-radius: 2.75rem !important;
+        padding: 3.5rem 3.25rem !important;
+        margin-top: 4.5rem !important;
+        margin-bottom: 2rem !important;
+    }
+}
+
+.divisi-cta-banner h2 {
+    color: #ffffff !important;
+}
+
+.divisi-cta-banner p {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.divisi-cta-banner .cta-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.4rem 1.15rem;
+    background: rgba(219, 184, 101, 0.2);
+    border: 1px solid rgba(219, 184, 101, 0.5);
+    border-radius: 9999px;
+    color: #DBB865;
+    font-size: 0.775rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.15rem;
 }
 
-.filter-chip:hover, .filter-chip.active {
-    background: #00406E;
-    color: #ffffff;
-    border-color: #00406E;
-    box-shadow: 0 4px 12px rgba(0, 64, 110, 0.2);
+.divisi-cta-banner .btn-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    background: #DBB865 !important;
+    color: #002d4d !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    padding: 1rem 2.5rem !important;
+    border-radius: 9999px !important;
+    text-decoration: none !important;
+    box-shadow: 0 10px 25px rgba(219, 184, 101, 0.4) !important;
+    transition: all 0.25s ease !important;
+    white-space: nowrap;
 }
 
+.divisi-cta-banner .btn-cta-primary:hover {
+    background: #e2c47a !important;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 14px 30px rgba(219, 184, 101, 0.55) !important;
+}
 
+.divisi-cta-banner .btn-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    padding: 0.95rem 2rem !important;
+    border-radius: 9999px !important;
+    text-decoration: none !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.25s ease !important;
+    white-space: nowrap;
+}
 
+.divisi-cta-banner .btn-cta-secondary:hover {
+    background: #ffffff !important;
+    color: #002d4d !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px);
+}
 
+/* Mobile Optimizations for Divisi Page (<= 640px) */
+@media (max-width: 640px) {
+    .divisi-card {
+        padding: 1.75rem 1.35rem !important;
+        border-radius: 1.5rem !important;
+    }
+
+    .divisi-icon-box {
+        width: 3rem !important;
+        height: 3rem !important;
+        border-radius: 1rem !important;
+        font-size: 1.35rem !important;
+    }
+
+    .requirement-item {
+        font-size: 0.85rem !important;
+        gap: 0.65rem !important;
+        line-height: 1.5 !important;
+    }
+
+    .bonus-box {
+        padding: 1.25rem 1.15rem !important;
+        border-radius: 1.15rem !important;
+    }
+
+    .bonus-item {
+        font-size: 0.8125rem !important;
+        gap: 0.6rem !important;
+        line-height: 1.45 !important;
+    }
+
+    .filter-chip {
+        padding: 0.5rem 1.1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* ==========================================================================
+   UI Spacing, Responsiveness & Readability Design System
+   ========================================================================== */
+
+/* 1. Global Container Padding (Safe 16px/20px on mobile viewports) */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* 2. Proportional Vertical Rhythm for Sections on Mobile */
+@media (max-width: 768px) {
+    .py-24 {
+        padding-top: 4.5rem !important;
+        padding-bottom: 4.5rem !important;
+    }
+    .py-20 {
+        padding-top: 3.75rem !important;
+        padding-bottom: 3.75rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .py-24 {
+        padding-top: 3.75rem !important;
+        padding-bottom: 3.75rem !important;
+    }
+    .py-20 {
+        padding-top: 3.25rem !important;
+        padding-bottom: 3.25rem !important;
+    }
+}
+
+/* 3. Global Typography & Readability Protection */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+p {
+    line-height: 1.65;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* 4. Touch Targets for Interactive Elements (Min 44x44px where applicable) */
+button, 
+a.btn, 
+.filter-chip, 
+[role="button"], 
+input[type="submit"] {
+    touch-action: manipulation;
+}
+
+@media (max-width: 767px) {
+    #mobile-menu-btn {
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 768px) {
+    #mobile-menu-btn,
+    #mobile-menu {
+        display: none !important;
+    }
+}
+
+/* 5. Mobile Form Accessibility & iOS Safari Zoom Prevention */
+@media (max-width: 640px) {
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        font-size: 16px !important; /* Prevents unwanted auto-zoom on iOS */
+    }
+}
+
+/* 6. Cookie Consent Banner Mobile Position & Safe Area */
+@media (max-width: 640px) {
+    #cookie-consent-banner {
+        left: 1rem !important;
+        right: 1rem !important;
+        bottom: 1rem !important;
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+    }
+}
+
+/* 7. Pengurus Social Media Icon Button Touch Area */
+.pengurus-social-btn {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    min-width: 2.25rem !important;
+    min-height: 2.25rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 9999px !important;
+    background-color: #ffffff !important;
+    color: #00406E !important;
+    transition: all 0.2s ease !important;
+}
+
+.pengurus-social-btn:hover {
+    background-color: #DBB865 !important;
+    color: #ffffff !important;
+    transform: scale(1.1) !important;
+}

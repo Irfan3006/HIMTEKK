@@ -200,7 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const navbar = document.getElementById('navbar');
-    const sections = document.querySelectorAll('section');
+    const isSolidNavbar = navbar && (navbar.hasAttribute('data-solid') || navbar.classList.contains('navbar-solid') || window.location.pathname.includes('/pages/'));
+    const sections = document.querySelectorAll('section, main');
     const navLinks = document.querySelectorAll('.nav-link');
 
     window.addEventListener('scroll', () => {
@@ -211,7 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.add('bg-primary', 'shadow-lg', 'py-2');
             navbar.classList.remove('py-4');
         } else {
-            navbar.classList.remove('bg-primary', 'shadow-lg', 'py-2');
+            if (!isSolidNavbar) {
+                navbar.classList.remove('bg-primary', 'shadow-lg');
+            }
+            navbar.classList.remove('py-2');
             navbar.classList.add('py-4');
         }
 
