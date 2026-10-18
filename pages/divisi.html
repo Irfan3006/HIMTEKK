@@ -38,12 +38,131 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Cache Control & Anti-Stale Meta Tags -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <!-- Stylesheets (Pre-compiled & Custom) -->
-    <link rel="stylesheet" href="../css/tailwind.min.css">
+    <link rel="stylesheet" href="../css/tailwind.min.css?v=2026101909">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css?v=2026101905">
+    <link rel="stylesheet" href="../css/style.css?v=2026101909">
+
+    <!-- Embedded Mobile Horizontal Carousel Styles (Instant Loading & Immune to CSS Cache) -->
+    <style>
+    @media (max-width: 767px) {
+        .divisi-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            scroll-behavior: smooth !important;
+            gap: 1.15rem !important;
+            margin-left: -1rem !important;
+            margin-right: -1rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1.5rem !important;
+            padding-bottom: 1.25rem !important;
+            scroll-padding-left: 1rem !important;
+            scroll-padding-right: 1.5rem !important;
+            scrollbar-width: none !important;
+        }
+
+        .divisi-grid::-webkit-scrollbar {
+            display: none !important;
+        }
+
+        .divisi-grid .divisi-card {
+            flex: 0 0 88% !important;
+            max-width: 88% !important;
+            min-width: 290px !important;
+            scroll-snap-align: start !important;
+            scroll-snap-stop: always !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            opacity: 1 !important;
+            transform: none !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 40, 75, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .divisi-grid .divisi-card:hover {
+            transform: none !important;
+        }
+
+        .divisi-mobile-controls {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 0.75rem !important;
+            margin-bottom: 1rem !important;
+            padding: 0 0.25rem !important;
+        }
+    }
+
+    .divisi-mobile-controls {
+        display: none;
+    }
+
+    .divisi-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background-color: #cbd5e1;
+        transition: all 0.25s ease;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .divisi-dot.active {
+        width: 22px !important;
+        background-color: #DBB865 !important;
+        box-shadow: 0 0 8px rgba(219, 184, 101, 0.5) !important;
+    }
+
+    .divisi-nav-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 9999px;
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        color: #00406E;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .divisi-nav-btn:hover, .divisi-nav-btn:active {
+        background-color: #00406E;
+        color: #ffffff;
+        border-color: #00406E;
+    }
+
+    .divisi-nav-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+        background-color: #f1f5f9;
+    }
+
+    .filter-chip.active {
+        background: #DBB865 !important;
+        color: #002d4d !important;
+        border-color: #DBB865 !important;
+        box-shadow: 0 6px 20px rgba(219, 184, 101, 0.4);
+    }
+
+    .filter-chip.active i {
+        color: #002d4d !important;
+    }
+    </style>
 
     <!-- Breadcrumb Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -159,6 +278,35 @@
     <main class="pt-10 pb-4 sm:pt-14 sm:pb-6 md:pt-16 md:pb-8">
         <div class="container mx-auto px-4 sm:px-6">
             
+            <!-- Mobile Swipe Helper & Indicator (visible on mobile only) -->
+            <div class="divisi-mobile-controls" aria-label="Navigasi Divisi Mobile">
+                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-accent/20 text-accent shrink-0">
+                        <i class="fas fa-arrows-left-right text-[11px] animate-pulse"></i>
+                    </span>
+                    <span id="divisi-current-title">Cyber Security (1/6)</span>
+                </div>
+                <!-- Pagination Dots & Navigation Buttons -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <div id="divisi-dots" class="flex items-center gap-1.5" role="tablist">
+                        <button class="divisi-dot active" data-index="0" aria-label="Divisi 1"></button>
+                        <button class="divisi-dot" data-index="1" aria-label="Divisi 2"></button>
+                        <button class="divisi-dot" data-index="2" aria-label="Divisi 3"></button>
+                        <button class="divisi-dot" data-index="3" aria-label="Divisi 4"></button>
+                        <button class="divisi-dot" data-index="4" aria-label="Divisi 5"></button>
+                        <button class="divisi-dot" data-index="5" aria-label="Divisi 6"></button>
+                    </div>
+                    <div class="flex items-center gap-1 ml-1">
+                        <button id="divisi-prev-btn" class="divisi-nav-btn" aria-label="Divisi Sebelumnya" disabled>
+                            <i class="fas fa-chevron-left text-[11px]"></i>
+                        </button>
+                        <button id="divisi-next-btn" class="divisi-nav-btn" aria-label="Divisi Berikutnya">
+                            <i class="fas fa-chevron-right text-[11px]"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="divisi-grid">
 
                 <!-- 1. DIVISI CYBER SECURITY -->
@@ -807,7 +955,7 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../js/script.js"></script>
+    <script src="../js/script.js?v=2026101909"></script>
     <script>
         // Init AOS
         if (typeof AOS !== 'undefined') {
@@ -817,6 +965,136 @@
                 offset: 50
             });
         }
+
+        // Init Mobile Divisi Horizontal Carousel
+        (function() {
+            const grid = document.querySelector('.divisi-grid');
+            if (!grid) return;
+
+            const cards = grid.querySelectorAll('.divisi-card');
+            const dots = document.querySelectorAll('.divisi-dot');
+            const prevBtn = document.getElementById('divisi-prev-btn');
+            const nextBtn = document.getElementById('divisi-next-btn');
+            const titleLabel = document.getElementById('divisi-current-title');
+            const filterChips = document.querySelectorAll('.filter-chips-container .filter-chip');
+
+            if (cards.length === 0) return;
+
+            let currentIndex = 0;
+
+            const updateControls = (index) => {
+                currentIndex = Math.max(0, Math.min(index, cards.length - 1));
+
+                // Update Dots
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+
+                // Update Buttons
+                if (prevBtn) prevBtn.disabled = currentIndex === 0;
+                if (nextBtn) nextBtn.disabled = currentIndex === cards.length - 1;
+
+                // Update Title
+                if (titleLabel) {
+                    const currentCard = cards[currentIndex];
+                    const heading = currentCard.querySelector('h2');
+                    const name = heading ? heading.textContent.trim().replace(/^Divisi\s+/, '') : `Divisi ${currentIndex + 1}`;
+                    titleLabel.textContent = `${name} (${currentIndex + 1}/${cards.length})`;
+                }
+
+                // Update Filter Chips Active State & Keep in View
+                filterChips.forEach((chip, i) => {
+                    const isActive = i === currentIndex;
+                    chip.classList.toggle('active', isActive);
+                    if (isActive) {
+                        const container = chip.parentElement;
+                        if (container && container.classList.contains('filter-chips-container')) {
+                            const chipOffset = chip.offsetLeft - container.offsetLeft;
+                            const containerCenter = (container.clientWidth / 2) - (chip.clientWidth / 2);
+                            container.scrollTo({
+                                left: Math.max(0, chipOffset - containerCenter),
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            };
+
+            const scrollToCard = (index) => {
+                if (index < 0 || index >= cards.length) return;
+                const card = cards[index];
+                const cardLeft = card.offsetLeft - grid.offsetLeft;
+                grid.scrollTo({
+                    left: cardLeft,
+                    behavior: 'smooth'
+                });
+                updateControls(index);
+            };
+
+            // Dots Click
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => scrollToCard(index));
+            });
+
+            // Arrow Clicks
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => scrollToCard(currentIndex - 1));
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => scrollToCard(currentIndex + 1));
+            }
+
+            // Scroll Event on Grid
+            let scrollTimer;
+            grid.addEventListener('scroll', () => {
+                if (window.innerWidth >= 768) return;
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    const scrollLeft = grid.scrollLeft;
+                    let closestIndex = 0;
+                    let minDiff = Infinity;
+                    cards.forEach((card, i) => {
+                        const cardLeft = card.offsetLeft - grid.offsetLeft;
+                        const diff = Math.abs(cardLeft - scrollLeft);
+                        if (diff < minDiff) {
+                            minDiff = diff;
+                            closestIndex = i;
+                        }
+                    });
+                    updateControls(closestIndex);
+                }, 50);
+            }, { passive: true });
+
+            // Filter Chips Click (Hero Section)
+            filterChips.forEach((chip, index) => {
+                chip.addEventListener('click', (e) => {
+                    if (window.innerWidth < 768) {
+                        e.preventDefault();
+                        const targetId = chip.getAttribute('href');
+                        const targetCard = targetId ? document.querySelector(targetId) : null;
+                        
+                        // Scroll page vertically so grid is visible below header
+                        const navHeight = 70;
+                        const gridRect = grid.getBoundingClientRect();
+                        const pageScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        window.scrollTo({
+                            top: gridRect.top + pageScrollTop - navHeight - 50,
+                            behavior: 'smooth'
+                        });
+
+                        if (targetCard) {
+                            const cardIndex = Array.from(cards).indexOf(targetCard);
+                            if (cardIndex !== -1) {
+                                setTimeout(() => scrollToCard(cardIndex), 150);
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Set Initial State
+            updateControls(0);
+        })();
     </script>
 </body>
 </html>
