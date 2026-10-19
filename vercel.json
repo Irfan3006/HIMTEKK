@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/flag",
-      "destination": "/pages/flag.html"
+      "destination": "/pages/flag"
     }
   ],
   "headers": [
