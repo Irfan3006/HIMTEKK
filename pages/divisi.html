@@ -44,11 +44,11 @@
     <meta http-equiv="Expires" content="0">
 
     <!-- Stylesheets (Pre-compiled & Custom) -->
-    <link rel="stylesheet" href="../css/tailwind.min.css?v=2026101909">
+    <link rel="stylesheet" href="../css/tailwind.min.css?v=2026101910">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css?v=2026101909">
+    <link rel="stylesheet" href="../css/style.css?v=2026101910">
 
     <!-- Embedded Mobile Horizontal Carousel Styles (Instant Loading & Immune to CSS Cache) -->
     <style>
@@ -161,6 +161,54 @@
 
     .filter-chip.active i {
         color: #002d4d !important;
+    }
+
+    .wajib-box {
+        background: linear-gradient(135deg, rgba(126, 34, 206, 0.08) 0%, rgba(126, 34, 206, 0.02) 100%);
+        border: 1px dashed rgba(126, 34, 206, 0.45);
+        border-radius: 1.35rem;
+        padding: 1.5rem 1.4rem;
+    }
+
+    .wajib-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        color: #334155;
+    }
+
+    .wajib-bullet {
+        width: 6px;
+        height: 6px;
+        min-width: 6px;
+        min-height: 6px;
+        border-radius: 50%;
+        background-color: #7e22ce;
+        margin-top: 0.55rem;
+        flex-shrink: 0;
+        display: inline-block;
+        box-shadow: 0 0 5px rgba(126, 34, 206, 0.5);
+    }
+
+    @media (max-width: 767px) {
+        .wajib-box {
+            padding: 1.35rem 1.25rem !important;
+            border-radius: 1.25rem !important;
+        }
+
+        .wajib-item {
+            font-size: 0.875rem !important;
+            gap: 0.75rem !important;
+            line-height: 1.65 !important;
+        }
+
+        .wajib-bullet {
+            margin-top: 0.55rem !important;
+            width: 6px !important;
+            height: 6px !important;
+        }
     }
     </style>
 
@@ -619,36 +667,40 @@
                             <ul class="space-y-3.5 sm:space-y-4">
                                 <li class="requirement-item">
                                     <i class="fas fa-check-circle"></i>
-                                    <span>Memiliki minat terhadap bidang desain grafis, fotografi, videografi, editing, atau pembuatan konten digital.</span>
+                                    <span>Memiliki minat tinggi di bidang media kreatif, desain grafis, videografi, atau pengelolaan media sosial.</span>
                                 </li>
                                 <li class="requirement-item">
                                     <i class="fas fa-check-circle"></i>
-                                    <span>Memiliki pengetahuan dasar mengenai prinsip desain visual, seperti komposisi, tipografi, warna, dan tata letak.</span>
+                                    <span>Memahami dasar-dasar visual, komposisi warna, dan tata letak desain.</span>
                                 </li>
                                 <li class="requirement-item">
                                     <i class="fas fa-check-circle"></i>
-                                    <span>Memiliki kemampuan dasar menggunakan setidaknya satu tools kreatif, seperti Canva dan CapCut.</span>
+                                    <span>Memiliki pengalaman dasar menggunakan aplikasi desain atau editing video (seperti Canva atau CapCut).</span>
                                 </li>
                                 <li class="requirement-item">
                                     <i class="fas fa-check-circle"></i>
-                                    <span>Mampu menuangkan ide kreatif menjadi konten visual atau audiovisual yang informatif dan sesuai dengan identitas HIMTEKK.</span>
+                                    <span>Paham dan tanggap terhadap tren konten media sosial masa kini.</span>
                                 </li>
                                 <li class="requirement-item">
                                     <i class="fas fa-check-circle"></i>
-                                    <span>Mampu bekerja sama dalam tim, menerima masukan, bertanggung jawab terhadap tugas, dan memenuhi tenggat waktu.</span>
+                                    <span>Mampu bekerja sama dalam tim, komunikatif, bertanggung jawab, serta berkomitmen mengikuti seluruh program kerja divisi.</span>
                                 </li>
                             </ul>
                         </div>
 
-                        <!-- Nilai Tambah -->
-                        <div class="bonus-box mb-4 sm:mb-6">
-                            <h3 class="text-xs font-bold text-yellow-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
-                                <i class="fas fa-star text-accent"></i> Nilai Tambah (Tidak Wajib)
+                        <!-- Persyaratan Wajib -->
+                        <div class="wajib-box mb-4 sm:mb-6">
+                            <h3 class="text-xs font-bold text-purple-900 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+                                <i class="fas fa-asterisk text-purple-600 text-[10px]"></i> Persyaratan Wajib
                             </h3>
                             <ul class="space-y-2.5 sm:space-y-3">
-                                <li class="bonus-item">
-                                    <span class="bonus-bullet"></span>
-                                    <span>Memiliki pengalaman mengelola media sosial, membuat konten promosi, menyusun identitas visual, atau menggunakan tools editing profesional (Photoshop, Illustrator, Premiere Pro, Figma, dll).</span>
+                                <li class="wajib-item">
+                                    <span class="wajib-bullet"></span>
+                                    <span>Memiliki portofolio karya desain grafis, foto, video, atau penulisan konten.</span>
+                                </li>
+                                <li class="wajib-item">
+                                    <span class="wajib-bullet"></span>
+                                    <span>Paham dasar identitas visual, branding, dan kerapian tampilan feed media sosial.</span>
                                 </li>
                             </ul>
                         </div>
