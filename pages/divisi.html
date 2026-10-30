@@ -44,11 +44,11 @@
     <meta http-equiv="Expires" content="0">
 
     <!-- Stylesheets (Pre-compiled & Custom) -->
-    <link rel="stylesheet" href="../css/tailwind.min.css?v=2026101910">
+    <link rel="stylesheet" href="../css/tailwind.min.css?v=2026103101">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css?v=2026101910">
+    <link rel="stylesheet" href="../css/style.css?v=2026103101">
 
     <!-- Embedded Mobile Horizontal Carousel Styles (Instant Loading & Immune to CSS Cache) -->
     <style>
@@ -209,6 +209,149 @@
             width: 6px !important;
             height: 6px !important;
         }
+    }
+
+    /* Oprec Closed Modal (HIMTEKK Official Palette - Immune to CSS Cache) */
+    #oprec-closed-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background-color: rgba(15, 23, 42, 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    #oprec-closed-modal.flex {
+        display: flex !important;
+    }
+
+    .oprec-closed-card {
+        position: relative;
+        width: 100%;
+        max-width: 24rem;
+        background-color: #00406E;
+        background-image:
+            radial-gradient(circle at 85% 15%, rgba(219, 184, 101, 0.18) 0%, transparent 55%),
+            linear-gradient(155deg, #00406E 0%, #002d4d 55%, #0F172A 100%);
+        border: 1px solid rgba(219, 184, 101, 0.45);
+        border-radius: 1.75rem;
+        padding: 2rem 1.75rem 1.75rem;
+        color: #FFFFFF;
+        text-align: center;
+        box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.8), 0 0 35px rgba(219, 184, 101, 0.22);
+        box-sizing: border-box;
+    }
+
+    .oprec-closed-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.85);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .oprec-closed-close:hover {
+        background: #DBB865;
+        border-color: #DBB865;
+        color: #00406E;
+        transform: scale(1.08);
+    }
+
+    .oprec-closed-icon {
+        width: 3.75rem;
+        height: 3.75rem;
+        margin: 0 auto 1rem;
+        border-radius: 1.15rem;
+        background: rgba(219, 184, 101, 0.16);
+        border: 1px solid rgba(219, 184, 101, 0.4);
+        color: #DBB865;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 0 22px rgba(219, 184, 101, 0.25);
+    }
+
+    .oprec-closed-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.3rem 0.9rem;
+        border-radius: 9999px;
+        background: rgba(219, 184, 101, 0.15);
+        border: 1px solid rgba(219, 184, 101, 0.4);
+        color: #DBB865;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.85rem;
+    }
+
+    .oprec-closed-badge-dot {
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 9999px;
+        background-color: #DBB865;
+        display: inline-block;
+    }
+
+    .oprec-closed-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        margin: 0 0 0.5rem;
+        line-height: 1.3;
+    }
+
+    .oprec-closed-desc {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.88);
+        line-height: 1.65;
+        margin: 0 0 1.5rem;
+    }
+
+    .oprec-closed-desc strong {
+        color: #DBB865;
+        font-weight: 700;
+    }
+
+    .oprec-closed-btn {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+        border-radius: 9999px;
+        background-color: #DBB865;
+        color: #00406E;
+        border: none;
+        font-weight: 800;
+        font-size: 0.875rem;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(219, 184, 101, 0.35);
+        transition: all 0.25s ease;
+    }
+
+    .oprec-closed-btn:hover {
+        background-color: #e4c57a;
+        color: #00406E;
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 14px 30px rgba(219, 184, 101, 0.48);
+    }
+
+    .oprec-closed-btn:active {
+        transform: translateY(0) scale(0.98);
     }
     </style>
 
@@ -442,7 +585,7 @@
                     <!-- CTA -->
                     <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5">
                         <span class="text-xs text-slate-500 font-medium text-center sm:text-left">Pendaftaran Periode 2026</span>
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
                             <span>Daftar Divisi Ini</span>
                             <i class="fas fa-arrow-right text-accent text-xs"></i>
                         </a>
@@ -526,7 +669,7 @@
                     <!-- CTA -->
                     <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5">
                         <span class="text-xs text-slate-500 font-medium text-center sm:text-left">Pendaftaran Periode 2026</span>
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
                             <span>Daftar Divisi Ini</span>
                             <i class="fas fa-arrow-right text-accent text-xs"></i>
                         </a>
@@ -625,7 +768,7 @@
                     <!-- CTA -->
                     <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5">
                         <span class="text-xs text-slate-500 font-medium text-center sm:text-left">Pendaftaran Periode 2026</span>
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
                             <span>Daftar Divisi Ini</span>
                             <i class="fas fa-arrow-right text-accent text-xs"></i>
                         </a>
@@ -709,7 +852,7 @@
                     <!-- CTA -->
                     <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5">
                         <span class="text-xs text-slate-500 font-medium text-center sm:text-left">Pendaftaran Periode 2026</span>
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
                             <span>Daftar Divisi Ini</span>
                             <i class="fas fa-arrow-right text-accent text-xs"></i>
                         </a>
@@ -809,7 +952,7 @@
                     <!-- CTA -->
                     <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5">
                         <span class="text-xs text-slate-500 font-medium text-center sm:text-left">Pendaftaran Periode 2026</span>
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
                             <span>Daftar Divisi Ini</span>
                             <i class="fas fa-arrow-right text-accent text-xs"></i>
                         </a>
@@ -894,7 +1037,7 @@
                     <!-- CTA -->
                     <div class="pt-5 mt-5 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5">
                         <span class="text-xs text-slate-500 font-medium text-center sm:text-left">Pendaftaran Periode 2026</span>
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-7 rounded-full text-xs sm:text-sm transition-all duration-300 transform hover:scale-105 shadow-sm text-center">
                             <span>Daftar Divisi Ini</span>
                             <i class="fas fa-arrow-right text-accent text-xs"></i>
                         </a>
@@ -919,7 +1062,7 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto shrink-0">
-                        <a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="btn-cta-primary w-full sm:w-auto">
+                        <a href="javascript:void(0)" class="btn-oprec-trigger btn-cta-primary w-full sm:w-auto">
                             <span>Daftar Sekarang</span>
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -974,7 +1117,7 @@
                     <ul class="space-y-3 sm:space-y-4 text-slate-400 text-xs sm:text-sm">
                         <li><a href="../#contact" class="hover:text-accent transition-colors">Hubungi Kami</a></li>
                         <li><a href="../#visi-misi" class="hover:text-accent transition-colors">Visi & Misi</a></li>
-                        <li><a href="https://go.himtekk.com/gabung" target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">Pendaftaran Oprec 2026</a></li>
+                        <li><a href="javascript:void(0)" class="btn-oprec-trigger hover:text-accent transition-colors">Pendaftaran Oprec 2026</a></li>
                     </ul>
                 </div>
 
@@ -1005,10 +1148,105 @@
         </div>
     </footer>
 
+    <!-- Modal Oprec Closed (Small Centered Popup) -->
+    <div id="oprec-closed-modal" class="hidden transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="oprec-closed-title">
+        <div class="oprec-closed-card animate__animated animate__zoomIn animate__faster">
+            <!-- Close Button -->
+            <button type="button" id="close-oprec-closed-modal" class="oprec-closed-close" aria-label="Tutup Pengumuman">
+                <i class="fas fa-times text-xs"></i>
+            </button>
+
+            <!-- Icon -->
+            <div class="oprec-closed-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+
+            <!-- Status Badge -->
+            <div class="oprec-closed-badge">
+                <span class="oprec-closed-badge-dot animate-ping"></span>
+                <span>Open Recruitment Closed</span>
+            </div>
+
+            <!-- Heading -->
+            <h3 id="oprec-closed-title" class="oprec-closed-title">
+                Pendaftaran Ditutup
+            </h3>
+
+            <!-- Message Description -->
+            <p class="oprec-closed-desc">
+                Open recruitment telah ditutup.<br>Tunggu saat <strong>EXPO HIMTEKK 2027</strong> ya!
+            </p>
+
+            <!-- CTA / Dismiss Button -->
+            <button type="button" id="btn-close-oprec-closed-ok" class="oprec-closed-btn">
+                Oke, Mengerti
+            </button>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../js/script.js?v=2026101909"></script>
+    <script src="../js/script.js?v=2026103001"></script>
     <script>
+        // Oprec Closed Modal Controller
+        (function() {
+            const modal = document.getElementById('oprec-closed-modal');
+            const closeBtn = document.getElementById('close-oprec-closed-modal');
+            const okBtn = document.getElementById('btn-close-oprec-closed-ok');
+            const triggerBtns = document.querySelectorAll('.btn-oprec-trigger, a[href*="go.himtekk.com/gabung"]');
+
+            function openModal(e) {
+                if (e) e.preventDefault();
+                if (!modal) return;
+                modal.classList.remove('hidden', 'animate__fadeOut');
+                modal.classList.add('flex', 'animate__animated', 'animate__fadeIn', 'animate__faster');
+                const card = modal.querySelector('.oprec-closed-card');
+                if (card) {
+                    card.classList.remove('animate__zoomOut');
+                    card.classList.add('animate__animated', 'animate__zoomIn', 'animate__faster');
+                }
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                if (!modal) return;
+                modal.classList.remove('animate__fadeIn');
+                modal.classList.add('animate__animated', 'animate__fadeOut', 'animate__faster');
+                const card = modal.querySelector('.oprec-closed-card');
+                if (card) {
+                    card.classList.remove('animate__zoomIn');
+                    card.classList.add('animate__zoomOut');
+                }
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex', 'animate__animated', 'animate__fadeOut', 'animate__fadeIn', 'animate__faster');
+                    if (card) {
+                        card.classList.remove('animate__animated', 'animate__zoomOut', 'animate__zoomIn', 'animate__faster');
+                    }
+                    document.body.style.overflow = '';
+                }, 200);
+            }
+
+            triggerBtns.forEach(btn => {
+                btn.addEventListener('click', openModal);
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (okBtn) okBtn.addEventListener('click', closeModal);
+
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        })();
+
         // Init AOS
         if (typeof AOS !== 'undefined') {
             AOS.init({

@@ -1,3 +1,14 @@
+:root {
+    --color-primary: #00406E;
+    --color-secondary: #FFFFFF;
+    --color-accent: #DBB865;
+    --color-bg-base: #F8FAFC;
+    --color-dark: #0F172A;
+    --color-text-main: #1E293B;
+    --color-text-muted: #475569;
+    --color-border: #F1F5F9;
+}
+
 html,
 body {
     background-color: #f8fafc;
@@ -413,6 +424,149 @@ body {
         font-size: 0.75rem;
         padding: 0.3rem 0.75rem;
     }
+}
+
+/* Open Recruitment Closed Popup Modal (HIMTEKK Official Palette) */
+#oprec-closed-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#oprec-closed-modal.flex {
+    display: flex;
+}
+
+.oprec-closed-card {
+    position: relative;
+    width: 100%;
+    max-width: 24rem;
+    background-color: #00406E;
+    background-image:
+        radial-gradient(circle at 85% 15%, rgba(219, 184, 101, 0.18) 0%, transparent 55%),
+        linear-gradient(155deg, #00406E 0%, #002d4d 55%, #0F172A 100%);
+    border: 1px solid rgba(219, 184, 101, 0.45);
+    border-radius: 1.75rem;
+    padding: 2rem 1.75rem 1.75rem;
+    color: #FFFFFF;
+    text-align: center;
+    box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.8), 0 0 35px rgba(219, 184, 101, 0.22);
+    box-sizing: border-box;
+}
+
+.oprec-closed-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.oprec-closed-close:hover {
+    background: #DBB865;
+    border-color: #DBB865;
+    color: #00406E;
+    transform: scale(1.08);
+}
+
+.oprec-closed-icon {
+    width: 3.75rem;
+    height: 3.75rem;
+    margin: 0 auto 1rem;
+    border-radius: 1.15rem;
+    background: rgba(219, 184, 101, 0.16);
+    border: 1px solid rgba(219, 184, 101, 0.4);
+    color: #DBB865;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 22px rgba(219, 184, 101, 0.25);
+}
+
+.oprec-closed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    background: rgba(219, 184, 101, 0.15);
+    border: 1px solid rgba(219, 184, 101, 0.4);
+    color: #DBB865;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.85rem;
+}
+
+.oprec-closed-badge-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 9999px;
+    background-color: #DBB865;
+    display: inline-block;
+}
+
+.oprec-closed-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+}
+
+.oprec-closed-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.65;
+    margin: 0 0 1.5rem;
+}
+
+.oprec-closed-desc strong {
+    color: #DBB865;
+    font-weight: 700;
+}
+
+.oprec-closed-btn {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    border-radius: 9999px;
+    background-color: #DBB865;
+    color: #00406E;
+    border: none;
+    font-weight: 800;
+    font-size: 0.875rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(219, 184, 101, 0.35);
+    transition: all 0.25s ease;
+}
+
+.oprec-closed-btn:hover {
+    background-color: #e4c57a;
+    color: #00406E;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(219, 184, 101, 0.48);
+}
+
+.oprec-closed-btn:active {
+    transform: translateY(0) scale(0.98);
 }
 
 /* Division Page Styles */
