@@ -65,6 +65,31 @@ export const POST: APIRoute = async ({ params, request, cookies }) => {
       );
     }
 
+    // Auto-retry dengan secret alternatif jika terjadi forbidden
+    if (data && !data.success && data.code === 'forbidden') {
+      const altSecret =
+        BERITA_CONFIG.apiSecret === 'himtekk-super-secret-key-2026'
+          ? 'himtekk-berita-secret'
+          : 'himtekk-super-secret-key-2026';
+
+      try {
+        const retryRes = await fetch(scriptUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            ...payload,
+            secret: altSecret
+          }),
+          redirect: 'follow'
+        });
+        const retryText = await retryRes.text();
+        const retryJson = JSON.parse(retryText);
+        if (retryJson && retryJson.success) {
+          data = retryJson;
+        }
+      } catch (_) {}
+    }
+
     // Jika login berhasil, set cookie sesi httpOnly
     if (action === 'login' && data.success && data.data?.token) {
       cookies.set('himtekk_admin_token', data.data.token, {

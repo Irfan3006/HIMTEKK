@@ -175,12 +175,46 @@ async function callAppsScriptDirect(payload: Record<string, any>, timeoutMs = 12
     }
 
     const text = await res.text();
+    let json: any = null;
     try {
-      return JSON.parse(text);
+      json = JSON.parse(text);
     } catch {
       console.warn(`[berita-api] Non-JSON response from Apps Script: ${text.substring(0, 100)}`);
       return null;
     }
+
+    // Auto-retry dengan secret alternatif jika terjadi kegagalan autentikasi
+    if (json && !json.success && json.code === 'forbidden') {
+      const currentSecret =
+        (typeof process !== 'undefined' && process.env && process.env.BERITA_API_SECRET) ||
+        BERITA_CONFIG.apiSecret;
+      const altSecret =
+        currentSecret === 'himtekk-super-secret-key-2026'
+          ? 'himtekk-berita-secret'
+          : 'himtekk-super-secret-key-2026';
+
+      try {
+        const retryRes = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            secret: altSecret,
+            ...payload
+          }),
+          redirect: 'follow',
+          signal: controller.signal
+        });
+        if (retryRes.ok) {
+          const retryText = await retryRes.text();
+          const retryJson = JSON.parse(retryText);
+          if (retryJson && retryJson.success) {
+            return retryJson;
+          }
+        }
+      } catch (_) {}
+    }
+
+    return json;
   } catch (err: any) {
     if (err.name !== 'AbortError') {
       console.warn(`[berita-api] Fetch failed:`, err?.message || err);

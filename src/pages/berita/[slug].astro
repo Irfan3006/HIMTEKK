@@ -9,55 +9,71 @@ export const prerender = false;
 
 const { slug } = Astro.params;
 
-if (!slug) {
-  return Astro.redirect('/404');
-}
-
-const { post, status } = await getBeritaBySlug(slug as string);
+const { post, status } = slug ? await getBeritaBySlug(slug as string) : { post: null, status: 'NOT_FOUND' as const };
 
 if (!post) {
-  return Astro.redirect('/404');
+  Astro.response.status = 404;
 }
 
-// Render markdown to sanitized HTML
-const rawHtml = await marked.parse(post.content || post.excerpt || '');
-const safeContent = sanitizeHtml(rawHtml, {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-    'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'blockquote', 'hr', 'span'
-  ]),
-  allowedAttributes: {
-    ...sanitizeHtml.defaults.allowedAttributes,
-    img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'class'],
-    a: ['href', 'name', 'target', 'rel', 'class'],
-    code: ['class'],
-    th: ['align', 'colspan'],
-    td: ['align', 'colspan'],
-    span: ['class']
-  },
-  transformTags: {
-    a: sanitizeHtml.simpleTransform('a', {
-      target: '_blank',
-      rel: 'noopener noreferrer'
-    })
-  }
-});
+const tags = post ? (
+  Array.isArray(post.tags)
+    ? post.tags
+    : typeof post.tags === 'string' && post.tags
+      ? (post.tags as string).split(',').map((t) => t.trim()).filter(Boolean)
+      : []
+) : [];
 
-const wordCount = post.word_count || (post.content || '').split(/\s+/).filter(Boolean).length;
+// Render markdown to sanitized HTML
+let safeContent = '';
+if (post) {
+  try {
+    const rawHtml = await marked.parse(post.content || post.excerpt || '');
+    safeContent = sanitizeHtml(rawHtml, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'blockquote', 'hr', 'span'
+      ]),
+      allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'class'],
+        a: ['href', 'name', 'target', 'rel', 'class'],
+        code: ['class'],
+        th: ['align', 'colspan'],
+        td: ['align', 'colspan'],
+        span: ['class']
+      },
+      transformTags: {
+        a: sanitizeHtml.simpleTransform('a', {
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        })
+      }
+    });
+  } catch (_) {
+    safeContent = `<p>${post.excerpt || post.title}</p>`;
+  }
+}
+
+const wordCount = post ? (post.word_count || (post.content || '').split(/\s+/).filter(Boolean).length) : 0;
 const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
 // Rekomendasi berita terkait
-const indexData = await getBeritaIndex();
-const relatedPosts = indexData.posts
-  .filter((p) => p.slug !== post.slug)
-  .slice(0, 3);
+let relatedPosts: any[] = [];
+if (post) {
+  try {
+    const indexData = await getBeritaIndex();
+    relatedPosts = (indexData?.posts || [])
+      .filter((p) => p.slug !== post.slug)
+      .slice(0, 3);
+  } catch (_) {}
+}
 
 const siteUrl = BERITA_CONFIG.siteUrl;
-const postUrl = `${siteUrl}/berita/${post.slug}`;
-const postThumbnail = post.thumbnail && post.thumbnail.startsWith('http')
+const postUrl = post ? `${siteUrl}/berita/${post.slug}` : `${siteUrl}/berita`;
+const postThumbnail = post && post.thumbnail && post.thumbnail.startsWith('http')
   ? post.thumbnail
-  : `${siteUrl}${post.thumbnail || '/assets/img/og.webp'}`;
+  : `${siteUrl}${post?.thumbnail || '/assets/img/og.webp'}`;
 
-const jsonLd = {
+const jsonLd = post ? {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
   headline: post.title,
@@ -83,9 +99,52 @@ const jsonLd = {
     '@type': 'WebPage',
     '@id': postUrl
   }
-};
+} : null;
 ---
 
+{!post ? (
+  <Layout
+    title="Berita Tidak Ditemukan - HIMTEKK"
+    description="Berita yang Anda cari tidak ditemukan atau telah dipindahkan."
+    robots="noindex, follow"
+    bodyClass="text-slate-800 bg-slate-50 min-h-screen flex flex-col justify-between"
+    sweetalert={false}
+  >
+    <nav class="w-full py-4 bg-primary shadow-lg">
+      <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+        <a href="/" class="flex items-center gap-2.5">
+          <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-10 h-10" width="40" height="40" decoding="async">
+          <span class="text-xl sm:text-2xl font-bold text-white"><span class="text-accent">HIM</span>TEKK</span>
+        </a>
+        <a href="/berita" class="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-accent hover:text-slate-900 text-xs font-semibold text-white transition-all flex items-center gap-1.5">
+          <i class="fas fa-arrow-left text-[11px]"></i> Kembali ke Berita
+        </a>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-16 text-center my-auto max-w-lg">
+      <div class="w-20 h-20 mx-auto mb-6 rounded-3xl bg-amber-100 text-amber-600 flex items-center justify-center text-3xl shadow-sm">
+        <i class="fas fa-file-circle-xmark"></i>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3">Berita Tidak Ditemukan</h1>
+      <p class="text-sm sm:text-base text-slate-600 mb-8 leading-relaxed">
+        Artikel berita yang Anda tuju mungkin belum dipublikasikan, tautannya salah, atau telah dipindahkan.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="/berita" class="px-6 py-3 rounded-full bg-primary hover:bg-primary/90 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2">
+          <i class="fas fa-newspaper"></i> Jelajahi Berita Lain
+        </a>
+        <a href="/" class="px-6 py-3 rounded-full bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold text-sm transition-all">
+          Ke Beranda
+        </a>
+      </div>
+    </main>
+
+    <footer class="py-6 text-center text-xs text-slate-400 border-t border-slate-200">
+      &copy; 2026 HIMTEKK Universitas Amikom Yogyakarta
+    </footer>
+  </Layout>
+) : (
 <Layout
   title={`${post.title} - HIMTEKK`}
   description={post.excerpt}
@@ -99,7 +158,7 @@ const jsonLd = {
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <meta property="article:published_time" content={post.published_at || post.created_at} />
     <meta property="article:section" content={post.category_name || post.category} />
-    {post.tags && post.tags.map((t) => <meta property="article:tag" content={t} />)}
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
 
     <style is:inline>
       /* Reading Progress Bar */
@@ -329,12 +388,12 @@ const jsonLd = {
         <div class="article-content" set:html={safeContent} />
 
         <!-- Tags -->
-        {post.tags && post.tags.length > 0 && (
+        {tags.length > 0 && (
           <div class="mt-10 pt-6 border-t border-slate-100 flex flex-wrap items-center gap-2">
             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-2">
               <i class="fas fa-tags"></i> Topik:
             </span>
-            {post.tags.map((tag) => (
+            {tags.map((tag) => (
               <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-200 transition-colors">
                 #{tag}
               </span>
@@ -526,3 +585,4 @@ const jsonLd = {
     </script>
   </Fragment>
 </Layout>
+)}

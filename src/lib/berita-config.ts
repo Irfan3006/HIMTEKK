@@ -11,10 +11,14 @@ export const BERITA_CONFIG = {
   authorDefault: 'HIMTEKK Amikom',
   // URL deployment Google Apps Script (bisa diatur lewat env BERITA_SCRIPT_URL)
   scriptUrl:
+    (typeof process !== 'undefined' && process.env && process.env.BERITA_SCRIPT_URL) ||
     import.meta.env.BERITA_SCRIPT_URL ||
     'https://script.google.com/macros/s/AKfycbyjUzNx2ffHFZX3GW_QWctmOe24mxHqVS9s9fzFTL3as0kSaMQ7zW2dqEUqkkrcnCNA2Q/exec',
   // Secret token backend untuk komunikasi aman Vercel Server -> Apps Script
-  apiSecret: import.meta.env.BERITA_API_SECRET || 'himtekk-berita-secret',
+  apiSecret:
+    (typeof process !== 'undefined' && process.env && process.env.BERITA_API_SECRET) ||
+    import.meta.env.BERITA_API_SECRET ||
+    'himtekk-super-secret-key-2026',
   itemsPerPage: 9
 };
 
