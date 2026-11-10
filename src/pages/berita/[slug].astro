@@ -461,9 +461,9 @@ const jsonLd = post ? {
         {post.title}
       </h1>
 
-      <!-- Sumber / Redaksi & Kategori (CNN Style) -->
-      <div class="flex items-center gap-2 text-sm sm:text-base font-bold text-red-700 mb-1">
-        <span>{post.author_name || 'HIMTEKK Amikom'}</span>
+      <!-- Sumber / Redaksi & Kategori (HIMTEKK Palette) -->
+      <div class="flex items-center gap-2 text-sm sm:text-base mb-1">
+        <span class="font-bold text-accent text-[#DBB865]">{post.author_name || 'HIMTEKK Amikom'}</span>
         <span class="text-slate-300 font-normal">·</span>
         <span class="text-slate-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">{post.category_name || post.category}</span>
       </div>
@@ -659,7 +659,7 @@ const jsonLd = post ? {
                     loading="lazy"
                   />
                 </div>
-                <span class="text-[11px] font-bold uppercase text-red-700 mb-1">
+                <span class="text-[11px] font-bold uppercase text-accent text-[#DBB865] mb-1">
                   {rel.category_name || rel.category}
                 </span>
                 <h4 class="font-bold text-sm text-slate-900 group-hover:text-primary transition-colors line-clamp-2 leading-snug mb-2">
