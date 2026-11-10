@@ -20,7 +20,9 @@ const hash = (file) =>
 export default defineConfig({
   site: 'https://himtekk.com',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    maxDuration: 60
+  }),
   trailingSlash: 'ignore',
   // Pertahankan whitespace HTML apa adanya agar tampilan identik dengan versi statis.
   compressHTML: false,

@@ -6,10 +6,17 @@ import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
 
 export const prerender = false;
+export const maxDuration = 60;
 
 const { slug } = Astro.params;
 
-const { post, status } = slug ? await getBeritaBySlug(slug as string) : { post: null, status: 'NOT_FOUND' as const };
+// Jalankan fetch post detail dan index secara paralel untuk performa optimal
+const [postResult, indexData] = await Promise.all([
+  slug ? getBeritaBySlug(slug as string) : Promise.resolve({ post: null, status: 'NOT_FOUND' as const }),
+  getBeritaIndex().catch(() => ({ posts: [], categories: [] }))
+]);
+
+const post = postResult.post;
 
 if (!post) {
   Astro.response.status = 404;
@@ -57,15 +64,11 @@ const wordCount = post ? (post.word_count || (post.content || '').split(/\s+/).f
 const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
 // Rekomendasi berita terkait
-let relatedPosts: any[] = [];
-if (post) {
-  try {
-    const indexData = await getBeritaIndex();
-    relatedPosts = (indexData?.posts || [])
+const relatedPosts = post
+  ? (indexData?.posts || [])
       .filter((p) => p.slug !== post.slug)
-      .slice(0, 3);
-  } catch (_) {}
-}
+      .slice(0, 3)
+  : [];
 
 const siteUrl = BERITA_CONFIG.siteUrl;
 const postUrl = post ? `${siteUrl}/berita/${post.slug}` : `${siteUrl}/berita`;
