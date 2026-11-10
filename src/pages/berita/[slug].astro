@@ -1,0 +1,528 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getBeritaBySlug, getBeritaIndex } from '../../lib/berita-api';
+import { BERITA_CONFIG, formatDateIndo, formatDateTimeIndo, getCategoryIcon } from '../../lib/berita-config';
+import { marked } from 'marked';
+import sanitizeHtml from 'sanitize-html';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+const { post, status } = await getBeritaBySlug(slug as string);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+// Render markdown to sanitized HTML
+const rawHtml = await marked.parse(post.content || post.excerpt || '');
+const safeContent = sanitizeHtml(rawHtml, {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'blockquote', 'hr', 'span'
+  ]),
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'class'],
+    a: ['href', 'name', 'target', 'rel', 'class'],
+    code: ['class'],
+    th: ['align', 'colspan'],
+    td: ['align', 'colspan'],
+    span: ['class']
+  },
+  transformTags: {
+    a: sanitizeHtml.simpleTransform('a', {
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    })
+  }
+});
+
+const wordCount = post.word_count || (post.content || '').split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+// Rekomendasi berita terkait
+const indexData = await getBeritaIndex();
+const relatedPosts = indexData.posts
+  .filter((p) => p.slug !== post.slug)
+  .slice(0, 3);
+
+const siteUrl = BERITA_CONFIG.siteUrl;
+const postUrl = `${siteUrl}/berita/${post.slug}`;
+const postThumbnail = post.thumbnail && post.thumbnail.startsWith('http')
+  ? post.thumbnail
+  : `${siteUrl}${post.thumbnail || '/assets/img/og.webp'}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: post.title,
+  description: post.excerpt,
+  image: [postThumbnail],
+  datePublished: post.published_at || post.created_at,
+  dateModified: post.updated_at || post.published_at || post.created_at,
+  author: {
+    '@type': 'Person',
+    name: post.author_name,
+    jobTitle: 'Kontributor Berita HIMTEKK'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'HIMTEKK Amikom Yogyakarta',
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/assets/img/logo.webp`
+    }
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': postUrl
+  }
+};
+---
+
+<Layout
+  title={`${post.title} - HIMTEKK`}
+  description={post.excerpt}
+  canonical={postUrl}
+  ogTitle={post.title}
+  ogDescription={post.excerpt}
+  bodyClass="text-slate-800 bg-slate-50 overflow-x-hidden"
+  sweetalert={true}
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <meta property="article:published_time" content={post.published_at || post.created_at} />
+    <meta property="article:section" content={post.category_name || post.category} />
+    {post.tags && post.tags.map((t) => <meta property="article:tag" content={t} />)}
+
+    <style is:inline>
+      /* Reading Progress Bar */
+      #readingProgressBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: #DBB865;
+        width: 0%;
+        z-index: 9999;
+        transition: width 0.1s ease-out;
+      }
+
+      /* Article Markdown Content Styling */
+      .article-content {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: #334155;
+      }
+      .article-content h2 {
+        font-size: 1.65rem;
+        font-weight: 800;
+        color: #00406E;
+        margin-top: 2.25rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+        border-bottom: 2px solid #F1F5F9;
+        padding-bottom: 0.5rem;
+      }
+      .article-content h3 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #00406E;
+        margin-top: 1.75rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+      }
+      .article-content p {
+        margin-bottom: 1.35rem;
+      }
+      .article-content ul, .article-content ol {
+        margin-left: 1.5rem;
+        margin-bottom: 1.35rem;
+      }
+      .article-content ul {
+        list-style-type: disc;
+      }
+      .article-content ol {
+        list-style-type: decimal;
+      }
+      .article-content li {
+        margin-bottom: 0.5rem;
+      }
+      .article-content blockquote {
+        border-left: 4px solid #DBB865;
+        background: rgba(219, 184, 101, 0.08);
+        padding: 1rem 1.25rem;
+        border-radius: 0 0.75rem 0.75rem 0;
+        margin: 1.5rem 0;
+        font-style: italic;
+        color: #1E293B;
+      }
+      .article-content pre {
+        background: #0F172A;
+        color: #E2E8F0;
+        padding: 1.25rem;
+        border-radius: 1rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+        font-size: 0.9rem;
+      }
+      .article-content code {
+        background: #F1F5F9;
+        color: #00406E;
+        padding: 0.15rem 0.4rem;
+        border-radius: 0.35rem;
+        font-size: 0.88em;
+      }
+      .article-content pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+      }
+      .article-content img {
+        border-radius: 1rem;
+        margin: 1.75rem auto;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      }
+      .article-content a {
+        color: #00406E;
+        text-decoration: underline;
+        font-weight: 600;
+      }
+      .article-content a:hover {
+        color: #DBB865;
+      }
+      .article-content table {
+        width: 100%;
+        margin: 1.5rem 0;
+        border-collapse: collapse;
+      }
+      .article-content th, .article-content td {
+        border: 1px solid #E2E8F0;
+        padding: 0.75rem 1rem;
+        text-align: left;
+      }
+      .article-content th {
+        background: #F8FAFC;
+        font-weight: 700;
+        color: #00406E;
+      }
+    </style>
+  </Fragment>
+
+  <!-- Reading Progress Bar -->
+  <div id="readingProgressBar"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 sm:py-4 bg-primary shadow-lg" data-solid="true">
+    <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+      <a href="/" class="flex items-center gap-2.5 sm:gap-3 group">
+        <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="nav-logo-img transition-transform group-hover:rotate-12" width="40" height="40" decoding="async">
+        <span class="text-xl sm:text-2xl font-bold text-white"><span class="text-accent">HIM</span>TEKK</span>
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-white p-2 focus:outline-none" aria-label="Toggle menu navigasi">
+        <i class="fas fa-bars text-xl sm:text-2xl"></i>
+      </button>
+
+      <!-- Desktop Links -->
+      <ul class="hidden md:flex space-x-7 text-white font-medium items-center">
+        <li><a href="/#hero" class="nav-link">Home</a></li>
+        <li><a href="/pages/pengurus" class="nav-link">Pengurus</a></li>
+        <li><a href="/pages/divisi" class="nav-link">Divisi</a></li>
+        <li><a href="/berita" class="nav-link active text-accent font-semibold">Berita</a></li>
+        <li><a href="/#contact" class="nav-link">Kontak</a></li>
+        <li>
+          <a href="/berita" class="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-accent hover:text-slate-900 text-xs font-semibold tracking-wide transition-all border border-white/20 flex items-center gap-1.5">
+            <i class="fas fa-arrow-left text-[11px]"></i> Semua Berita
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden bg-primary text-white px-6 py-4 absolute w-full left-0 animate__animated animate__fadeInDown shadow-2xl border-t border-white/10">
+      <ul class="flex flex-col space-y-3 font-medium text-sm">
+        <li><a href="/#hero" class="block py-1 hover:text-accent">Home</a></li>
+        <li><a href="/pages/pengurus" class="block py-1 hover:text-accent">Pengurus</a></li>
+        <li><a href="/pages/divisi" class="block py-1 hover:text-accent">Divisi</a></li>
+        <li><a href="/berita" class="block py-1 text-accent font-bold">Semua Berita</a></li>
+        <li><a href="/#contact" class="block py-1 hover:text-accent">Kontak</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Article Header & Breadcrumbs -->
+  <header class="pt-28 pb-8 sm:pt-36 sm:pb-12 bg-slate-900 text-white relative">
+    <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <!-- Breadcrumbs -->
+      <nav class="flex flex-wrap items-center gap-2 text-white/60 text-xs sm:text-sm mb-6" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <i class="fas fa-chevron-right text-[10px]"></i>
+        <a href="/berita" class="hover:text-accent transition-colors">Berita</a>
+        <i class="fas fa-chevron-right text-[10px]"></i>
+        <span class="text-white/90 truncate max-w-[200px] sm:max-w-none">{post.category_name || post.category}</span>
+      </nav>
+
+      <!-- Category Pill -->
+      <div class="mb-4">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-accent text-slate-950 font-bold text-xs uppercase tracking-wider rounded-full shadow">
+          <i class={`fas ${getCategoryIcon(post.category)}`}></i>
+          {post.category_name || post.category}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+        {post.title}
+      </h1>
+
+      <!-- Meta Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs sm:text-sm text-white/70">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-accent/20 border border-accent/40 text-accent flex items-center justify-center font-bold text-sm">
+            <i class="fas fa-user-pen"></i>
+          </div>
+          <div>
+            <div class="font-bold text-white">{post.author_name}</div>
+            <div class="text-xs text-white/60">{formatDateTimeIndo(post.published_at || post.created_at)}</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 text-xs sm:text-sm text-white/70">
+          <span class="flex items-center gap-1.5" title="Estimasi waktu baca">
+            <i class="far fa-clock text-accent"></i> ~{readingTime} menit baca
+          </span>
+          <span class="flex items-center gap-1.5" id="postViewsDisplay" title="Jumlah pembaca">
+            <i class="far fa-eye text-accent"></i> <span id="postViewsCount">{post.views || 0}</span> dibaca
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Main Content -->
+  <main class="py-10 sm:py-14">
+    <div class="container mx-auto px-4 sm:px-6 max-w-4xl">
+
+      <!-- Main Thumbnail -->
+      {post.thumbnail && (
+        <div class="mb-10 rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 aspect-[16/9] bg-slate-900">
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            class="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      )}
+
+      <!-- Body Article -->
+      <div class="bg-white rounded-3xl p-6 sm:p-10 md:p-12 shadow-sm border border-slate-200/90 mb-10">
+        <div class="article-content" set:html={safeContent} />
+
+        <!-- Tags -->
+        {post.tags && post.tags.length > 0 && (
+          <div class="mt-10 pt-6 border-t border-slate-100 flex flex-wrap items-center gap-2">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mr-2">
+              <i class="fas fa-tags"></i> Topik:
+            </span>
+            {post.tags.map((tag) => (
+              <span class="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-200 transition-colors">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        <!-- Social Share Bar -->
+        <div class="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <span class="text-xs sm:text-sm font-bold text-slate-700 flex items-center gap-2">
+            <i class="fas fa-share-nodes text-primary"></i> Bagikan Berita Ini:
+          </span>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <a
+              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${post.title} - Baca di: ${postUrl}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+              title="Bagikan ke WhatsApp"
+            >
+              <i class="fab fa-whatsapp"></i>
+            </a>
+
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+              title="Bagikan ke X (Twitter)"
+            >
+              <i class="fab fa-x-twitter"></i>
+            </a>
+
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-9 h-9 rounded-xl bg-blue-700 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+              title="Bagikan ke LinkedIn"
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-sm"
+              title="Bagikan ke Facebook"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+
+            <button
+              type="button"
+              id="copyPostLinkBtn"
+              class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              title="Salin Tautan Berita"
+            >
+              <i class="far fa-copy"></i> Salin Link
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Author Box -->
+      <div class="bg-gradient-to-r from-primary to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center sm:items-start gap-5 mb-14">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-accent text-slate-900 flex items-center justify-center text-3xl font-bold shrink-0 shadow-lg">
+          <i class="fas fa-shield-halved"></i>
+        </div>
+        <div class="text-center sm:text-left">
+          <div class="inline-block px-2.5 py-0.5 rounded-full bg-accent/20 border border-accent/40 text-accent text-[11px] font-bold uppercase tracking-wider mb-2">
+            Redaksi Resmi
+          </div>
+          <h3 class="text-xl font-bold text-white mb-2">{post.author_name}</h3>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+            Himpunan Mahasiswa Teknik Komputer (HIMTEKK) Universitas Amikom Yogyakarta berfokus pada pengembangan riset Cyber Security, Internet of Things (IoT), dan kontribusi kemajuan teknologi mahasiswa.
+          </p>
+        </div>
+      </div>
+
+      <!-- Related News Section -->
+      {relatedPosts.length > 0 && (
+        <section>
+          <div class="flex items-center justify-between mb-8">
+            <h3 class="text-xl sm:text-2xl font-bold text-primary">Berita Lainnya</h3>
+            <a href="/berita" class="text-xs sm:text-sm font-bold text-accent hover:underline flex items-center gap-1">
+              Lihat Semua <i class="fas fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedPosts.map((rel) => (
+              <a
+                href={`/berita/${rel.slug}`}
+                class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col"
+              >
+                <div class="aspect-[16/9] overflow-hidden bg-slate-100 relative">
+                  <img
+                    src={rel.thumbnail || '/assets/img/placeholder.webp'}
+                    alt={rel.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-primary text-white text-[10px] font-bold uppercase">
+                    {rel.category_name || rel.category}
+                  </span>
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                  <h4 class="font-bold text-sm text-slate-800 group-hover:text-primary transition-colors line-clamp-2 mb-2">
+                    {rel.title}
+                  </h4>
+                  <div class="text-[11px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-100">
+                    <span>{formatDateIndo(rel.published_at || rel.created_at)}</span>
+                    <span><i class="far fa-eye"></i> {rel.views || 0}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="pt-20 pb-10 bg-slate-900 text-white border-t border-white/5">
+    <div class="container mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="h-10 w-auto" width="40" height="40" loading="lazy">
+        <span class="text-xl font-bold"><span class="text-accent">HIM</span>TEKK</span>
+      </div>
+      <p class="text-slate-400 text-xs sm:text-sm mb-6 max-w-md mx-auto">
+        Portal Berita & Publikasi Resmi Himpunan Mahasiswa Teknik Komputer Universitas Amikom Yogyakarta.
+      </p>
+      <div class="flex justify-center gap-6 text-xs text-slate-500">
+        <a href="/" class="hover:text-accent">Beranda</a>
+        <a href="/berita" class="hover:text-accent">Daftar Berita</a>
+        <a href="/pages/privacy" class="hover:text-accent">Privacy Policy</a>
+        <a href="/pages/terms" class="hover:text-accent">Terms</a>
+      </div>
+      <p class="text-slate-600 text-xs mt-6">&copy; 2026 HIMTEKK Amikom. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/js/berita.js"></script>
+    <script is:inline define:vars={{ postSlug: post.slug }}>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 1. Reading progress bar
+        const progressBar = document.getElementById('readingProgressBar');
+        window.addEventListener('scroll', () => {
+          const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          if (docHeight > 0) {
+            const scrolled = (window.scrollY / docHeight) * 100;
+            if (progressBar) progressBar.style.width = `${scrolled}%`;
+          }
+        }, { passive: true });
+
+        // 2. Increment view counter via client-side gateway
+        if (typeof BeritaAPI !== 'undefined' && postSlug) {
+          BeritaAPI.incrementView(postSlug).then((res) => {
+            if (res && res.success && res.data && typeof res.data.views === 'number') {
+              const el = document.getElementById('postViewsCount');
+              if (el) el.textContent = res.data.views;
+            }
+          }).catch(() => {});
+        }
+
+        // 3. Salin link tombol
+        const copyBtn = document.getElementById('copyPostLinkBtn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(window.location.href);
+              if (typeof showBeritaToast === 'function') {
+                showBeritaToast('success', 'Tautan Berhasil Disalin', 'Tautan artikel telah tersimpan di clipboard Anda.');
+              } else {
+                alert('Tautan artikel telah disalin.');
+              }
+            } catch {
+              alert('Gagal menyalin tautan.');
+            }
+          });
+        }
+      });
+    </script>
+  </Fragment>
+</Layout>

@@ -1,0 +1,378 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { BERITA_CONFIG } from '../../../lib/berita-config';
+
+export const prerender = false;
+---
+
+<Layout
+  title="Tulis Berita Baru - Dashboard HIMTEKK"
+  description="Buat dan publikasikan berita atau agenda resmi HIMTEKK."
+  canonical={`${BERITA_CONFIG.siteUrl}/berita/admin/tulis`}
+  robots="noindex, nofollow"
+  bodyClass="text-slate-800 bg-slate-100 min-h-screen"
+  sweetalert={true}
+>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script is:inline src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style is:inline>
+      .CodeMirror, .CodeMirror-scroll {
+        min-height: 380px !important;
+        border-radius: 0 0 0.75rem 0.75rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.9rem;
+      }
+      .editor-toolbar {
+        border-radius: 0.75rem 0.75rem 0 0;
+        background: #F8FAFC;
+        border-color: #E2E8F0;
+      }
+    </style>
+  </Fragment>
+
+  <!-- Admin Top Bar -->
+  <header class="bg-primary text-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/berita/admin" class="flex items-center gap-2 group text-white/80 hover:text-white transition-colors">
+          <i class="fas fa-arrow-left text-sm"></i>
+          <span class="text-xs sm:text-sm font-semibold">Kembali ke Dashboard</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a
+          href="/berita"
+          target="_blank"
+          class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-all flex items-center gap-1.5"
+        >
+          <i class="fas fa-external-link-alt text-[10px]"></i> Portal Berita
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 sm:px-6 py-8 max-w-5xl">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-200 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-100">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900">Tulis Berita Baru</h1>
+          <p class="text-xs sm:text-sm text-slate-500">Tulis artikel atau rilis pers resmi HIMTEKK menggunakan format Markdown.</p>
+        </div>
+      </div>
+
+      <form id="createPostForm" novalidate>
+        <!-- Judul Berita -->
+        <div class="mb-5">
+          <label for="postTitleInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Judul Berita <span class="text-rose-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="postTitleInput"
+            required
+            placeholder="Contoh: HIMTEKK Sukses Menggelar Kompetisi Cyber Security 2026"
+            class="w-full text-base sm:text-lg font-bold p-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <!-- Kategori -->
+          <div>
+            <label for="postCategorySelect" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Kategori <span class="text-rose-500">*</span>
+            </label>
+            <select
+              id="postCategorySelect"
+              required
+              class="w-full text-sm p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-semibold"
+            >
+              <option value="" disabled selected>Pilih Kategori...</option>
+            </select>
+          </div>
+
+          <!-- Tags -->
+          <div>
+            <label for="postTagsInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Topik / Tags <span class="text-slate-400 font-normal text-[11px]">(Pisahkan dengan koma)</span>
+            </label>
+            <input
+              type="text"
+              id="postTagsInput"
+              placeholder="Contoh: CTF, Workshop, Amikom, Prestasi"
+              class="w-full text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- Thumbnail Image -->
+        <div class="mb-5 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Gambar Sampul (Thumbnail)
+          </label>
+
+          <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center mb-3">
+            <div class="relative flex-grow">
+              <input
+                type="url"
+                id="postThumbnailUrlInput"
+                placeholder="https://contoh.com/gambar.webp (atau unggah dari komputer)"
+                class="w-full text-xs sm:text-sm p-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="px-3.5 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-xl cursor-pointer flex items-center gap-1.5 transition-all shrink-0">
+                <i class="fas fa-cloud-arrow-up text-primary"></i>
+                <span id="uploadLabelText">Unggah Berkas</span>
+                <input type="file" id="postThumbnailFileInput" accept="image/webp,image/jpeg,image/png,image/gif" class="hidden">
+              </label>
+            </div>
+          </div>
+
+          <!-- Preview Thumbnail -->
+          <div id="thumbnailPreviewContainer" class="hidden items-center gap-3 pt-2 border-t border-slate-200/60">
+            <img id="thumbnailPreviewImg" src="" alt="Pratinjau" class="w-20 h-12 object-cover rounded-lg border border-slate-300">
+            <span class="text-xs text-slate-500 font-medium">Pratinjau gambar sampul</span>
+          </div>
+        </div>
+
+        <!-- Excerpt / Ringkasan Singkat -->
+        <div class="mb-5">
+          <div class="flex justify-between items-center mb-1">
+            <label for="postExcerptInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Ringkasan Singkat (Excerpt)
+            </label>
+            <span class="text-[11px] text-slate-400">Opsional (Dibuat otomatis jika kosong)</span>
+          </div>
+          <textarea
+            id="postExcerptInput"
+            rows="2"
+            maxlength="280"
+            placeholder="Deskripsi ringkas 1-2 kalimat untuk pratinjau kartu dan media sosial..."
+            class="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+          ></textarea>
+        </div>
+
+        <!-- Markdown Content Editor -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Isi Konten Berita (Markdown) <span class="text-rose-500">*</span>
+            </label>
+            <span id="contentCharCounter" class="text-xs text-slate-400 font-medium">0 kata</span>
+          </div>
+          <textarea id="markdownEditor"></textarea>
+          <div class="text-[11px] text-slate-400 mt-1">
+            <i class="fas fa-circle-info"></i> Mendukung format Markdown (# Judul, **tebal**, _miring_, - list, > kutipan, dan ```code```).
+          </div>
+        </div>
+
+        <!-- Post Options -->
+        <div class="mb-8 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-6">
+            <!-- Featured Toggle -->
+            <label class="inline-flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="postFeaturedCheckbox" class="w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1">
+                <i class="fas fa-star text-amber-500 text-xs"></i> Jadikan Berita Utama (Featured)
+              </span>
+            </label>
+          </div>
+
+          <!-- Status Selector -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-600">Status Publikasi:</span>
+            <select id="postStatusSelect" class="text-xs font-bold p-2 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-1 focus:ring-primary">
+              <option value="published">Langsung Diterbitkan (Published)</option>
+              <option value="draft">Simpan sebagai Draft</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-slate-100">
+          <a
+            href="/berita/admin"
+            class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-all"
+          >
+            Batal
+          </a>
+
+          <button
+            type="submit"
+            id="savePostBtn"
+            class="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/95 text-white font-bold text-xs sm:text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
+          >
+            <i class="fas fa-paper-plane text-xs" id="saveIcon"></i>
+            <span id="saveText">Simpan Berita</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/js/berita.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', async () => {
+        if (typeof BeritaAuth === 'undefined' || !BeritaAuth.requireAuth()) return;
+
+        // Populate Categories Select
+        const catSelect = document.getElementById('postCategorySelect');
+        try {
+          const res = await BeritaAPI.getCategories();
+          if (res.success && res.data && Array.isArray(res.data.categories)) {
+            res.data.categories.forEach((c) => {
+              const opt = document.createElement('option');
+              opt.value = c.slug;
+              opt.textContent = `${c.name} (${c.slug})`;
+              catSelect.appendChild(opt);
+            });
+          }
+        } catch (_) {}
+
+        // Inisialisasi SimpleMDE Markdown Editor
+        let simplemde = null;
+        if (typeof SimpleMDE !== 'undefined') {
+          simplemde = new SimpleMDE({
+            element: document.getElementById('markdownEditor'),
+            spellChecker: false,
+            placeholder: 'Tuliskan isi berita Anda di sini dengan format Markdown...',
+            previewRender: function (plainText) {
+              if (typeof marked !== 'undefined') {
+                return marked.parse(plainText);
+              }
+              return plainText;
+            }
+          });
+
+          const counter = document.getElementById('contentCharCounter');
+          simplemde.codemirror.on('change', () => {
+            const val = simplemde.value().trim();
+            const words = val ? val.split(/\s+/).filter(Boolean).length : 0;
+            if (counter) counter.textContent = `${words} kata (~${Math.max(1, Math.ceil(words / 200))} mnt baca)`;
+          });
+        }
+
+        // Preview URL
+        const thumbInput = document.getElementById('postThumbnailUrlInput');
+        const prevBox = document.getElementById('thumbnailPreviewContainer');
+        const prevImg = document.getElementById('thumbnailPreviewImg');
+
+        function updateThumbPreview(url) {
+          if (url && url.startsWith('http')) {
+            prevImg.src = url;
+            prevBox.classList.remove('hidden');
+            prevBox.classList.add('flex');
+          } else {
+            prevBox.classList.add('hidden');
+            prevBox.classList.remove('flex');
+          }
+        }
+
+        thumbInput.addEventListener('input', (e) => updateThumbPreview(e.target.value.trim()));
+
+        // Upload berkas lokal ke Google Drive via Apps Script
+        const fileInput = document.getElementById('postThumbnailFileInput');
+        const uploadLabel = document.getElementById('uploadLabelText');
+
+        fileInput.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          if (file.size > 3 * 1024 * 1024) {
+            showBeritaToast('error', 'Berkas Terlalu Besar', 'Maksimal ukuran gambar adalah 3 MB.');
+            return;
+          }
+
+          uploadLabel.textContent = 'Mengunggah...';
+
+          const reader = new FileReader();
+          reader.onload = async () => {
+            const base64 = reader.result;
+            const res = await BeritaAPI.uploadImage(base64, file.name);
+            uploadLabel.textContent = 'Unggah Berkas';
+
+            if (res.success && res.data && res.data.url) {
+              thumbInput.value = res.data.url;
+              updateThumbPreview(res.data.url);
+              showBeritaToast('success', 'Gambar Berhasil Diunggah');
+            } else {
+              showBeritaToast('error', 'Gagal Mengunggah', res.message || 'Periksa koneksi Google Drive.');
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+
+        // Form Submit
+        const form = document.getElementById('createPostForm');
+        const saveBtn = document.getElementById('savePostBtn');
+        const saveText = document.getElementById('saveText');
+        const saveIcon = document.getElementById('saveIcon');
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const title = document.getElementById('postTitleInput').value.trim();
+          const category = catSelect.value;
+          const tags = document.getElementById('postTagsInput').value.trim();
+          const thumbnail = thumbInput.value.trim();
+          const excerpt = document.getElementById('postExcerptInput').value.trim();
+          const featured = document.getElementById('postFeaturedCheckbox').checked;
+          const status = document.getElementById('postStatusSelect').value;
+          const content = simplemde ? simplemde.value().trim() : document.getElementById('markdownEditor').value.trim();
+
+          if (!title) {
+            showBeritaToast('error', 'Validasi Gagal', 'Judul berita wajib diisi.');
+            return;
+          }
+
+          if (!category) {
+            showBeritaToast('error', 'Validasi Gagal', 'Pilih salah satu kategori berita.');
+            return;
+          }
+
+          if (!content) {
+            showBeritaToast('error', 'Validasi Gagal', 'Isi berita tidak boleh kosong.');
+            return;
+          }
+
+          saveBtn.disabled = true;
+          saveText.textContent = 'Menyimpan...';
+          saveIcon.className = 'fas fa-spinner fa-spin text-xs';
+
+          const res = await BeritaAPI.savePost({
+            title,
+            category,
+            tags,
+            thumbnail,
+            excerpt,
+            featured,
+            status,
+            content
+          });
+
+          saveBtn.disabled = false;
+          saveText.textContent = 'Simpan Berita';
+          saveIcon.className = 'fas fa-paper-plane text-xs';
+
+          if (res.success && res.data) {
+            Swal.fire({
+              title: 'Berhasil Disimpan!',
+              text: 'Berita baru telah berhasil disimpan ke database Google Sheets.',
+              icon: 'success',
+              confirmButtonColor: '#00406E'
+            }).then(() => {
+              window.location.href = `/berita/${res.data.slug}`;
+            });
+          } else {
+            showBeritaToast('error', 'Gagal Menyimpan', res.message || 'Terjadi kesalahan pada database.');
+          }
+        });
+      });
+    </script>
+  </Fragment>
+</Layout>

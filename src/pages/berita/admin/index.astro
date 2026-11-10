@@ -1,0 +1,750 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { BERITA_CONFIG } from '../../../lib/berita-config';
+
+export const prerender = false;
+---
+
+<Layout
+  title="Dashboard Redaksi Berita - HIMTEKK"
+  description="Panel pengelolaan berita, pengumuman, dan artikel organisasi HIMTEKK Amikom."
+  canonical={`${BERITA_CONFIG.siteUrl}/berita/admin`}
+  robots="noindex, nofollow"
+  bodyClass="text-slate-800 bg-slate-100 min-h-screen"
+  sweetalert={true}
+>
+  <Fragment slot="head">
+    <style is:inline>
+      .admin-table th {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 700;
+        color: #475569;
+        background-color: #F8FAFC;
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid #E2E8F0;
+      }
+      .admin-table td {
+        padding: 0.85rem 1rem;
+        border-bottom: 1px solid #F1F5F9;
+        font-size: 0.85rem;
+        vertical-align: middle;
+      }
+      .admin-tab.active {
+        background-color: #00406E !important;
+        color: #ffffff !important;
+      }
+    </style>
+  </Fragment>
+
+  <!-- Admin Top Bar -->
+  <header class="bg-primary text-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-8 h-8 transition-transform group-hover:rotate-12" width="32" height="32">
+          <span class="text-lg font-bold"><span class="text-accent">HIM</span>TEKK</span>
+        </a>
+        <span class="text-white/40">|</span>
+        <span class="text-xs sm:text-sm font-semibold tracking-wide text-white/90">Dashboard Redaksi</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- User Badge -->
+        <div class="hidden sm:flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-xl border border-white/10 text-xs">
+          <i class="fas fa-circle-user text-accent text-sm"></i>
+          <span id="adminUsernameDisplay" class="font-bold text-white">Memuat...</span>
+          <span id="adminRoleDisplay" class="px-1.5 py-0.5 rounded bg-accent/20 text-accent font-extrabold text-[10px] uppercase">...</span>
+        </div>
+
+        <a
+          href="/berita"
+          target="_blank"
+          class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-all flex items-center gap-1.5"
+          title="Lihat Tampilan Portal Berita"
+        >
+          <i class="fas fa-external-link-alt text-[10px]"></i> <span class="hidden sm:inline">Portal</span>
+        </a>
+
+        <a
+          href="/berita/admin/tulis"
+          class="px-3 sm:px-4 py-1.5 rounded-xl bg-accent text-slate-900 font-bold text-xs hover:bg-accent/90 transition-all flex items-center gap-1.5 shadow"
+        >
+          <i class="fas fa-plus"></i> <span>Tulis Berita</span>
+        </a>
+
+        <!-- Logout button -->
+        <button
+          type="button"
+          id="adminLogoutBtn"
+          class="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500 text-rose-200 hover:text-white text-xs font-semibold transition-all border border-rose-500/30 flex items-center gap-1.5 cursor-pointer"
+          title="Keluar dari sesi"
+        >
+          <i class="fas fa-arrow-right-from-bracket text-xs"></i> <span class="hidden sm:inline">Keluar</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Main Content Area -->
+  <main class="container mx-auto px-4 sm:px-6 py-8 max-w-7xl">
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8">
+      <!-- Total Posts -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl shrink-0">
+          <i class="fas fa-newspaper"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Berita</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-0.5" id="statTotalPosts">-</div>
+        </div>
+      </div>
+
+      <!-- Published -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Diterbitkan</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-0.5" id="statPublishedPosts">-</div>
+        </div>
+      </div>
+
+      <!-- Drafts -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fas fa-file-pen"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Draft Disimpan</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-0.5" id="statDraftPosts">-</div>
+        </div>
+      </div>
+
+      <!-- Total Views -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center text-xl shrink-0">
+          <i class="fas fa-eye"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Dibaca</div>
+          <div class="text-2xl font-extrabold text-slate-900 mt-0.5" id="statTotalViews">-</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex flex-wrap items-center gap-2 mb-6 border-b border-slate-200 pb-3">
+      <button
+        type="button"
+        data-tab="posts"
+        class="admin-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-primary text-white transition-all cursor-pointer"
+      >
+        <i class="fas fa-list-check mr-1.5"></i> Kelola Berita
+      </button>
+
+      <button
+        type="button"
+        data-tab="categories"
+        class="admin-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 bg-white hover:bg-slate-200 transition-all cursor-pointer"
+      >
+        <i class="fas fa-tags mr-1.5"></i> Kategori
+      </button>
+
+      <button
+        type="button"
+        id="tabUsersBtn"
+        data-tab="users"
+        class="admin-tab hidden px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 bg-white hover:bg-slate-200 transition-all cursor-pointer"
+      >
+        <i class="fas fa-users-gear mr-1.5"></i> Pengguna & Akses
+      </button>
+
+      <button
+        type="button"
+        data-tab="password"
+        class="admin-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 bg-white hover:bg-slate-200 transition-all cursor-pointer"
+      >
+        <i class="fas fa-key mr-1.5"></i> Ganti Password
+      </button>
+    </div>
+
+    <!-- TAB 1: KELOLA BERITA -->
+    <div id="tabContentPosts" class="tab-pane">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <!-- Table Search & Filter Bar -->
+        <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Status:</span>
+            <select id="filterPostStatus" class="text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 bg-slate-50 font-semibold focus:outline-none focus:ring-1 focus:ring-primary">
+              <option value="all">Semua Status</option>
+              <option value="published">Diterbitkan (Published)</option>
+              <option value="draft">Draft</option>
+            </select>
+          </div>
+
+          <div class="relative min-w-[220px]">
+            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input
+              type="text"
+              id="searchPostTable"
+              placeholder="Cari judul atau penulis..."
+              class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+          </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="overflow-x-auto">
+          <table class="w-full admin-table text-left border-collapse">
+            <thead>
+              <tr>
+                <th class="w-16">Cover</th>
+                <th>Judul & Ringkasan</th>
+                <th>Kategori</th>
+                <th>Penulis</th>
+                <th>Views</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th class="text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="postsTableBody">
+              <tr>
+                <td colspan="8" class="text-center py-10 text-slate-400">
+                  <i class="fas fa-circle-notch fa-spin text-xl text-primary mb-2"></i>
+                  <div>Memuat data berita...</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: KATEGORI -->
+    <div id="tabContentCategories" class="tab-pane hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Form Tambah Kategori -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm" id="categoryFormCard">
+          <h3 class="font-bold text-sm text-slate-800 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
+            <i class="fas fa-plus-circle text-primary"></i> Tambah Kategori Baru
+          </h3>
+          <form id="addCategoryForm" novalidate>
+            <div class="mb-3">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Nama Kategori</label>
+              <input type="text" id="catNameInput" required placeholder="Contoh: Riset AI" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+            </div>
+            <div class="mb-4">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Deskripsi Singkat</label>
+              <textarea id="catDescInput" rows="3" placeholder="Penjelasan singkat ruang lingkup kategori..." class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary"></textarea>
+            </div>
+            <button type="submit" id="saveCatBtn" class="w-full py-2.5 px-4 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/95 transition-all">
+              Simpan Kategori
+            </button>
+          </form>
+        </div>
+
+        <!-- Tabel Kategori -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full admin-table text-left">
+              <thead>
+                <tr>
+                  <th>Slug</th>
+                  <th>Nama</th>
+                  <th>Deskripsi</th>
+                  <th>Jumlah Berita</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="categoriesTableBody">
+                <tr><td colspan="5" class="text-center py-6 text-slate-400">Memuat kategori...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PENGGUNA (ADMIN ONLY) -->
+    <div id="tabContentUsers" class="tab-pane hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Form Tambah Pengguna -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="font-bold text-sm text-slate-800 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
+            <i class="fas fa-user-plus text-primary"></i> Tambah Pengguna Baru
+          </h3>
+          <form id="addUserForm" novalidate>
+            <div class="mb-3">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Username</label>
+              <input type="text" id="newUsername" required placeholder="huruf_kecil_tanpa_spasi" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+            </div>
+            <div class="mb-3">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Nama Lengkap</label>
+              <input type="text" id="newName" required placeholder="Nama Lengkap Penulis" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+            </div>
+            <div class="mb-3">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Peran (Role)</label>
+              <select id="newRole" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+                <option value="editor">Editor (Tulis & Kelola Berita Milik Sendiri)</option>
+                <option value="admin">Admin (Akses Penuh Seluruh Sistem)</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="block text-xs font-bold text-slate-600 mb-1">Kata Sandi Awal</label>
+              <input type="password" id="newPassword" required placeholder="Minimal 8 karakter (huruf + angka)" class="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+            </div>
+            <button type="submit" id="saveUserBtn" class="w-full py-2.5 px-4 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary/95 transition-all">
+              Buat Akun
+            </button>
+          </form>
+        </div>
+
+        <!-- Tabel Pengguna -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full admin-table text-left">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>Nama</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Berita</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <tr><td colspan="6" class="text-center py-6 text-slate-400">Memuat pengguna...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: GANTI PASSWORD -->
+    <div id="tabContentPassword" class="tab-pane hidden">
+      <div class="max-w-md mx-auto bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+        <h3 class="font-bold text-base text-slate-800 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
+          <i class="fas fa-lock text-primary"></i> Ubah Kata Sandi Akun
+        </h3>
+        <form id="changePasswordForm" novalidate>
+          <div class="mb-4">
+            <label class="block text-xs font-bold text-slate-600 mb-1">Kata Sandi Saat Ini</label>
+            <input type="password" id="currentPasswordInput" required class="w-full text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+          </div>
+          <div class="mb-4">
+            <label class="block text-xs font-bold text-slate-600 mb-1">Kata Sandi Baru</label>
+            <input type="password" id="newPasswordInput" required placeholder="Minimal 8 karakter huruf & angka" class="w-full text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+          </div>
+          <div class="mb-6">
+            <label class="block text-xs font-bold text-slate-600 mb-1">Konfirmasi Kata Sandi Baru</label>
+            <input type="password" id="confirmPasswordInput" required class="w-full text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-1 focus:ring-primary">
+          </div>
+          <button type="submit" id="savePasswordBtn" class="w-full py-3 bg-primary text-white text-xs sm:text-sm font-bold rounded-xl hover:bg-primary/95 transition-all shadow">
+            Simpan Kata Sandi Baru
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/js/berita.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', async () => {
+        // Cek autentikasi
+        if (typeof BeritaAuth === 'undefined' || !BeritaAuth.requireAuth()) {
+          return;
+        }
+
+        const user = BeritaAuth.getUser();
+        document.getElementById('adminUsernameDisplay').textContent = user.name || user.username;
+        document.getElementById('adminRoleDisplay').textContent = user.role;
+
+        if (user.role === 'admin') {
+          document.getElementById('tabUsersBtn')?.classList.remove('hidden');
+        }
+
+        // Tab Controller
+        const tabs = document.querySelectorAll('.admin-tab');
+        const panes = document.querySelectorAll('.tab-pane');
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            tabs.forEach((t) => {
+              t.classList.remove('active', 'bg-primary', 'text-white');
+              t.classList.add('bg-white', 'text-slate-600');
+            });
+            tab.classList.add('active', 'bg-primary', 'text-white');
+            tab.classList.remove('bg-white', 'text-slate-600');
+
+            const target = tab.getAttribute('data-tab');
+            panes.forEach((p) => p.classList.add('hidden'));
+
+            if (target === 'posts') document.getElementById('tabContentPosts')?.classList.remove('hidden');
+            if (target === 'categories') {
+              document.getElementById('tabContentCategories')?.classList.remove('hidden');
+              loadCategories();
+            }
+            if (target === 'users') {
+              document.getElementById('tabContentUsers')?.classList.remove('hidden');
+              loadUsers();
+            }
+            if (target === 'password') document.getElementById('tabContentPassword')?.classList.remove('hidden');
+          });
+        });
+
+        // Logout action
+        document.getElementById('adminLogoutBtn')?.addEventListener('click', () => {
+          Swal.fire({
+            title: 'Konfirmasi Keluar',
+            text: 'Apakah Anda yakin ingin mengakhiri sesi redaksi ini?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#00406E',
+            cancelButtonColor: '#94A3B8',
+            confirmButtonText: 'Ya, Keluar',
+            cancelButtonText: 'Batal'
+          }).then((res) => {
+            if (res.isConfirmed) {
+              BeritaAuth.logout();
+            }
+          });
+        });
+
+        let allPostsData = [];
+
+        // Load Stats
+        async function loadStats() {
+          const res = await BeritaAPI.getStats();
+          if (res.success && res.data) {
+            document.getElementById('statTotalPosts').textContent = res.data.total ?? 0;
+            document.getElementById('statPublishedPosts').textContent = res.data.published ?? 0;
+            document.getElementById('statDraftPosts').textContent = res.data.draft ?? 0;
+            document.getElementById('statTotalViews').textContent = (res.data.views ?? 0).toLocaleString('id-ID');
+          }
+        }
+
+        // Load Posts Table
+        async function loadPosts() {
+          const res = await BeritaAPI.getPosts();
+          const tbody = document.getElementById('postsTableBody');
+
+          if (res.success && res.data && Array.isArray(res.data.posts)) {
+            allPostsData = res.data.posts;
+            renderPostsTable(allPostsData);
+          } else {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="8" class="text-center py-8 text-rose-500 text-xs">
+                  <i class="fas fa-triangle-exclamation text-lg mb-1"></i>
+                  <div>${res.message || 'Gagal memuat berita dari server.'}</div>
+                </td>
+              </tr>
+            `;
+          }
+        }
+
+        function renderPostsTable(posts) {
+          const tbody = document.getElementById('postsTableBody');
+          if (posts.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="8" class="text-center py-10 text-slate-400 text-xs">
+                  Belum ada berita yang tersedia. Klik tombol <strong>Tulis Berita</strong> untuk membuat berita baru.
+                </td>
+              </tr>
+            `;
+            return;
+          }
+
+          tbody.innerHTML = posts.map((p) => {
+            const isPub = p.status === 'published';
+            const isFeat = Boolean(p.featured);
+            return `
+              <tr class="hover:bg-slate-50 transition-colors">
+                <td>
+                  <img src="${p.thumbnail || '/assets/img/placeholder.webp'}" alt="" class="w-12 h-9 object-cover rounded-lg border border-slate-200">
+                </td>
+                <td class="max-w-xs">
+                  <div class="font-bold text-slate-900 truncate">
+                    <a href="/berita/${p.slug}" target="_blank" class="hover:text-primary">${p.title}</a>
+                  </div>
+                  <div class="text-[11px] text-slate-400 truncate mt-0.5">${p.slug}</div>
+                </td>
+                <td>
+                  <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[11px] font-semibold">
+                    ${p.category_name || p.category}
+                  </span>
+                </td>
+                <td class="text-xs text-slate-600 font-medium">${p.author_name}</td>
+                <td class="text-xs text-slate-600 font-bold">${p.views || 0}</td>
+                <td class="text-[11px] text-slate-500 whitespace-nowrap">${p.published_at ? p.published_at.substring(0, 10) : p.created_at.substring(0, 10)}</td>
+                <td>
+                  <button
+                    type="button"
+                    onclick="toggleStatus('${p.id}', '${isPub ? 'draft' : 'published'}')"
+                    class="px-2.5 py-1 rounded-lg text-[11px] font-bold cursor-pointer transition-colors ${isPub ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'}"
+                    title="Klik untuk mengubah status"
+                  >
+                    ${isPub ? '✓ Published' : 'Draft'}
+                  </button>
+                </td>
+                <td class="text-center">
+                  <div class="inline-flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onclick="toggleFeatured('${p.id}', ${!isFeat})"
+                      class="p-1.5 rounded-lg text-xs cursor-pointer ${isFeat ? 'text-amber-500 bg-amber-50' : 'text-slate-300 hover:text-amber-500'}"
+                      title="${isFeat ? 'Hapus dari unggulan' : 'Jadikan berita unggulan'}"
+                    >
+                      <i class="fas fa-star"></i>
+                    </button>
+                    <a
+                      href="/berita/admin/edit?id=${p.id}"
+                      class="p-1.5 rounded-lg text-slate-600 hover:text-primary hover:bg-primary/10 text-xs transition-colors"
+                      title="Edit Berita"
+                    >
+                      <i class="fas fa-pen-to-square"></i>
+                    </a>
+                    <button
+                      type="button"
+                      onclick="deletePost('${p.id}', '${p.title.replace(/'/g, "\\'")}')"
+                      class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 text-xs transition-colors cursor-pointer"
+                      title="Hapus Berita"
+                    >
+                      <i class="fas fa-trash-can"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+
+        // Global functions for inline table clicks
+        window.toggleStatus = async (id, newStatus) => {
+          const res = await BeritaAPI.updateFlags(id, newStatus, undefined);
+          if (res.success) {
+            showBeritaToast('success', 'Status Berhasil Diperbarui');
+            loadPosts();
+            loadStats();
+          } else {
+            showBeritaToast('error', 'Gagal', res.message);
+          }
+        };
+
+        window.toggleFeatured = async (id, newFeat) => {
+          const res = await BeritaAPI.updateFlags(id, undefined, newFeat);
+          if (res.success) {
+            showBeritaToast('success', 'Status Unggulan Diperbarui');
+            loadPosts();
+            loadStats();
+          } else {
+            showBeritaToast('error', 'Gagal', res.message);
+          }
+        };
+
+        window.deletePost = (id, title) => {
+          Swal.fire({
+            title: 'Hapus Berita?',
+            html: `Apakah Anda yakin ingin menghapus berita:<br><strong>"${title}"</strong>?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#E11D48',
+            cancelButtonColor: '#94A3B8',
+            confirmButtonText: 'Ya, Hapus Permanen',
+            cancelButtonText: 'Batal'
+          }).then(async (res) => {
+            if (res.isConfirmed) {
+              const delRes = await BeritaAPI.deletePost(id);
+              if (delRes.success) {
+                showBeritaToast('success', 'Berita Berhasil Dihapus');
+                loadPosts();
+                loadStats();
+              } else {
+                showBeritaToast('error', 'Gagal Menghapus', delRes.message);
+              }
+            }
+          });
+        };
+
+        // Filter & Search table
+        const searchInput = document.getElementById('searchPostTable');
+        const statusSelect = document.getElementById('filterPostStatus');
+
+        function filterTable() {
+          const query = (searchInput.value || '').toLowerCase().trim();
+          const st = statusSelect.value;
+          const filtered = allPostsData.filter((p) => {
+            const matchesQuery = !query || p.title.toLowerCase().includes(query) || (p.author_name || '').toLowerCase().includes(query);
+            const matchesStatus = st === 'all' || p.status === st;
+            return matchesQuery && matchesStatus;
+          });
+          renderPostsTable(filtered);
+        }
+
+        searchInput?.addEventListener('input', filterTable);
+        statusSelect?.addEventListener('change', filterTable);
+
+        // Categories management
+        async function loadCategories() {
+          const res = await BeritaAPI.getCategories();
+          const tbody = document.getElementById('categoriesTableBody');
+          if (res.success && res.data && Array.isArray(res.data.categories)) {
+            tbody.innerHTML = res.data.categories.map((c) => `
+              <tr>
+                <td class="font-mono text-xs text-primary font-bold">${c.slug}</td>
+                <td class="font-semibold text-slate-800">${c.name}</td>
+                <td class="text-xs text-slate-500">${c.description || '-'}</td>
+                <td class="font-bold text-xs">${c.count || 0}</td>
+                <td class="text-center">
+                  <button type="button" onclick="deleteCategory('${c.slug}', '${c.name}')" class="text-slate-400 hover:text-rose-600 p-1 text-xs cursor-pointer">
+                    <i class="fas fa-trash-can"></i>
+                  </button>
+                </td>
+              </tr>
+            `).join('');
+          }
+        }
+
+        window.deleteCategory = (slug, name) => {
+          Swal.fire({
+            title: 'Hapus Kategori?',
+            text: `Hapus kategori "${name}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#E11D48',
+            confirmButtonText: 'Hapus'
+          }).then(async (r) => {
+            if (r.isConfirmed) {
+              const res = await BeritaAPI.deleteCategory(slug);
+              if (res.success) {
+                showBeritaToast('success', 'Kategori Dihapus');
+                loadCategories();
+              } else {
+                showBeritaToast('error', 'Gagal', res.message);
+              }
+            }
+          });
+        };
+
+        document.getElementById('addCategoryForm')?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const name = document.getElementById('catNameInput').value.trim();
+          const description = document.getElementById('catDescInput').value.trim();
+          if (!name) return;
+
+          const res = await BeritaAPI.saveCategory({ name, description });
+          if (res.success) {
+            showBeritaToast('success', 'Kategori Berhasil Dibuat');
+            document.getElementById('addCategoryForm').reset();
+            loadCategories();
+          } else {
+            showBeritaToast('error', 'Gagal', res.message);
+          }
+        });
+
+        // Users management
+        async function loadUsers() {
+          const res = await BeritaAPI.getUsers();
+          const tbody = document.getElementById('usersTableBody');
+          if (res.success && res.data && Array.isArray(res.data.users)) {
+            tbody.innerHTML = res.data.users.map((u) => `
+              <tr>
+                <td class="font-bold text-slate-900">${u.username}</td>
+                <td>${u.name}</td>
+                <td><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${u.role === 'admin' ? 'bg-primary text-white' : 'bg-slate-200 text-slate-700'}">${u.role}</span></td>
+                <td><span class="text-xs font-semibold ${u.active ? 'text-emerald-600' : 'text-slate-400'}">${u.active ? '● Aktif' : 'Nonaktif'}</span></td>
+                <td class="text-xs font-bold">${u.post_count || 0}</td>
+                <td class="text-center">
+                  ${u.id !== user.id ? `
+                    <button type="button" onclick="deleteUser('${u.id}', '${u.username}')" class="text-slate-400 hover:text-rose-600 p-1 text-xs cursor-pointer">
+                      <i class="fas fa-trash-can"></i>
+                    </button>
+                  ` : '<span class="text-[10px] text-slate-400 italic">Anda</span>'}
+                </td>
+              </tr>
+            `).join('');
+          }
+        }
+
+        window.deleteUser = (id, username) => {
+          Swal.fire({
+            title: 'Hapus Pengguna?',
+            text: `Hapus akun "${username}"?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#E11D48',
+            confirmButtonText: 'Hapus'
+          }).then(async (r) => {
+            if (r.isConfirmed) {
+              const res = await BeritaAPI.deleteUser(id);
+              if (res.success) {
+                showBeritaToast('success', 'Pengguna Dihapus');
+                loadUsers();
+              } else {
+                showBeritaToast('error', 'Gagal', res.message);
+              }
+            }
+          });
+        };
+
+        document.getElementById('addUserForm')?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const username = document.getElementById('newUsername').value.trim();
+          const name = document.getElementById('newName').value.trim();
+          const role = document.getElementById('newRole').value;
+          const password = document.getElementById('newPassword').value;
+
+          const res = await BeritaAPI.saveUser({ username, name, role, password });
+          if (res.success) {
+            showBeritaToast('success', 'Akun Pengguna Berhasil Dibuat');
+            document.getElementById('addUserForm').reset();
+            loadUsers();
+          } else {
+            showBeritaToast('error', 'Gagal', res.message);
+          }
+        });
+
+        // Change password
+        document.getElementById('changePasswordForm')?.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const oldPass = document.getElementById('currentPasswordInput').value;
+          const newPass = document.getElementById('newPasswordInput').value;
+          const confirmPass = document.getElementById('confirmPasswordInput').value;
+
+          if (newPass !== confirmPass) {
+            showBeritaToast('error', 'Validasi Gagal', 'Konfirmasi kata sandi baru tidak cocok.');
+            return;
+          }
+
+          const res = await BeritaAPI.changePassword(oldPass, newPass);
+          if (res.success) {
+            Swal.fire({
+              title: 'Kata Sandi Diperbarui',
+              text: 'Silakan masuk kembali menggunakan kata sandi baru Anda.',
+              icon: 'success',
+              confirmButtonColor: '#00406E'
+            }).then(() => {
+              BeritaAuth.logout();
+            });
+          } else {
+            showBeritaToast('error', 'Gagal Mengubah Kata Sandi', res.message);
+          }
+        });
+
+        // Initial Data Load
+        loadStats();
+        loadPosts();
+      });
+    </script>
+  </Fragment>
+</Layout>

@@ -1,0 +1,410 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { BERITA_CONFIG } from '../../../lib/berita-config';
+
+export const prerender = false;
+---
+
+<Layout
+  title="Edit Berita - Dashboard HIMTEKK"
+  description="Edit dan perbarui konten berita HIMTEKK Amikom."
+  canonical={`${BERITA_CONFIG.siteUrl}/berita/admin/edit`}
+  robots="noindex, nofollow"
+  bodyClass="text-slate-800 bg-slate-100 min-h-screen"
+  sweetalert={true}
+>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script is:inline src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style is:inline>
+      .CodeMirror, .CodeMirror-scroll {
+        min-height: 380px !important;
+        border-radius: 0 0 0.75rem 0.75rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.9rem;
+      }
+      .editor-toolbar {
+        border-radius: 0.75rem 0.75rem 0 0;
+        background: #F8FAFC;
+        border-color: #E2E8F0;
+      }
+    </style>
+  </Fragment>
+
+  <!-- Admin Top Bar -->
+  <header class="bg-primary text-white shadow-md sticky top-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 py-3.5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <a href="/berita/admin" class="flex items-center gap-2 group text-white/80 hover:text-white transition-colors">
+          <i class="fas fa-arrow-left text-sm"></i>
+          <span class="text-xs sm:text-sm font-semibold">Kembali ke Dashboard</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a
+          id="previewPostLink"
+          href="#"
+          target="_blank"
+          class="hidden px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-all items-center gap-1.5"
+        >
+          <i class="fas fa-eye text-[10px]"></i> Lihat Berita
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 sm:px-6 py-8 max-w-5xl">
+    <!-- Loading skeleton -->
+    <div id="loadingBox" class="bg-white rounded-3xl p-10 text-center border border-slate-200 shadow-sm">
+      <i class="fas fa-circle-notch fa-spin text-2xl text-primary mb-3"></i>
+      <p class="text-sm text-slate-500 font-semibold">Memuat data berita dari database...</p>
+    </div>
+
+    <!-- Edit Form Container -->
+    <div id="editFormContainer" class="hidden bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-slate-200 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-100">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900">Perbarui Berita</h1>
+          <p class="text-xs sm:text-sm text-slate-500">Edit isi tulisan, kategori, atau status publikasi berita ini.</p>
+        </div>
+      </div>
+
+      <form id="editPostForm" novalidate>
+        <!-- Judul Berita -->
+        <div class="mb-5">
+          <label for="postTitleInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Judul Berita <span class="text-rose-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="postTitleInput"
+            required
+            class="w-full text-base sm:text-lg font-bold p-3.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+          />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+          <!-- Kategori -->
+          <div>
+            <label for="postCategorySelect" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Kategori <span class="text-rose-500">*</span>
+            </label>
+            <select
+              id="postCategorySelect"
+              required
+              class="w-full text-sm p-3 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-semibold"
+            >
+              <option value="" disabled>Pilih Kategori...</option>
+            </select>
+          </div>
+
+          <!-- Tags -->
+          <div>
+            <label for="postTagsInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Topik / Tags <span class="text-slate-400 font-normal text-[11px]">(Pisahkan dengan koma)</span>
+            </label>
+            <input
+              type="text"
+              id="postTagsInput"
+              class="w-full text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- Thumbnail Image -->
+        <div class="mb-5 p-4 rounded-2xl bg-slate-50 border border-slate-200">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Gambar Sampul (Thumbnail)
+          </label>
+
+          <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center mb-3">
+            <div class="relative flex-grow">
+              <input
+                type="url"
+                id="postThumbnailUrlInput"
+                class="w-full text-xs sm:text-sm p-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="px-3.5 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 text-xs font-bold rounded-xl cursor-pointer flex items-center gap-1.5 transition-all shrink-0">
+                <i class="fas fa-cloud-arrow-up text-primary"></i>
+                <span id="uploadLabelText">Unggah Berkas</span>
+                <input type="file" id="postThumbnailFileInput" accept="image/webp,image/jpeg,image/png,image/gif" class="hidden">
+              </label>
+            </div>
+          </div>
+
+          <!-- Preview Thumbnail -->
+          <div id="thumbnailPreviewContainer" class="hidden items-center gap-3 pt-2 border-t border-slate-200/60">
+            <img id="thumbnailPreviewImg" src="" alt="Pratinjau" class="w-20 h-12 object-cover rounded-lg border border-slate-300">
+            <span class="text-xs text-slate-500 font-medium">Pratinjau gambar sampul</span>
+          </div>
+        </div>
+
+        <!-- Excerpt -->
+        <div class="mb-5">
+          <label for="postExcerptInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Ringkasan Singkat (Excerpt)
+          </label>
+          <textarea
+            id="postExcerptInput"
+            rows="2"
+            maxlength="280"
+            class="w-full text-xs sm:text-sm p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+          ></textarea>
+        </div>
+
+        <!-- Markdown Content Editor -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Isi Konten Berita (Markdown) <span class="text-rose-500">*</span>
+            </label>
+            <span id="contentCharCounter" class="text-xs text-slate-400 font-medium">0 kata</span>
+          </div>
+          <textarea id="markdownEditor"></textarea>
+        </div>
+
+        <!-- Post Options -->
+        <div class="mb-8 p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-6">
+            <label class="inline-flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="postFeaturedCheckbox" class="w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+              <span class="text-xs font-bold text-slate-700 flex items-center gap-1">
+                <i class="fas fa-star text-amber-500 text-xs"></i> Jadikan Berita Utama (Featured)
+              </span>
+            </label>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-600">Status Publikasi:</span>
+            <select id="postStatusSelect" class="text-xs font-bold p-2 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-1 focus:ring-primary">
+              <option value="published">Diterbitkan (Published)</option>
+              <option value="draft">Draft (Belum Ditampilkan)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap items-center justify-end gap-3 pt-4 border-t border-slate-100">
+          <a
+            href="/berita/admin"
+            class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-all"
+          >
+            Batal
+          </a>
+
+          <button
+            type="submit"
+            id="savePostBtn"
+            class="px-6 py-2.5 rounded-xl bg-primary hover:bg-primary/95 text-white font-bold text-xs sm:text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
+          >
+            <i class="fas fa-check text-xs" id="saveIcon"></i>
+            <span id="saveText">Simpan Perubahan</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/js/berita.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', async () => {
+        if (typeof BeritaAuth === 'undefined' || !BeritaAuth.requireAuth()) return;
+
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('id');
+
+        if (!postId) {
+          window.location.href = '/berita/admin';
+          return;
+        }
+
+        const catSelect = document.getElementById('postCategorySelect');
+        const titleInput = document.getElementById('postTitleInput');
+        const tagsInput = document.getElementById('postTagsInput');
+        const thumbInput = document.getElementById('postThumbnailUrlInput');
+        const excerptInput = document.getElementById('postExcerptInput');
+        const featuredCheckbox = document.getElementById('postFeaturedCheckbox');
+        const statusSelect = document.getElementById('postStatusSelect');
+        const prevBox = document.getElementById('thumbnailPreviewContainer');
+        const prevImg = document.getElementById('thumbnailPreviewImg');
+        const previewLink = document.getElementById('previewPostLink');
+
+        function updateThumbPreview(url) {
+          if (url && url.startsWith('http')) {
+            prevImg.src = url;
+            prevBox.classList.remove('hidden');
+            prevBox.classList.add('flex');
+          } else {
+            prevBox.classList.add('hidden');
+            prevBox.classList.remove('flex');
+          }
+        }
+        thumbInput.addEventListener('input', (e) => updateThumbPreview(e.target.value.trim()));
+
+        // Inisialisasi categories
+        try {
+          const catRes = await BeritaAPI.getCategories();
+          if (catRes.success && catRes.data && Array.isArray(catRes.data.categories)) {
+            catRes.data.categories.forEach((c) => {
+              const opt = document.createElement('option');
+              opt.value = c.slug;
+              opt.textContent = `${c.name} (${c.slug})`;
+              catSelect.appendChild(opt);
+            });
+          }
+        } catch (_) {}
+
+        let simplemde = null;
+
+        // Load data post
+        const res = await BeritaAPI.getPost(postId);
+        if (res.success && res.data) {
+          const post = res.data;
+
+          document.getElementById('loadingBox').classList.add('hidden');
+          document.getElementById('editFormContainer').classList.remove('hidden');
+
+          titleInput.value = post.title || '';
+          catSelect.value = post.category || '';
+          tagsInput.value = (post.tags || []).join(', ');
+          thumbInput.value = post.thumbnail || '';
+          excerptInput.value = post.excerpt || '';
+          featuredCheckbox.checked = Boolean(post.featured);
+          statusSelect.value = post.status || 'published';
+          updateThumbPreview(post.thumbnail);
+
+          if (previewLink) {
+            previewLink.href = `/berita/${post.slug}`;
+            previewLink.classList.remove('hidden');
+            previewLink.classList.add('inline-flex');
+          }
+
+          document.getElementById('markdownEditor').value = post.content || '';
+
+          if (typeof SimpleMDE !== 'undefined') {
+            simplemde = new SimpleMDE({
+              element: document.getElementById('markdownEditor'),
+              spellChecker: false,
+              previewRender: function (plainText) {
+                if (typeof marked !== 'undefined') return marked.parse(plainText);
+                return plainText;
+              }
+            });
+
+            const counter = document.getElementById('contentCharCounter');
+            const updateCount = () => {
+              const val = simplemde.value().trim();
+              const words = val ? val.split(/\s+/).filter(Boolean).length : 0;
+              if (counter) counter.textContent = `${words} kata (~${Math.max(1, Math.ceil(words / 200))} mnt baca)`;
+            };
+            simplemde.codemirror.on('change', updateCount);
+            updateCount();
+          }
+        } else {
+          Swal.fire({
+            title: 'Berita Tidak Ditemukan',
+            text: res.message || 'Data berita gagal dimuat dari server.',
+            icon: 'error',
+            confirmButtonColor: '#00406E'
+          }).then(() => {
+            window.location.href = '/berita/admin';
+          });
+          return;
+        }
+
+        // Upload berkas lokal ke Google Drive
+        const fileInput = document.getElementById('postThumbnailFileInput');
+        const uploadLabel = document.getElementById('uploadLabelText');
+        fileInput.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          if (file.size > 3 * 1024 * 1024) {
+            showBeritaToast('error', 'Berkas Terlalu Besar', 'Maksimal ukuran gambar adalah 3 MB.');
+            return;
+          }
+
+          uploadLabel.textContent = 'Mengunggah...';
+          const reader = new FileReader();
+          reader.onload = async () => {
+            const base64 = reader.result;
+            const upRes = await BeritaAPI.uploadImage(base64, file.name);
+            uploadLabel.textContent = 'Unggah Berkas';
+
+            if (upRes.success && upRes.data && upRes.data.url) {
+              thumbInput.value = upRes.data.url;
+              updateThumbPreview(upRes.data.url);
+              showBeritaToast('success', 'Gambar Berhasil Diunggah');
+            } else {
+              showBeritaToast('error', 'Gagal Mengunggah', upRes.message);
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+
+        // Submit Update Form
+        const form = document.getElementById('editPostForm');
+        const saveBtn = document.getElementById('savePostBtn');
+        const saveText = document.getElementById('saveText');
+        const saveIcon = document.getElementById('saveIcon');
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const title = titleInput.value.trim();
+          const category = catSelect.value;
+          const tags = tagsInput.value.trim();
+          const thumbnail = thumbInput.value.trim();
+          const excerpt = excerptInput.value.trim();
+          const featured = featuredCheckbox.checked;
+          const status = statusSelect.value;
+          const content = simplemde ? simplemde.value().trim() : document.getElementById('markdownEditor').value.trim();
+
+          if (!title || !category || !content) {
+            showBeritaToast('error', 'Validasi Gagal', 'Harap lengkapi judul, kategori, dan isi berita.');
+            return;
+          }
+
+          saveBtn.disabled = true;
+          saveText.textContent = 'Menyimpan...';
+          saveIcon.className = 'fas fa-spinner fa-spin text-xs';
+
+          const saveRes = await BeritaAPI.savePost({
+            id: postId,
+            title,
+            category,
+            tags,
+            thumbnail,
+            excerpt,
+            featured,
+            status,
+            content
+          });
+
+          saveBtn.disabled = false;
+          saveText.textContent = 'Simpan Perubahan';
+          saveIcon.className = 'fas fa-check text-xs';
+
+          if (saveRes.success && saveRes.data) {
+            Swal.fire({
+              title: 'Perubahan Disimpan!',
+              text: 'Berita telah berhasil diperbarui di database.',
+              icon: 'success',
+              confirmButtonColor: '#00406E'
+            }).then(() => {
+              window.location.href = `/berita/${saveRes.data.slug}`;
+            });
+          } else {
+            showBeritaToast('error', 'Gagal Menyimpan', saveRes.message);
+          }
+        });
+      });
+    </script>
+  </Fragment>
+</Layout>

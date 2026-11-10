@@ -10,7 +10,7 @@
       "permanent": true
     },
     {
-      "source": "/pages/:name(divisi|pengurus|privacy|terms).html",
+      "source": "/pages/:name(divisi|pengurus|privacy|terms|berita).html",
       "destination": "/pages/:name",
       "permanent": true
     }

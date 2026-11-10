@@ -1,0 +1,196 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { BERITA_CONFIG } from '../../lib/berita-config';
+
+export const prerender = false;
+---
+
+<Layout
+  title="Login Redaksi & Admin Berita - HIMTEKK"
+  description="Halaman masuk redaksi dan pengurus HIMTEKK untuk mengelola portal berita dan informasi."
+  canonical={`${BERITA_CONFIG.siteUrl}/berita/login`}
+  robots="noindex, nofollow"
+  bodyClass="text-slate-800 bg-slate-900 min-h-screen flex items-center justify-center p-4"
+  sweetalert={true}
+>
+  <div class="w-full max-w-md my-8">
+    <!-- Brand Header -->
+    <div class="text-center mb-8">
+      <a href="/" class="inline-flex items-center gap-3 group mb-4">
+        <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-12 h-12 transition-transform group-hover:rotate-12" width="48" height="48">
+        <span class="text-3xl font-extrabold text-white tracking-tight"><span class="text-accent">HIM</span>TEKK</span>
+      </a>
+      <h1 class="text-xl font-bold text-white mb-1">Portal Redaksi Berita</h1>
+      <p class="text-xs sm:text-sm text-slate-400">Masuk untuk mengelola publikasi dan agenda organisasi</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/10 relative overflow-hidden">
+      <div class="h-1.5 bg-gradient-to-r from-primary via-accent to-primary absolute top-0 left-0 right-0"></div>
+
+      <!-- Alert Box -->
+      <div id="loginAlertBox" class="hidden mb-5 p-3.5 rounded-xl text-xs sm:text-sm font-medium flex items-start gap-2.5"></div>
+
+      <form id="adminLoginForm" novalidate>
+        <!-- Username -->
+        <div class="mb-4">
+          <label for="usernameInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+            Username / Email
+          </label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+              <i class="fas fa-user text-sm"></i>
+            </span>
+            <input
+              type="text"
+              id="usernameInput"
+              required
+              autocomplete="username"
+              placeholder="Masukkan username admin/editor"
+              class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm transition-all"
+            />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-2">
+            <label for="passwordInput" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Kata Sandi
+            </label>
+          </div>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+              <i class="fas fa-lock text-sm"></i>
+            </span>
+            <input
+              type="password"
+              id="passwordInput"
+              required
+              autocomplete="current-password"
+              placeholder="••••••••"
+              class="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm transition-all"
+            />
+            <button
+              type="button"
+              id="togglePasswordBtn"
+              class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none p-1"
+              aria-label="Tampilkan kata sandi"
+            >
+              <i class="far fa-eye text-sm" id="togglePasswordIcon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          id="loginSubmitBtn"
+          class="w-full py-3.5 px-6 rounded-xl bg-primary hover:bg-primary/95 text-white font-bold text-sm tracking-wide shadow-lg shadow-primary/25 hover:shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
+        >
+          <span id="loginBtnText">Masuk ke Dashboard</span>
+          <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1" id="loginBtnIcon"></i>
+        </button>
+      </form>
+
+      <!-- Back to site links -->
+      <div class="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        <a href="/berita" class="hover:text-primary transition-colors flex items-center gap-1">
+          <i class="fas fa-chevron-left text-[10px]"></i> Portal Berita
+        </a>
+        <a href="/" class="hover:text-primary transition-colors">
+          Beranda Utama
+        </a>
+      </div>
+    </div>
+
+    <!-- Security Info Note -->
+    <div class="mt-6 text-center text-xs text-slate-500 flex items-center justify-center gap-2">
+      <i class="fas fa-shield-halved text-accent text-sm"></i>
+      <span>Protected with End-to-End Google Sheets API Gateway</span>
+    </div>
+  </div>
+
+  <Fragment slot="scripts">
+    <script is:inline src="/js/berita.js"></script>
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Jika sudah login, redirect langsung
+        if (typeof BeritaAuth !== 'undefined' && BeritaAuth.isLoggedIn()) {
+          window.location.href = '/berita/admin';
+          return;
+        }
+
+        const form = document.getElementById('adminLoginForm');
+        const usernameInput = document.getElementById('usernameInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const toggleBtn = document.getElementById('togglePasswordBtn');
+        const toggleIcon = document.getElementById('togglePasswordIcon');
+        const submitBtn = document.getElementById('loginSubmitBtn');
+        const btnText = document.getElementById('loginBtnText');
+        const btnIcon = document.getElementById('loginBtnIcon');
+        const alertBox = document.getElementById('loginAlertBox');
+
+        // Toggle password visibility
+        toggleBtn.addEventListener('click', () => {
+          const isPassword = passwordInput.type === 'password';
+          passwordInput.type = isPassword ? 'text' : 'password';
+          toggleIcon.className = isPassword ? 'far fa-eye-slash text-sm' : 'far fa-eye text-sm';
+        });
+
+        function showAlert(msg, isError = true) {
+          alertBox.className = isError
+            ? 'mb-5 p-3.5 rounded-xl text-xs sm:text-sm font-medium flex items-start gap-2.5 bg-rose-50 border border-rose-200 text-rose-700'
+            : 'mb-5 p-3.5 rounded-xl text-xs sm:text-sm font-medium flex items-start gap-2.5 bg-emerald-50 border border-emerald-200 text-emerald-700';
+          alertBox.innerHTML = `
+            <i class="fas ${isError ? 'fa-circle-exclamation' : 'fa-circle-check'} text-base mt-0.5 shrink-0"></i>
+            <div>${msg}</div>
+          `;
+          alertBox.classList.remove('hidden');
+        }
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const username = usernameInput.value.trim();
+          const password = passwordInput.value;
+
+          if (!username || !password) {
+            showAlert('Harap isi username dan kata sandi.');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          btnText.textContent = 'Memverifikasi...';
+          btnIcon.className = 'fas fa-spinner fa-spin text-xs';
+          alertBox.classList.add('hidden');
+
+          try {
+            const res = await BeritaAPI.login(username, password);
+
+            if (res.success && res.data) {
+              showAlert('Login berhasil! Mengalihkan ke dashboard...', false);
+              BeritaAuth.setUser(res.data.user, res.data.token);
+
+              const params = new URLSearchParams(window.location.search);
+              const redirect = params.get('redirect') || '/berita/admin';
+
+              setTimeout(() => {
+                window.location.href = redirect;
+              }, 700);
+            } else {
+              submitBtn.disabled = false;
+              btnText.textContent = 'Masuk ke Dashboard';
+              btnIcon.className = 'fas fa-arrow-right text-xs';
+              showAlert(res.message || 'Username atau kata sandi tidak valid.');
+            }
+          } catch (err) {
+            submitBtn.disabled = false;
+            btnText.textContent = 'Masuk ke Dashboard';
+            btnIcon.className = 'fas fa-arrow-right text-xs';
+            showAlert('Terjadi kesalahan pada jaringan. Silakan coba kembali.');
+          }
+        });
+      });
+    </script>
+  </Fragment>
+</Layout>

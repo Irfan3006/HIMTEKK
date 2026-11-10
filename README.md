@@ -54,18 +54,39 @@ HIMTEKK/
 │   │   ├── style.css              # Stylesheet kustom untuk tema, scrollbar, dan animasi khusus
 │   │   └── tailwind.min.css       # Hasil kompilasi akhir Tailwind CSS yang terminifikasi
 │   ├── js/
+│   │   ├── berita.js              # Klien interaksi API portal berita dan dashboard admin
 │   │   └── script.js              # Skrip utama logika aplikasi, anti-spam, analytics, dan interaksi UI
 │   └── pages/
 │       └── flag.html              # Halaman uji coba khusus (statis, URL: /flag)
+│
+├── google-apps-script/
+│   └── berita/
+│       ├── Code.gs                # Backend API Google Apps Script (CRUD, Hash, Sesi, Drive Upload)
+│       └── README.md              # Panduan lengkap setup Google Sheets & deployment Web App
 │
 └── src/
     ├── env.d.ts                   # Deklarasi tipe global
     ├── layouts/
     │   └── Layout.astro           # Layout dasar: <head>, SEO, stylesheet, dan script penutup
+    ├── lib/
+    │   ├── berita-api.ts          # Klien SSR in-memory caching & proxy Google Apps Script
+    │   └── berita-config.ts       # Konfigurasi konstanta, kategori, dan helper tanggal
     ├── pages/
     │   ├── index.astro            # Halaman utama profil organisasi (URL: /)
     │   ├── 404.astro              # Halaman penanganan galat HTTP 404 kustom
+    │   ├── berita/
+    │   │   ├── index.astro        # Portal daftar berita & pencarian (URL: /berita)
+    │   │   ├── [slug].astro       # Halaman artikel berita lengkap (URL: /berita/[slug])
+    │   │   ├── login.astro        # Halaman autentikasi redaksi (URL: /berita/login)
+    │   │   └── admin/
+    │   │       ├── index.astro    # Dashboard admin & manajemen berita (URL: /berita/admin)
+    │   │       ├── tulis.astro    # Editor Markdown pembuatan berita (URL: /berita/admin/tulis)
+    │   │       └── edit.astro     # Editor pembaruan berita (URL: /berita/admin/edit)
+    │   ├── api/
+    │   │   └── berita/
+    │   │       └── [action].ts    # Endpoint proxy aman Vercel Server -> Google Apps Script
     │   └── pages/
+    │       ├── berita.astro       # Redirect otomatis ke URL kanonikal /berita
     │       ├── divisi.astro       # Informasi divisi dan rekrutmen (URL: /pages/divisi)
     │       ├── pengurus.astro     # Struktur kepengurusan organisasi (URL: /pages/pengurus)
     │       ├── privacy.astro      # Kebijakan privasi data (URL: /pages/privacy)

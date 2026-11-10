@@ -1,5 +1,10 @@
 User-agent: *
 Disallow: /404
 Disallow: /404.html
+Disallow: /berita/admin
+Disallow: /berita/admin/
+Disallow: /berita/login
+Disallow: /api/berita/
 
 Sitemap: https://himtekk.com/sitemap.xml
+
