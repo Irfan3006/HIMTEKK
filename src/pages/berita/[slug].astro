@@ -3,7 +3,18 @@ import Layout from '../../layouts/Layout.astro';
 import { getBeritaBySlug, getBeritaIndex } from '../../lib/berita-api';
 import { BERITA_CONFIG, formatDateIndo, formatDateTimeIndo, getCategoryIcon } from '../../lib/berita-config';
 import { marked } from 'marked';
-import sanitizeHtml from 'sanitize-html';
+
+function sanitizeArticleHtml(html: string): string {
+  if (!html) return '';
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
+    .replace(/<object\b[^<]*(?:(?!<\/object>)<[^<]*)*<\/object>/gi, '')
+    .replace(/<embed\b[^<]*(?:(?!<\/embed>)<[^<]*)*<\/embed>/gi, '')
+    .replace(/\son\w+\s*=\s*(['"]).*?\1/gi, '')
+    .replace(/\son\w+\s*=\s*[^>\s]+/gi, '')
+    .replace(/href\s*=\s*(['"])javascript:.*?\1/gi, 'href="#"');
+}
 
 export const prerender = false;
 export const maxDuration = 60;
@@ -35,26 +46,7 @@ let safeContent = '';
 if (post) {
   try {
     const rawHtml = await marked.parse(post.content || post.excerpt || '');
-    safeContent = sanitizeHtml(rawHtml, {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'code', 'pre', 'blockquote', 'hr', 'span'
-      ]),
-      allowedAttributes: {
-        ...sanitizeHtml.defaults.allowedAttributes,
-        img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'class'],
-        a: ['href', 'name', 'target', 'rel', 'class'],
-        code: ['class'],
-        th: ['align', 'colspan'],
-        td: ['align', 'colspan'],
-        span: ['class']
-      },
-      transformTags: {
-        a: sanitizeHtml.simpleTransform('a', {
-          target: '_blank',
-          rel: 'noopener noreferrer'
-        })
-      }
-    });
+    safeContent = sanitizeArticleHtml(String(rawHtml || ''));
   } catch (_) {
     safeContent = `<p>${post.excerpt || post.title}</p>`;
   }
