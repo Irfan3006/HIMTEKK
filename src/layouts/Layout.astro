@@ -1,0 +1,132 @@
+---
+/**
+ * Layout dasar HIMTEKK.
+ * Menghasilkan <head> (SEO, Open Graph, Twitter, stylesheet) dan script penutup
+ * yang sama persis dengan versi HTML statis sebelumnya.
+ */
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  author?: string;
+  robots?: string;
+  /** URL kanonik absolut. Jika diisi, meta Open Graph/Twitter ikut dibuat. */
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  /** Bobot font Outfit pada Google Fonts, contoh: "300;400;600;700" */
+  fontWeights?: string;
+  /** Preload gambar hero (khusus beranda untuk LCP) */
+  preloadHero?: boolean;
+  /** Muat SweetAlert2 di <head> */
+  sweetalert?: boolean;
+  /** Tambahkan meta anti-cache (Cache-Control/Pragma/Expires) */
+  noCacheMeta?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  author,
+  robots = 'index, follow',
+  canonical,
+  ogTitle,
+  ogDescription,
+  fontWeights = '300;400;600;700',
+  preloadHero = false,
+  sweetalert = true,
+  noCacheMeta = false,
+  bodyClass,
+} = Astro.props;
+
+const SITE = 'https://himtekk.com';
+const ogImage = `${SITE}/assets/img/og.webp`;
+const v = __ASSET_VERSIONS__;
+---
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+
+    {canonical ? (
+      <Fragment>
+        <meta name="description" content={description}>
+        {keywords && <meta name="keywords" content={keywords}>}
+        {author && <meta name="author" content={author}>}
+        <meta name="robots" content={robots}>
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="id_ID">
+        <meta property="og:site_name" content="HIMTEKK">
+        <meta property="og:url" content={canonical}>
+        <meta property="og:title" content={ogTitle ?? title}>
+        <meta property="og:description" content={ogDescription ?? description}>
+        <meta property="og:image" content={ogImage}>
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:type" content="image/webp">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content={canonical}>
+        <meta property="twitter:title" content={ogTitle ?? title}>
+        <meta property="twitter:description" content={ogDescription ?? description}>
+        <meta property="twitter:image" content={ogImage}>
+
+        <!-- Canonical Link -->
+        <link rel="canonical" href={canonical}>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <meta name="robots" content={robots}>
+        <meta name="description" content={description}>
+      </Fragment>
+    )}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="/assets/img/logo.webp">
+
+    <!-- Preconnect Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href={`https://fonts.googleapis.com/css2?family=Outfit:wght@${fontWeights}&display=swap`} rel="stylesheet">
+
+    {preloadHero && (
+      <Fragment>
+        <!-- Preload Critical LCP Hero Image -->
+        <link rel="preload" as="image" href="/assets/img/hero.webp" fetchpriority="high">
+      </Fragment>
+    )}
+
+    {noCacheMeta && (
+      <Fragment>
+        <!-- Cache Control & Anti-Stale Meta Tags -->
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
+      </Fragment>
+    )}
+
+    <!-- Stylesheets (Pre-compiled & Optimized) -->
+    <link rel="stylesheet" href={`/css/tailwind.min.css?v=${v.tailwind}`}>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {sweetalert && <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" is:inline defer></script>}
+    <link rel="stylesheet" href={`/css/style.css?v=${v.style}`}>
+
+    <slot name="head" />
+</head>
+<body class={bodyClass}>
+    <slot />
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" is:inline></script>
+    <script src={`/js/script.js?v=${v.script}`} is:inline></script>
+    <slot name="scripts" />
+</body>
+</html>

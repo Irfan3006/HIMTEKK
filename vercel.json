@@ -1,5 +1,20 @@
 {
+  "framework": "astro",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pages/:name(divisi|pengurus|privacy|terms).html",
+      "destination": "/pages/:name",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/flag",

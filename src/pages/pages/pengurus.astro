@@ -1,55 +1,18 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Struktur Pengurus - HIMTEKK</title>
-    
-    <meta name="description" content="Struktur organisasi dan pengurus HIMTEKK Universitas Amikom Yogyakarta periode 2026/2027.">
-    <meta name="keywords" content="Pengurus HIMTEKK, Struktur Organisasi, HIMTEKK Amikom, Pengurus Inti, Cyber Security, IoT">
-    <meta name="author" content="HIMTEKK Amikom">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="id_ID">
-    <meta property="og:site_name" content="HIMTEKK">
-    <meta property="og:url" content="https://himtekk.com/pages/pengurus">
-    <meta property="og:title" content="Struktur Pengurus - HIMTEKK Amikom">
-    <meta property="og:description" content="Struktur organisasi dan pengurus HIMTEKK Universitas Amikom Yogyakarta periode 2026/2027.">
-    <meta property="og:image" content="https://himtekk.com/assets/img/og.webp">
-
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/webp">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://himtekk.com/pages/pengurus">
-    <meta property="twitter:title" content="Struktur Pengurus - HIMTEKK Amikom">
-    <meta property="twitter:description" content="Struktur organisasi dan pengurus HIMTEKK Universitas Amikom Yogyakarta periode 2026/2027.">
-    <meta property="twitter:image" content="https://himtekk.com/assets/img/og.webp">
-
-    <!-- Canonical Link -->
-    <link rel="canonical" href="https://himtekk.com/pages/pengurus">
-    <link rel="icon" type="image/webp" href="../assets/img/logo.webp">
-    
-    <!-- Preconnect Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Stylesheets (Pre-compiled & Optimized) -->
-    <link rel="stylesheet" href="../css/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-    <link rel="stylesheet" href="../css/style.css?v=2026101904">
-
-    <!-- Breadcrumb Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Struktur Pengurus - HIMTEKK"
+  description="Struktur organisasi dan pengurus HIMTEKK Universitas Amikom Yogyakarta periode 2026/2027."
+  keywords="Pengurus HIMTEKK, Struktur Organisasi, HIMTEKK Amikom, Pengurus Inti, Cyber Security, IoT"
+  author="HIMTEKK Amikom"
+  robots="index, follow"
+  canonical="https://himtekk.com/pages/pengurus"
+  ogTitle="Struktur Pengurus - HIMTEKK Amikom"
+  bodyClass="text-slate-800 overflow-x-hidden"
+>
+<Fragment slot="head">
+<script type="application/ld+json" is:inline>
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -69,8 +32,7 @@
       ]
     }
     </script>
-</head>
-<body class="text-slate-800 overflow-x-hidden">
+</Fragment>
 
     <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 sm:py-4 bg-primary shadow-lg" data-solid="true">
@@ -780,14 +742,13 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../js/script.js"></script>
-    <script>
+<Fragment slot="scripts">
+<script is:inline>
         AOS.init({
             duration: 800,
             once: true,
             offset: 50
         });
     </script>
-</body>
-</html>
+</Fragment>
+</Layout>

@@ -1,30 +1,15 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Halaman Tidak Ditemukan | HIMTEKK</title>
-    
-    <!-- SEO & Meta Tags -->
-    <meta name="robots" content="noindex, follow">
-    <meta name="description" content="Ups! Halaman yang Anda cari tidak ditemukan di website HIMTEKK Amikom Yogyakarta.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/webp" href="/assets/img/logo.webp">
-    
-    <!-- Preconnect Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Stylesheets (Pre-compiled & Optimized) -->
-    <link rel="stylesheet" href="/css/tailwind.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css?v=2026101903">
-    
-    <style>
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="404 - Halaman Tidak Ditemukan | HIMTEKK"
+  description="Ups! Halaman yang Anda cari tidak ditemukan di website HIMTEKK Amikom Yogyakarta."
+  robots="noindex, follow"
+  bodyClass="min-h-screen flex items-center justify-center overflow-hidden font-sans"
+  sweetalert={false}
+>
+<Fragment slot="head">
+<style is:inline>
         body {
             background-color: #F8FAFC;
         }
@@ -55,8 +40,8 @@
             z-index: -1;
         }
     </style>
-</head>
-<body class="min-h-screen flex items-center justify-center overflow-hidden font-sans">
+</Fragment>
+
     
     <!-- Decorative Elements -->
     <div class="blob top-[-250px] right-[-250px] animate__animated animate__pulse animate__infinite"></div>
@@ -95,9 +80,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="/js/script.js"></script>
-    <script>
+
+<Fragment slot="scripts">
+<script is:inline>
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof AOS !== 'undefined') {
                 AOS.init({
@@ -107,5 +92,5 @@
             }
         });
     </script>
-</body>
-</html>
+</Fragment>
+</Layout>

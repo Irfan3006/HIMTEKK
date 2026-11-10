@@ -2,10 +2,21 @@
   "name": "himtekk",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Website Resmi HIMTEKK Universitas Amikom Yogyakarta",
+  "engines": {
+    "node": ">=22.23.4"
+  },
   "scripts": {
-    "build:css": "npx --yes tailwindcss@3 -i ./css/input.css -o ./css/tailwind.min.css --minify",
-    "watch:css": "npx --yes tailwindcss@3 -i ./css/input.css -o ./css/tailwind.min.css --watch"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "build:css": "tailwindcss -c ./tailwind.config.cjs -i ./src/styles/tailwind.css -o ./public/css/tailwind.min.css --minify",
+    "watch:css": "tailwindcss -c ./tailwind.config.cjs -i ./src/styles/tailwind.css -o ./public/css/tailwind.min.css --watch"
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^11.0.20",
+    "astro": "^7.4.8"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.17"

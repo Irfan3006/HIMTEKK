@@ -8,7 +8,7 @@ Dokumentasi ini disusun sebagai pedoman teknis komprehensif mengenai arsitektur,
 
 Website HIMTEKK merupakan platform informasi digital resmi organisasi Himpunan Mahasiswa Teknik Komputer (HIMTEKK) Universitas Amikom Yogyakarta. Platform ini berfungsi sebagai media profil kelembagaan, pusat informasi kegiatan akademik dan organisasi, etalase struktur kepengurusan, serta sarana publikasi resmi bagi seluruh civitas akademika dan masyarakat luas.
 
-Proyek ini dirancang menggunakan arsitektur situs statis berperforma tinggi (Jamstack) tanpa ketergantungan pada basis data sisi klien yang berat, sehingga menghasilkan kecepatan pemuatan yang optimal, efisiensi bandwidth, dan ketahanan terhadap potensi celah keamanan.
+Proyek ini dibangun menggunakan framework **Astro** dengan mode **SSR (Server-Side Rendering)** yang dijalankan di Vercel melalui adapter `@astrojs/vercel`. Markup halaman, tampilan, dan perilaku sisi klien dipertahankan identik dengan versi HTML statis sebelumnya, tanpa ketergantungan pada basis data sisi klien yang berat, sehingga menghasilkan kecepatan pemuatan yang optimal, efisiensi bandwidth, dan ketahanan terhadap potensi celah keamanan.
 
 ---
 
@@ -17,9 +17,9 @@ Proyek ini dirancang menggunakan arsitektur situs statis berperforma tinggi (Jam
 Website ini dibangun dengan fondasi teknologi web modern yang berfokus pada kecepatan akses, efisiensi kode, dan kepatuhan standar web internasional:
 
 1. **HTML5 Semantik**: Penyusunan hierarki dokumen yang terstruktur secara semantik untuk memastikan aksesibilitas (a11y) dan keterbacaan optimal oleh mesin perayap (crawler).
-2. **Tailwind CSS Versi 3 (Pre-compiled)**: Kerangka kerja styling berbasis utility yang dikompilasi secara luring menjadi file CSS statis yang diminifikasi (`css/tailwind.min.css`, ukuran sekitar 25 KB). Pendekatan ini menggantikan runtime Play CDN untuk mengeliminasi latensi parsing JavaScript dan pergeseran tata letak saat pemuatan awal.
+2. **Tailwind CSS Versi 3 (Pre-compiled)**: Kerangka kerja styling berbasis utility yang dikompilasi secara luring menjadi file CSS statis yang diminifikasi (`public/css/tailwind.min.css`, ukuran sekitar 25 KB). Pendekatan ini menggantikan runtime Play CDN untuk mengeliminasi latensi parsing JavaScript dan pergeseran tata letak saat pemuatan awal.
 3. **Vanilla JavaScript (ES6+)**: Logika sisi klien tanpa ketergantungan framework berat, mencakup manajemen persetujuan cookie berbasis GDPR, proteksi formulir anti-spam, dan interaksi antarmuka pengguna.
-4. **Clean URLs Engine**: Penyajian seluruh rute URL bersih tanpa ekstensi file (`/pages/pengurus`, `/pages/privacy`, `/pages/terms`) yang dikonfigurasi melalui platform Vercel.
+4. **Astro SSR + Vercel**: Setiap halaman berupa komponen `.astro` pada `src/pages/` yang dirender sesuai permintaan (`output: 'server'`). Rute URL bersih tanpa ekstensi file (`/pages/pengurus`, `/pages/divisi`, `/pages/privacy`, `/pages/terms`) dipertahankan, sedangkan header keamanan, redirect, dan caching tetap dikonfigurasi melalui `vercel.json`.
 5. **Pustaka Antarmuka Eksternal**:
    * **AOS (Animate On Scroll)**: Menangani animasi transisi elemen berbasis posisi gulir layar.
    * **FontAwesome Versi 6**: Penyedia ikonografi vektor antarmuka pengguna.
@@ -36,43 +36,42 @@ Susunan file dan direktori dalam repositori ini diatur dengan struktur berikut:
 HIMTEKK/
 │
 ├── .gitignore                     # Konfigurasi file yang diabaikan oleh Git
-├── 404.html                       # Halaman penanganan galat HTTP 404 kustom
-├── index.html                     # Halaman utama profil organisasi (URL: /)
+├── astro.config.mjs               # Konfigurasi Astro (SSR, adapter Vercel, hash versi aset)
 ├── LICENSE                        # Lisensi perangkat lunak (MIT License)
-├── package.json                   # Konfigurasi dependensi dan script kompilasi Tailwind CSS
+├── package.json                   # Dependensi dan script (dev, build, build:css)
 ├── panduan-color-palette.md       # Panduan standar identitas warna dan tipografi resmi
 ├── README.md                      # Dokumentasi teknis utama proyek
-├── robots.txt                     # Instruksi perayapan untuk mesin pencari web
 ├── short.js                       # Skrip worker penyingkat tautan (Cloudflare Worker)
-├── sitemap.xml                    # Peta situs XML dengan format Clean URLs
-├── tailwind.config.js             # File konfigurasi tema dan pemindaian template Tailwind CSS
-├── vercel.json                    # Konfigurasi deployment, Clean URLs, header keamanan, dan caching
+├── tailwind.config.cjs            # File konfigurasi tema dan pemindaian template Tailwind CSS
+├── tsconfig.json                  # Konfigurasi TypeScript Astro
+├── vercel.json                    # Konfigurasi deployment, redirect, header keamanan, dan caching
 │
-├── assets/
-│   └── img/
-│       ├── hero.webp              # Aset visual utama hero section berprioritas tinggi
-│       ├── logo.webp              # Logo identitas resmi organisasi
-│       ├── og.webp                # Gambar pratinjau untuk Open Graph dan Twitter Cards
-│       ├── placeholder.webp       # Gambar pengganti cadangan
-│       └── pengurus/              # Direktori penyimpanan foto resmi seluruh pengurus
-│           ├── ketua.webp
-│           ├── sekjend.webp
-│           ├── sekretaris1.webp
-│           └── ... (foto pengurus per divisi)
+├── public/                        # Aset statis yang disajikan apa adanya pada root situs
+│   ├── robots.txt                 # Instruksi perayapan untuk mesin pencari web
+│   ├── sitemap.xml                # Peta situs XML dengan format Clean URLs
+│   ├── assets/img/                # Logo, hero, OG image, dan foto pengurus
+│   ├── css/
+│   │   ├── style.css              # Stylesheet kustom untuk tema, scrollbar, dan animasi khusus
+│   │   └── tailwind.min.css       # Hasil kompilasi akhir Tailwind CSS yang terminifikasi
+│   ├── js/
+│   │   └── script.js              # Skrip utama logika aplikasi, anti-spam, analytics, dan interaksi UI
+│   └── pages/
+│       └── flag.html              # Halaman uji coba khusus (statis, URL: /flag)
 │
-├── css/
-│   ├── input.css                  # Berkas sumber layer Tailwind (@tailwind base, components, utilities)
-│   ├── style.css                  # Stylesheet kustom untuk tema, scrollbar, dan animasi khusus
-│   └── tailwind.min.css           # Hasil kompilasi akhir Tailwind CSS yang terminifikasi
-│
-├── js/
-│   └── script.js                  # Skrip utama logika aplikasi, anti-spam, analytics, dan interaksi UI
-│
-└── pages/
-    ├── flag.html                  # Halaman uji coba khusus
-    ├── pengurus.html              # Halaman struktur kepengurusan organisasi (URL: /pages/pengurus)
-    ├── privacy.html               # Halaman kebijakan privasi data (URL: /pages/privacy)
-    └── terms.html                 # Halaman syarat dan ketentuan layanan (URL: /pages/terms)
+└── src/
+    ├── env.d.ts                   # Deklarasi tipe global
+    ├── layouts/
+    │   └── Layout.astro           # Layout dasar: <head>, SEO, stylesheet, dan script penutup
+    ├── pages/
+    │   ├── index.astro            # Halaman utama profil organisasi (URL: /)
+    │   ├── 404.astro              # Halaman penanganan galat HTTP 404 kustom
+    │   └── pages/
+    │       ├── divisi.astro       # Informasi divisi dan rekrutmen (URL: /pages/divisi)
+    │       ├── pengurus.astro     # Struktur kepengurusan organisasi (URL: /pages/pengurus)
+    │       ├── privacy.astro      # Kebijakan privasi data (URL: /pages/privacy)
+    │       └── terms.astro        # Syarat dan ketentuan layanan (URL: /pages/terms)
+    └── styles/
+        └── tailwind.css           # Berkas sumber layer Tailwind (@tailwind base, components, utilities)
 ```
 
 ---
@@ -82,18 +81,18 @@ HIMTEKK/
 Seluruh kode sumber telah dioptimalkan secara ketat untuk mencapai skor performa tinggi pada Google PageSpeed Insights dan Core Web Vitals:
 
 ### A. Pengurangan Bobot CSS dan Penghapusan Render-Blocking
-* Menggantikan script `cdn.tailwindcss.com` sebesar sekitar 300 KB dengan file statis terminifikasi `css/tailwind.min.css` sebesar 25 KB, menghemat lebih dari 90 persen ukuran transfer CSS.
-* Menghilangkan `@import url(...)` pada file `css/style.css` yang sebelumnya menghambat proses render browser.
+* Menggantikan script `cdn.tailwindcss.com` sebesar sekitar 300 KB dengan file statis terminifikasi `public/css/tailwind.min.css` sebesar 25 KB, menghemat lebih dari 90 persen ukuran transfer CSS.
+* Menghilangkan `@import url(...)` pada file `public/css/style.css` yang sebelumnya menghambat proses render browser.
 * Menerapkan `<link rel="preconnect">` dan `<link rel="dns-prefetch">` pada domain Google Fonts (`fonts.googleapis.com` dan `fonts.gstatic.com`) untuk mempercepat koneksi socket jaringan sebelum font diunduh.
 
 ### B. Optimalisasi Largest Contentful Paint (LCP)
-* Gambar hero section (`assets/img/hero.webp`) dilengkapi dengan tag `<link rel="preload" as="image" href="assets/img/hero.webp" fetchpriority="high">` pada file `index.html`. Hal ini memastikan gambar utama diunduh oleh scanner browser pada prioritas tertinggi sejak awal siklus pemuatan.
+* Gambar hero section (`assets/img/hero.webp`) dilengkapi dengan tag `<link rel="preload" as="image" href="assets/img/hero.webp" fetchpriority="high">` pada file `src/layouts/Layout.astro`. Hal ini memastikan gambar utama diunduh oleh scanner browser pada prioritas tertinggi sejak awal siklus pemuatan.
 
 ### C. Pencegahan Cumulative Layout Shift (CLS) dan Pemuatan Gambar Efisien
-* Seluruh elemen gambar, khususnya lebih dari 40 foto pengurus pada `pages/pengurus.html`, telah dilengkapi dengan atribut dimensi eksplisit (`width` dan `height`), atribut `loading="lazy"` untuk menghemat kuota data, serta `decoding="async"` agar proses decoding citra tidak memblokir thread utama eksekusi antarmuka.
+* Seluruh elemen gambar, khususnya lebih dari 40 foto pengurus pada `src/pages/pages/pengurus.astro`, telah dilengkapi dengan atribut dimensi eksplisit (`width` dan `height`), atribut `loading="lazy"` untuk menghemat kuota data, serta `decoding="async"` agar proses decoding citra tidak memblokir thread utama eksekusi antarmuka.
 
 ### D. Peringanan JavaScript
-* Ukuran file `js/script.js` dipangkas dari 57 KB menjadi 33 KB melalui eliminasi kode redundan dan penghapusan permintaan API eksternal geolokasi IP yang sebelumnya menambah latensi jaringan saat inisialisasi halaman.
+* Ukuran file `public/js/script.js` dipangkas dari 57 KB menjadi 33 KB melalui eliminasi kode redundan dan penghapusan permintaan API eksternal geolokasi IP yang sebelumnya menambah latensi jaringan saat inisialisasi halaman.
 
 ---
 
@@ -137,7 +136,7 @@ Website ini dirancang agar mudah ditemukan, dipahami, dan diindeks secara kredib
    * Halaman Ketentuan Layanan: `https://himtekk.com/pages/terms`
 2. **Peningkatan Nilai E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)**:
    * Mengizinkan perayapan dokumen kebijakan privasi dan syarat layanan pada `robots.txt`.
-   * Mengatur meta tag robot pada `privacy.html` dan `terms.html` menjadi `index, follow` guna memperkuat sinyal kepercayaan mesin pencari terhadap legalitas organisasi.
+   * Mengatur meta tag robot pada `privacy.astro` dan `terms.astro` menjadi `index, follow` guna memperkuat sinyal kepercayaan mesin pencari terhadap legalitas organisasi.
 3. **Optimasi Aksesibilitas Citra (Image SEO)**: Seluruh atribut `alt` pada foto profil pengurus telah dilengkapi dengan format teks deskriptif standar: `alt="[Nama Lengkap] - [Jabatan] HIMTEKK"`.
 4. **Structured Data (Schema.org / JSON-LD)**: Menyematkan skema terstruktur `BreadcrumbList` pada seluruh subhalaman untuk menghasilkan tampilan cuplikan kaya (rich breadcrumb snippets) pada hasil pencarian Google.
 5. **Protokol Open Graph dan Twitter Card**: Menetapkan metadata sosial media lengkap mencakup `og:title`, `og:description`, `og:image`, `og:image:width: 1200`, `og:image:height: 630`, dan `twitter:card: summary_large_image`.
@@ -160,7 +159,7 @@ Website ini menerapkan sistem manajemen persetujuan cookie (Cookie Consent Manag
 Untuk melakukan pengembangan lokal pada repositori ini, ikuti langkah-langkah berikut:
 
 ### A. Prasyarat Sistem
-* Node.js versi 18 atau yang lebih baru.
+* Node.js versi 22.23.4 atau yang lebih baru.
 * Pengelola paket npm (bawaan dari instalasi Node.js).
 * Perangkat lunak Git.
 
@@ -170,9 +169,17 @@ Untuk melakukan pengembangan lokal pada repositori ini, ikuti langkah-langkah be
    git clone https://github.com/Irfan3006/HIMTEKK.git
    cd HIMTEKK
    ```
-2. Pasang dependensi pengembangan untuk Tailwind CSS:
+2. Pasang dependensi (Astro, adapter Vercel, dan Tailwind CSS):
    ```bash
    npm install
+   ```
+3. Jalankan server pengembangan Astro (default: `http://localhost:4321`):
+   ```bash
+   npm run dev
+   ```
+4. Build produksi (menghasilkan `.vercel/output`):
+   ```bash
+   npm run build
    ```
 
 ### C. Menjalankan Kompilasi CSS
@@ -180,7 +187,7 @@ Untuk melakukan pengembangan lokal pada repositori ini, ikuti langkah-langkah be
   ```bash
   npm run build:css
   ```
-* Untuk menjalankan pengawasan otomatis (watcher) saat sedang mengubah file HTML atau CSS:
+* Untuk menjalankan pengawasan otomatis (watcher) saat sedang mengubah file `.astro` atau CSS:
   ```bash
   npm run watch:css
   ```
@@ -209,9 +216,10 @@ Layanan hosting produksi ditangani oleh platform Vercel dengan integrasi langsun
    * Masuk ke dashboard Vercel menggunakan akun resmi organisasi.
    * Pilih menu **Add New Project** dan impor repositori `HIMTEKK`.
 2. **Parameter Proyek**:
-   * **Framework Preset**: Pilih `Other`.
-   * **Build Command**: Kosongkan (atau isi `npm run build:css` jika kompilasi dilakukan pada pipeline CI/CD).
-   * **Output Directory**: Biarkan bernilai root (`.`).
+   * **Framework Preset**: `Astro` (sudah dideklarasikan pada `vercel.json`).
+   * **Build Command**: `npm run build`.
+   * **Output Directory**: Dikelola otomatis oleh adapter `@astrojs/vercel` (`.vercel/output`), biarkan bawaan.
+   * **Node.js Version**: 22.x atau lebih baru.
 3. **Penyebaran Otomatis (Continuous Deployment)**: Setiap pembaharuan kode yang digabungkan ke cabang utama (`main`) akan secara otomatis memicu proses build dan penyebaran ke server produksi Vercel.
 4. **Aktivasi Firewall dan Proteksi Bot**:
    * Buka menu **Settings > Firewall** pada dashboard proyek Vercel.
@@ -241,11 +249,11 @@ Pengaturan domain `himtekk.com` wajib diarahkan menggunakan proxy Cloudflare unt
 ## 12. Prosedur Pemeliharaan Rutin Kepengurusan
 
 1. **Pembaruan Data Pengurus**:
-   * Edit file `pages/pengurus.html` pada blok kartu divisi yang bersangkutan.
+   * Edit file `src/pages/pages/pengurus.astro` pada blok kartu divisi yang bersangkutan.
    * Simpan foto resmi pengurus baru ke dalam folder `assets/img/pengurus/`.
    * Konversi seluruh citra ke format `.webp` dengan resolusi seragam dan ukuran kompresi yang efisien.
    * Pastikan atribut `alt`, `width`, dan `height` selalu terisi dengan tepat pada setiap tag `<img>`.
-2. **Kompilasi Ulang Styling**: Jalankan `npm run build:css` setelah menambahkan kelas utility Tailwind baru pada file HTML sebelum melakukan commit kode ke repositori.
+2. **Kompilasi Ulang Styling**: Jalankan `npm run build:css` setelah menambahkan kelas utility Tailwind baru pada file `.astro` sebelum melakukan commit kode ke repositori.
 3. **Pemberian Izin Akses Akun**: Sebelum masa kepengurusan berakhir, lakukan serah terima seluruh kredensial email organisasi, akses Vercel, Cloudflare, dan Google Analytics kepada pengurus divisi siber/teknologi informasi periode berikutnya secara aman.
 4. **Kepatuhan Desain Grafis**: Setiap penambahan komponen antarmuka baru wajib merujuk pada standar [panduan-color-palette.md](panduan-color-palette.md) untuk menjaga konsistensi identitas visual organisasi.
 
