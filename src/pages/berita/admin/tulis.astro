@@ -14,20 +14,89 @@ export const prerender = false;
   sweetalert={true}
 >
   <Fragment slot="head">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <script is:inline src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script is:inline src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="/css/easymde.min.css?v=2.21.0">
+    <script is:inline src="/js/easymde.min.js?v=2.21.0"></script>
+    <script is:inline src="/js/marked.min.js?v=18.2.0"></script>
     <style is:inline>
-      .CodeMirror, .CodeMirror-scroll {
-        min-height: 380px !important;
-        border-radius: 0 0 0.75rem 0.75rem;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-        font-size: 0.9rem;
+      .EasyMDEContainer {
+        border-radius: 0.75rem;
+        border: 1px solid #E2E8F0;
+        overflow: hidden;
+        background: #FFFFFF;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .EasyMDEContainer:focus-within {
+        border-color: #00406E;
+        box-shadow: 0 0 0 3px rgba(0, 64, 110, 0.15);
       }
       .editor-toolbar {
-        border-radius: 0.75rem 0.75rem 0 0;
-        background: #F8FAFC;
-        border-color: #E2E8F0;
+        background: #F8FAFC !important;
+        border: none !important;
+        border-bottom: 1px solid #E2E8F0 !important;
+        padding: 6px 8px !important;
+        opacity: 1 !important;
+      }
+      .editor-toolbar button {
+        color: #334155 !important;
+        border-radius: 0.5rem !important;
+        width: 32px !important;
+        height: 32px !important;
+        margin: 1px 2px !important;
+        transition: all 0.15s ease !important;
+        border: 1px solid transparent !important;
+      }
+      .editor-toolbar button:hover {
+        background: #E2E8F0 !important;
+        color: #00406E !important;
+      }
+      .editor-toolbar button.active {
+        background: #E2E8F0 !important;
+        color: #00406E !important;
+        border-color: #CBD5E1 !important;
+      }
+      .editor-toolbar button i {
+        font-size: 13px !important;
+      }
+      .editor-toolbar i.separator {
+        border-left: 1px solid #E2E8F0 !important;
+        border-right: none !important;
+        margin: 0 6px !important;
+      }
+      .CodeMirror {
+        border: none !important;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        padding: 10px 14px !important;
+        color: #1E293B !important;
+        background: #FFFFFF !important;
+      }
+      .CodeMirror-cursor {
+        border-left: 2px solid #00406E !important;
+      }
+      .editor-statusbar {
+        padding: 6px 12px !important;
+        font-size: 0.75rem !important;
+        color: #64748B !important;
+        background: #F8FAFC !important;
+        border-top: 1px solid #F1F5F9 !important;
+      }
+      .EasyMDEContainer.fullscreen {
+        z-index: 99999 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+      }
+      .editor-toolbar.fullscreen {
+        z-index: 99999 !important;
+      }
+      .editor-preview, .editor-preview-side {
+        background: #FFFFFF !important;
+        padding: 1.5rem !important;
+        color: #1E293B !important;
       }
     </style>
   </Fragment>
@@ -163,9 +232,15 @@ export const prerender = false;
             </label>
             <span id="contentCharCounter" class="text-xs text-slate-400 font-medium">0 kata</span>
           </div>
-          <textarea id="markdownEditor"></textarea>
-          <div class="text-[11px] text-slate-400 mt-1">
-            <i class="fas fa-circle-info"></i> Mendukung format Markdown (# Judul, **tebal**, _miring_, - list, > kutipan, dan ```code```).
+          <textarea
+            id="markdownEditor"
+            rows="12"
+            placeholder="Tuliskan isi berita Anda di sini dengan format Markdown..."
+            class="w-full text-sm font-mono p-4 rounded-2xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-slate-800"
+          ></textarea>
+          <div class="text-[11px] text-slate-400 mt-1.5 flex items-center gap-1.5">
+            <i class="fas fa-circle-info text-primary"></i>
+            <span>Mendukung format Markdown (# Judul, **tebal**, _miring_, - list, > kutipan, dan ```code```).</span>
           </div>
         </div>
 
@@ -234,26 +309,67 @@ export const prerender = false;
           }
         } catch (_) {}
 
-        // Inisialisasi SimpleMDE Markdown Editor
-        let simplemde = null;
-        if (typeof SimpleMDE !== 'undefined') {
-          simplemde = new SimpleMDE({
-            element: document.getElementById('markdownEditor'),
+        // Inisialisasi EasyMDE Markdown Editor
+        let easymde = null;
+        const textareaEl = document.getElementById('markdownEditor');
+        const counter = document.getElementById('contentCharCounter');
+
+        function updateWordCount(text) {
+          const val = (text || '').trim();
+          const words = val ? val.split(/\s+/).filter(Boolean).length : 0;
+          if (counter) counter.textContent = `${words} kata (~${Math.max(1, Math.ceil(words / 200))} mnt baca)`;
+        }
+
+        if (typeof EasyMDE !== 'undefined' && textareaEl) {
+          easymde = new EasyMDE({
+            element: textareaEl,
             spellChecker: false,
+            minHeight: '380px',
             placeholder: 'Tuliskan isi berita Anda di sini dengan format Markdown...',
+            status: ['lines', 'words', 'cursor'],
             previewRender: function (plainText) {
-              if (typeof marked !== 'undefined') {
+              if (typeof marked !== 'undefined' && marked.parse) {
                 return marked.parse(plainText);
               }
               return plainText;
-            }
+            },
+            toolbar: [
+              { name: 'bold', action: EasyMDE.toggleBold, className: 'fa-solid fa-bold', title: 'Tebal (Ctrl+B)' },
+              { name: 'italic', action: EasyMDE.toggleItalic, className: 'fa-solid fa-italic', title: 'Miring (Ctrl+I)' },
+              { name: 'heading', action: EasyMDE.toggleHeadingSmaller, className: 'fa-solid fa-heading', title: 'Judul / Heading (Ctrl+H)' },
+              '|',
+              { name: 'quote', action: EasyMDE.toggleBlockquote, className: 'fa-solid fa-quote-left', title: 'Kutipan (Ctrl+\')' },
+              { name: 'unordered-list', action: EasyMDE.toggleUnorderedList, className: 'fa-solid fa-list-ul', title: 'Daftar Poin (Ctrl+L)' },
+              { name: 'ordered-list', action: EasyMDE.toggleOrderedList, className: 'fa-solid fa-list-ol', title: 'Daftar Angka (Ctrl+Alt+L)' },
+              { name: 'code', action: EasyMDE.toggleCodeBlock, className: 'fa-solid fa-code', title: 'Blok Kode' },
+              '|',
+              { name: 'link', action: EasyMDE.drawLink, className: 'fa-solid fa-link', title: 'Sisipkan Tautan (Ctrl+K)' },
+              { name: 'image', action: EasyMDE.drawImage, className: 'fa-solid fa-image', title: 'Sisipkan Gambar (Ctrl+Alt+I)' },
+              { name: 'table', action: EasyMDE.drawTable, className: 'fa-solid fa-table', title: 'Sisipkan Tabel' },
+              '|',
+              { name: 'preview', action: EasyMDE.togglePreview, className: 'fa-solid fa-eye no-disable', title: 'Pratinjau Hasil' },
+              { name: 'side-by-side', action: EasyMDE.toggleSideBySide, className: 'fa-solid fa-table-columns no-disable no-mobile', title: 'Berdampingan (Side-by-side)' },
+              { name: 'fullscreen', action: EasyMDE.toggleFullScreen, className: 'fa-solid fa-expand no-disable no-mobile', title: 'Layar Penuh' },
+              '|',
+              { name: 'undo', action: EasyMDE.undo, className: 'fa-solid fa-rotate-left no-disable', title: 'Urungkan (Ctrl+Z)' },
+              { name: 'redo', action: EasyMDE.redo, className: 'fa-solid fa-rotate-right no-disable', title: 'Ulangi (Ctrl+Y)' },
+              '|',
+              {
+                name: 'guide',
+                action: 'https://www.markdownguide.org/basic-syntax/',
+                className: 'fa-solid fa-circle-question',
+                title: 'Panduan Format Markdown'
+              }
+            ]
           });
 
-          const counter = document.getElementById('contentCharCounter');
-          simplemde.codemirror.on('change', () => {
-            const val = simplemde.value().trim();
-            const words = val ? val.split(/\s+/).filter(Boolean).length : 0;
-            if (counter) counter.textContent = `${words} kata (~${Math.max(1, Math.ceil(words / 200))} mnt baca)`;
+          easymde.codemirror.on('change', () => {
+            updateWordCount(easymde.value());
+          });
+        } else if (textareaEl) {
+          // Fallback native textarea
+          textareaEl.addEventListener('input', () => {
+            updateWordCount(textareaEl.value);
           });
         }
 
@@ -323,7 +439,7 @@ export const prerender = false;
           const excerpt = document.getElementById('postExcerptInput').value.trim();
           const featured = document.getElementById('postFeaturedCheckbox').checked;
           const status = document.getElementById('postStatusSelect').value;
-          const content = simplemde ? simplemde.value().trim() : document.getElementById('markdownEditor').value.trim();
+          const content = easymde ? easymde.value().trim() : (document.getElementById('markdownEditor')?.value || '').trim();
 
           if (!title) {
             showBeritaToast('error', 'Validasi Gagal', 'Judul berita wajib diisi.');

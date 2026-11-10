@@ -17,6 +17,7 @@
   "dependencies": {
     "@astrojs/vercel": "^11.0.20",
     "astro": "^7.4.8",
+    "easymde": "^2.21.0",
     "marked": "^18.2.0",
     "sanitize-html": "^2.18.1"
   },
