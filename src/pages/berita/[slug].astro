@@ -162,17 +162,119 @@ const jsonLd = post ? {
         top: 0;
         left: 0;
         height: 3px;
-        background: #00406E;
+        background: #DBB865;
         width: 0%;
         z-index: 9999;
         transition: width 0.1s ease-out;
       }
 
-      /* Article Editorial Content Styling */
+      /* Navbar Desktop Navigation (Never Squish) */
+      .nav-links-desktop {
+        display: none;
+      }
+      @media (min-width: 768px) {
+        .nav-links-desktop {
+          display: flex;
+          align-items: center;
+          gap: 1.75rem;
+        }
+      }
+
+      /* Focused Article Column (Ergonomic Reading Width) */
+      .article-wrapper {
+        max-width: 840px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+      @media (min-width: 640px) {
+        .article-wrapper {
+          padding-left: 2rem;
+          padding-right: 2rem;
+        }
+      }
+
+      /* Title Typography */
+      .news-title {
+        font-size: 1.85rem;
+        font-weight: 800;
+        line-height: 1.28;
+        color: #0f172a;
+        letter-spacing: -0.025em;
+        margin-top: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+      @media (min-width: 640px) {
+        .news-title {
+          font-size: 2.35rem;
+        }
+      }
+
+      /* Share Bar (Identical to CNN Reference) */
+      .news-share-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.85rem 0;
+        border-top: 1px solid #e2e8f0;
+        border-bottom: 1px solid #e2e8f0;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .news-share-group {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+      }
+      .news-share-circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 9999px;
+        color: #ffffff;
+        font-size: 0.85rem;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.15s ease;
+      }
+      .news-share-circle:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+      }
+      .btn-wa { background-color: #25D366; }
+      .btn-fb { background-color: #1877F2; }
+      .btn-x { background-color: #000000; }
+      .btn-copy { background-color: #64748B; }
+
+      /* Main Article Photo */
+      .news-main-figure {
+        margin: 0 0 1.75rem 0;
+      }
+      .news-main-img {
+        width: 100%;
+        max-height: 480px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        background-color: #0f172a;
+      }
+      .news-caption {
+        margin-top: 0.5rem;
+        font-size: 0.82rem;
+        color: #64748b;
+        font-style: italic;
+      }
+
+      /* Article Editorial Content */
       .article-content {
         font-size: 1.1rem;
-        line-height: 1.85;
+        line-height: 1.9;
         color: #1e293b;
+        word-break: break-word;
       }
       .article-content p {
         margin-bottom: 1.5rem;
@@ -180,15 +282,17 @@ const jsonLd = post ? {
       .article-content h2 {
         font-size: 1.5rem;
         font-weight: 800;
-        color: #0f172a;
+        color: #00406E;
         margin-top: 2.25rem;
         margin-bottom: 0.85rem;
         line-height: 1.35;
+        border-bottom: 1px solid #f1f5f9;
+        padding-bottom: 0.4rem;
       }
       .article-content h3 {
         font-size: 1.25rem;
         font-weight: 700;
-        color: #0f172a;
+        color: #00406E;
         margin-top: 1.75rem;
         margin-bottom: 0.65rem;
         line-height: 1.4;
@@ -197,30 +301,26 @@ const jsonLd = post ? {
         margin-left: 1.5rem;
         margin-bottom: 1.5rem;
       }
-      .article-content ul {
-        list-style-type: disc;
-      }
-      .article-content ol {
-        list-style-type: decimal;
-      }
+      .article-content ul { list-style-type: disc; }
+      .article-content ol { list-style-type: decimal; }
       .article-content li {
         margin-bottom: 0.5rem;
         padding-left: 0.25rem;
       }
       .article-content blockquote {
-        border-left: 4px solid #00406E;
+        border-left: 4px solid #DBB865;
         background: #F8FAFC;
         padding: 1rem 1.25rem;
         margin: 1.75rem 0;
         font-style: italic;
         color: #334155;
-        border-radius: 2px;
+        border-radius: 0 8px 8px 0;
       }
       .article-content pre {
         background: #0F172A;
         color: #E2E8F0;
-        padding: 1.15rem;
-        border-radius: 6px;
+        padding: 1.25rem;
+        border-radius: 8px;
         overflow-x: auto;
         margin: 1.5rem 0;
         font-size: 0.9rem;
@@ -229,7 +329,7 @@ const jsonLd = post ? {
         background: #F1F5F9;
         color: #00406E;
         padding: 0.15rem 0.35rem;
-        border-radius: 3px;
+        border-radius: 4px;
         font-size: 0.88em;
       }
       .article-content pre code {
@@ -239,7 +339,7 @@ const jsonLd = post ? {
       }
       .article-content img {
         margin: 1.75rem auto;
-        border-radius: 4px;
+        border-radius: 8px;
         max-width: 100%;
         height: auto;
       }
@@ -264,7 +364,7 @@ const jsonLd = post ? {
       .article-content th {
         background: #F8FAFC;
         font-weight: 700;
-        color: #0f172a;
+        color: #00406E;
       }
     </style>
   </Fragment>
@@ -273,36 +373,36 @@ const jsonLd = post ? {
   <div id="readingProgressBar"></div>
 
   <!-- Navbar -->
-  <nav id="navbar" class="fixed w-full z-50 transition-all duration-200 py-2.5 sm:py-3 bg-primary shadow-sm" data-solid="true">
-    <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center max-w-5xl">
-      <a href="/" class="flex items-center gap-2 group">
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-200 py-3 bg-primary shadow-sm" data-solid="true">
+    <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+      <a href="/" class="flex items-center gap-2.5 group">
         <img src="/assets/img/logo.webp" alt="Logo HIMTEKK" class="w-8 h-8 transition-transform group-hover:rotate-12" width="32" height="32" decoding="async">
-        <span class="text-lg sm:text-xl font-bold tracking-tight text-white"><span class="text-accent">HIM</span>TEKK</span>
+        <span class="text-xl font-bold tracking-tight text-white"><span class="text-accent">HIM</span>TEKK</span>
       </a>
 
       <!-- Mobile Menu Button -->
       <button id="mobile-menu-btn" class="md:hidden text-white p-1.5 focus:outline-none rounded hover:bg-white/10" aria-label="Toggle menu navigasi">
-        <i class="fas fa-bars text-lg"></i>
+        <i class="fas fa-bars text-xl"></i>
       </button>
 
-      <!-- Desktop Links -->
-      <ul class="hidden md:flex space-x-6 text-white text-sm font-medium items-center">
+      <!-- Desktop Links (With Guaranteed Gap) -->
+      <ul class="nav-links-desktop text-white text-sm font-medium">
         <li><a href="/#hero" class="nav-link hover:text-accent transition-colors">Home</a></li>
         <li><a href="/pages/pengurus" class="nav-link hover:text-accent transition-colors">Pengurus</a></li>
         <li><a href="/pages/divisi" class="nav-link hover:text-accent transition-colors">Divisi</a></li>
         <li><a href="/berita" class="nav-link active text-accent font-semibold">Berita</a></li>
         <li><a href="/#contact" class="nav-link hover:text-accent transition-colors">Kontak</a></li>
         <li>
-          <a href="/berita" class="ml-2 px-2.5 py-1 rounded-md bg-white/10 hover:bg-accent hover:text-slate-900 text-xs font-semibold tracking-wide transition-all border border-white/20 flex items-center gap-1.5">
-            <i class="fas fa-arrow-left text-[10px]"></i> Semua Berita
+          <a href="/berita" class="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-accent hover:text-slate-900 text-xs font-semibold tracking-wide transition-all border border-white/20 flex items-center gap-1.5">
+            <i class="fas fa-arrow-left text-[11px]"></i> Semua Berita
           </a>
         </li>
       </ul>
     </div>
 
     <!-- Mobile Menu Dropdown -->
-    <div id="mobile-menu" class="hidden md:hidden bg-primary text-white px-5 py-3 absolute w-full left-0 animate__animated animate__fadeInDown shadow-2xl border-t border-white/10">
-      <ul class="flex flex-col space-y-2.5 font-medium text-sm">
+    <div id="mobile-menu" class="hidden md:hidden bg-primary text-white px-5 py-4 absolute w-full left-0 animate__animated animate__fadeInDown shadow-2xl border-t border-white/10">
+      <ul class="flex flex-col space-y-3 font-medium text-sm">
         <li><a href="/#hero" class="block py-1 hover:text-accent">Home</a></li>
         <li><a href="/pages/pengurus" class="block py-1 hover:text-accent">Pengurus</a></li>
         <li><a href="/pages/divisi" class="block py-1 hover:text-accent">Divisi</a></li>
@@ -314,31 +414,31 @@ const jsonLd = post ? {
 
   <!-- Main Article Body (Clean White Editorial Layout ala CNN Indonesia) -->
   <main class="pt-20 sm:pt-24 pb-16 bg-white min-h-screen">
-    <article class="max-w-[760px] mx-auto px-4 sm:px-6">
+    <article class="article-wrapper">
 
       <!-- Breadcrumbs -->
-      <nav class="flex items-center gap-1.5 text-xs text-slate-500 mb-3" aria-label="Breadcrumb">
+      <nav class="flex items-center gap-1.5 text-xs text-slate-500 mb-2" aria-label="Breadcrumb">
         <a href="/" class="hover:text-primary transition-colors">Home</a>
         <span class="text-slate-300">/</span>
         <a href="/berita" class="hover:text-primary transition-colors">Berita</a>
         <span class="text-slate-300">/</span>
-        <span class="text-red-700 font-semibold">{post.category_name || post.category}</span>
+        <span class="text-amber-700 font-semibold">{post.category_name || post.category}</span>
       </nav>
 
-      <!-- Judul Artikel -->
-      <h1 class="text-2xl sm:text-3xl md:text-[34px] font-extrabold text-slate-900 leading-[1.28] tracking-tight mb-3">
+      <!-- Judul Artikel (Besar, Bold, Rapi, Fokus) -->
+      <h1 class="news-title">
         {post.title}
       </h1>
 
-      <!-- Sumber / Redaksi & Kategori -->
+      <!-- Sumber / Redaksi & Kategori (CNN Style) -->
       <div class="flex items-center gap-2 text-sm sm:text-base font-bold text-red-700 mb-1">
         <span>{post.author_name || 'HIMTEKK Amikom'}</span>
         <span class="text-slate-300 font-normal">·</span>
         <span class="text-slate-600 font-semibold text-xs sm:text-sm uppercase tracking-wider">{post.category_name || post.category}</span>
       </div>
 
-      <!-- Tanggal & Info Baca -->
-      <div class="text-xs sm:text-sm text-slate-500 mb-4 flex flex-wrap items-center gap-x-2 gap-y-1">
+      <!-- Tanggal Terbit & Waktu Baca -->
+      <div class="text-xs sm:text-sm text-slate-500 mb-3 flex flex-wrap items-center gap-x-2 gap-y-1">
         <time datetime={post.published_at || post.created_at}>
           {formatDateTimeIndo(post.published_at || post.created_at)}
         </time>
@@ -348,19 +448,19 @@ const jsonLd = post ? {
         <span id="postViewsDisplay"><span id="postViewsCount">{post.views || 0}</span> dibaca</span>
       </div>
 
-      <!-- Baris Bagikan (Share Bar ala CNN) -->
-      <div class="flex items-center justify-between py-3 border-y border-slate-200 mb-6">
-        <div class="flex items-center gap-2.5 sm:gap-3">
-          <span class="text-xs sm:text-sm font-medium text-slate-700 mr-1">Bagikan:</span>
+      <!-- Baris Bagikan (Share Bar Persis CNN Indonesia) -->
+      <div class="news-share-bar">
+        <div class="news-share-group">
+          <span class="text-xs sm:text-sm font-semibold text-slate-700 mr-1">Bagikan:</span>
           <!-- WhatsApp -->
           <a
             href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${post.title} - Baca selengkapnya di: ${postUrl}`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-8 h-8 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-xs"
+            class="news-share-circle btn-wa"
             title="Bagikan ke WhatsApp"
           >
-            <i class="fab fa-whatsapp text-sm"></i>
+            <i class="fa-brands fa-whatsapp"></i>
           </a>
 
           <!-- Facebook -->
@@ -368,10 +468,10 @@ const jsonLd = post ? {
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-xs"
+            class="news-share-circle btn-fb"
             title="Bagikan ke Facebook"
           >
-            <i class="fab fa-facebook-f text-sm"></i>
+            <i class="fa-brands fa-facebook-f"></i>
           </a>
 
           <!-- X / Twitter -->
@@ -379,20 +479,20 @@ const jsonLd = post ? {
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-xs"
+            class="news-share-circle btn-x"
             title="Bagikan ke X (Twitter)"
           >
-            <i class="fab fa-x-twitter text-sm"></i>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
 
           <!-- Salin Link -->
           <button
             type="button"
             id="copyPostLinkBtn"
-            class="w-8 h-8 rounded-full bg-slate-500 hover:bg-slate-600 text-white flex items-center justify-center transition-colors shadow-xs"
+            class="news-share-circle btn-copy"
             title="Salin Tautan Berita"
           >
-            <i class="fas fa-link text-xs"></i>
+            <i class="fa-solid fa-link"></i>
           </button>
         </div>
 
@@ -400,32 +500,30 @@ const jsonLd = post ? {
         <button
           type="button"
           id="bookmarkBtn"
-          class="p-1.5 text-slate-400 hover:text-primary transition-colors"
+          class="p-2 text-slate-400 hover:text-primary transition-colors text-base"
           title="Simpan artikel"
         >
-          <i class="far fa-bookmark text-base"></i>
+          <i class="fa-regular fa-bookmark"></i>
         </button>
       </div>
 
       <!-- Foto Utama & Caption -->
       {post.thumbnail && (
-        <figure class="mb-6">
-          <div class="w-full aspect-[16/9] sm:aspect-[16/10] overflow-hidden bg-slate-100 rounded-sm">
-            <img
-              src={post.thumbnail}
-              alt={post.title}
-              class="w-full h-full object-cover"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          <figcaption class="mt-2 text-xs text-slate-500 italic">
+        <figure class="news-main-figure">
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            class="news-main-img"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption class="news-caption">
             (Foto: HIMTEKK / Dokumentasi Kegiatan).
           </figcaption>
         </figure>
       )}
 
-      <!-- Isi Artikel (Editorial Text Flow) -->
+      <!-- Isi Artikel (Editorial Reading Flow) -->
       <div class="article-content" set:html={safeContent} />
 
       <!-- Topik Terkait (Tags) -->
@@ -447,33 +545,36 @@ const jsonLd = post ? {
       <!-- Bottom Share Bar -->
       <div class="mt-8 py-3.5 border-y border-slate-200 flex items-center justify-between">
         <span class="text-xs sm:text-sm font-semibold text-slate-700">Bagikan artikel ini:</span>
-        <div class="flex items-center gap-2">
+        <div class="news-share-group">
           <a
             href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`${post.title} - ${postUrl}`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-7 h-7 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:opacity-90 text-xs"
+            class="news-share-circle btn-wa"
+            style="width: 28px; height: 28px; font-size: 0.75rem;"
             title="WhatsApp"
           >
-            <i class="fab fa-whatsapp"></i>
+            <i class="fa-brands fa-whatsapp"></i>
           </a>
           <a
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-7 h-7 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 text-xs"
+            class="news-share-circle btn-fb"
+            style="width: 28px; height: 28px; font-size: 0.75rem;"
             title="Facebook"
           >
-            <i class="fab fa-facebook-f"></i>
+            <i class="fa-brands fa-facebook-f"></i>
           </a>
           <a
             href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`}
             target="_blank"
             rel="noopener noreferrer"
-            class="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center hover:opacity-90 text-xs"
+            class="news-share-circle btn-x"
+            style="width: 28px; height: 28px; font-size: 0.75rem;"
             title="X"
           >
-            <i class="fab fa-x-twitter"></i>
+            <i class="fa-brands fa-x-twitter"></i>
           </a>
         </div>
       </div>

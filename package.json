@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run build:css && astro build",
     "preview": "astro preview",
     "build:css": "tailwindcss -c ./tailwind.config.cjs -i ./src/styles/tailwind.css -o ./public/css/tailwind.min.css --minify",
     "watch:css": "tailwindcss -c ./tailwind.config.cjs -i ./src/styles/tailwind.css -o ./public/css/tailwind.min.css --watch"
