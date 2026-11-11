@@ -88,6 +88,9 @@ const v = __ASSET_VERSIONS__;
       </Fragment>
     )}
 
+    <!-- Referrer Policy to prevent hotlinking blocks on external CDNs/Google Drive -->
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
     <!-- Favicon -->
     <link rel="icon" type="image/webp" href="/assets/img/logo.webp">
 

@@ -1,5 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getBeritaIndex, type BeritaPost } from '../lib/berita-api';
+import { formatDateIndo, getCategoryIcon } from '../lib/berita-config';
+
+// Ambil berita terbaru untuk beranda
+let latestPosts: BeritaPost[] = [];
+try {
+  const { posts } = await getBeritaIndex();
+  const published = (posts || []).filter((p) => p.status === 'published' || p.status === undefined);
+  latestPosts = published.slice(0, 3);
+} catch (err) {
+  console.error('Error fetching berita for homepage:', err);
+  latestPosts = [];
+}
 ---
 <Layout
   title="HIMTEKK - Himpunan Mahasiswa Teknik Komputer"
@@ -74,8 +87,8 @@ import Layout from '../layouts/Layout.astro';
                 <li><a href="#fokus" class="nav-link">Fokus</a></li>
                 <li><a href="/pages/pengurus" class="nav-link">Pengurus</a></li>
                 <li><a href="/pages/divisi" class="nav-link">Divisi</a></li>
-                <li><a href="/berita" class="nav-link">Berita</a></li>
                 <li><a href="#kegiatan" class="nav-link">Kegiatan</a></li>
+                <li><a href="#berita" class="nav-link">Berita</a></li>
                 <li><a href="#contact" class="nav-link">Kontak</a></li>
             </ul>
         </div>
@@ -88,8 +101,8 @@ import Layout from '../layouts/Layout.astro';
                 <li><a href="#fokus" class="block">Fokus</a></li>
                 <li><a href="/pages/pengurus" class="block">Pengurus</a></li>
                 <li><a href="/pages/divisi" class="block text-accent font-semibold">Divisi & Rekrutmen</a></li>
-                <li><a href="/berita" class="block">Berita</a></li>
                 <li><a href="#kegiatan" class="block">Kegiatan</a></li>
+                <li><a href="#berita" class="block">Berita</a></li>
                 <li><a href="#contact" class="block">Kontak</a></li>
             </ul>
         </div>
@@ -347,6 +360,127 @@ import Layout from '../layouts/Layout.astro';
         </div>
     </section>
 
+    <!-- Berita & Artikel Terbaru -->
+    <section id="berita" class="py-24 bg-white overflow-hidden relative">
+        <!-- Ambient Decorative Glows -->
+        <div class="absolute top-10 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none -ml-20"></div>
+        <div class="absolute bottom-10 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none -mr-20"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6" data-aos="fade-up">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/15 border border-accent/30 text-yellow-800 text-xs font-bold uppercase tracking-wider mb-3">
+                        <i class="fas fa-newspaper text-accent"></i>
+                        <span>Warta & Informasi</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary tracking-tight">
+                        Kabar & Berita <span class="text-accent underline decoration-accent/30 underline-offset-8">Terbaru</span>
+                    </h2>
+                    <p class="text-slate-600 text-base sm:text-lg max-w-2xl mt-4 leading-relaxed">
+                        Ikuti publikasi resmi, liputan agenda kegiatan, pengumuman keorganisasian, serta artikel edukatif seputar Cyber Security dan Internet of Things dari HIMTEKK.
+                    </p>
+                </div>
+                <div class="shrink-0 hidden md:block">
+                    <a href="/berita" class="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 text-white font-bold py-3.5 px-7 rounded-full text-sm transition-all duration-300 transform hover:scale-105 shadow-md group">
+                        <span>Lihat Semua Berita</span>
+                        <i class="fas fa-arrow-right text-accent transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Articles Grid -->
+            {latestPosts.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {latestPosts.map((post, idx) => (
+                        <article
+                            class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-2 card-hover"
+                            data-aos="fade-up"
+                            data-aos-delay={idx * 100}
+                        >
+                            <!-- Thumbnail with Category Badge & Slug Link -->
+                            <a href={`/berita/${post.slug}`} class="block relative aspect-[16/10] overflow-hidden bg-slate-100" aria-label={post.title}>
+                                <img
+                                    src={post.thumbnail || '/assets/img/og.webp'}
+                                    alt={post.title}
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                    decoding="async"
+                                    referrerpolicy="no-referrer"
+                                    onerror="this.onerror=null;this.src='/assets/img/og.webp';"
+                                />
+                                <div class="absolute top-4 left-4">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary text-white shadow-md backdrop-blur-sm border border-white/20">
+                                        <i class={`fas ${getCategoryIcon(post.category)} text-accent text-[11px]`}></i>
+                                        <span>{post.category_name || post.category}</span>
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Card Body -->
+                            <div class="p-6 sm:p-7 flex flex-col flex-grow justify-between">
+                                <div>
+                                    <!-- Meta Row -->
+                                    <div class="flex items-center gap-3 text-xs text-slate-400 mb-3 font-medium">
+                                        <span class="flex items-center gap-1.5">
+                                            <i class="far fa-calendar-alt text-accent"></i>
+                                            {formatDateIndo(post.published_at || post.created_at)}
+                                        </span>
+                                        <span>•</span>
+                                        <span class="flex items-center gap-1.5">
+                                            <i class="far fa-user text-slate-400"></i>
+                                            {post.author_name}
+                                        </span>
+                                    </div>
+
+                                    <!-- Title with Slug Link -->
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors leading-snug mb-3">
+                                        <a href={`/berita/${post.slug}`} class="line-clamp-2">
+                                            {post.title}
+                                        </a>
+                                    </h3>
+
+                                    <!-- Excerpt -->
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-6 line-clamp-3">
+                                        {post.excerpt}
+                                    </p>
+                                </div>
+
+                                <!-- Card Footer / Action Link -->
+                                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-sm">
+                                    <span class="text-xs text-slate-400 font-medium flex items-center gap-1">
+                                        <i class="far fa-eye text-slate-400"></i>
+                                        <span>{post.views || 0} dibaca</span>
+                                    </span>
+                                    <a
+                                        href={`/berita/${post.slug}`}
+                                        class="font-bold text-primary group-hover:text-accent inline-flex items-center gap-2 transition-colors"
+                                    >
+                                        <span>Baca Artikel</span>
+                                        <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            ) : (
+                <div class="text-center py-16 bg-slate-50 rounded-3xl border border-dashed border-slate-200">
+                    <i class="fas fa-newspaper text-4xl text-slate-300 mb-3"></i>
+                    <p class="text-slate-500 font-medium">Belum ada berita yang dipublikasikan saat ini.</p>
+                </div>
+            )}
+
+            <!-- Mobile View All Button -->
+            <div class="mt-10 text-center md:hidden" data-aos="fade-up">
+                <a href="/berita" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold py-3.5 px-8 rounded-full text-sm transition-all shadow-md">
+                    <span>Lihat Semua Berita & Warta</span>
+                    <i class="fas fa-arrow-right text-accent"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Visi & Misi -->
     <section id="visi-misi" class="py-24 bg-primary text-white relative overflow-hidden">
         <!-- Background Decoration -->
@@ -501,6 +635,7 @@ import Layout from '../layouts/Layout.astro';
                         <li><a href="#about" class="hover:text-accent transition-colors">Tentang Kami</a></li>
                         <li><a href="#fokus" class="hover:text-accent transition-colors">Bidang Fokus</a></li>
                         <li><a href="#kegiatan" class="hover:text-accent transition-colors">Program Kerja</a></li>
+                        <li><a href="#berita" class="hover:text-accent transition-colors">Berita Terkini</a></li>
                         <li><a href="/pages/divisi" class="hover:text-accent transition-colors">Informasi Divisi</a></li>
                     </ul>
                 </div>
@@ -509,6 +644,7 @@ import Layout from '../layouts/Layout.astro';
                 <div>
                     <h4 class="text-lg font-bold mb-6 text-accent uppercase tracking-wider">Dukungan</h4>
                     <ul class="space-y-4 text-slate-400">
+                        <li><a href="/berita" class="hover:text-accent transition-colors">Portal Berita</a></li>
                         <li><a href="#contact" class="hover:text-accent transition-colors">Hubungi Kami</a></li>
                         <li><a href="#visi-misi" class="hover:text-accent transition-colors">Visi & Misi</a></li>
                         <li><a href="#pengurus" class="hover:text-accent transition-colors">Struktur Pengurus</a></li>

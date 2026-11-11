@@ -549,6 +549,8 @@ const jsonLd = post ? {
             class="news-main-img"
             loading="eager"
             decoding="async"
+            referrerpolicy="no-referrer"
+            onerror="this.onerror=null;this.src='/assets/img/og.webp';"
           />
           <figcaption class="news-caption">
             (Foto: HIMTEKK / Dokumentasi Kegiatan).
@@ -657,6 +659,9 @@ const jsonLd = post ? {
                     alt={rel.title}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
+                    decoding="async"
+                    referrerpolicy="no-referrer"
+                    onerror="this.onerror=null;this.src='/assets/img/placeholder.webp';"
                   />
                 </div>
                 <span class="text-[11px] font-bold uppercase text-accent text-[#DBB865] mb-1">
